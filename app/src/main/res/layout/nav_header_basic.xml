@@ -35,10 +35,9 @@
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_close"
             android:background="@color/white"
-            android:onClick="onCloseDrawer" />
+            android:clickable="true" />
 
     </LinearLayout>
-
 
     <View
         android:layout_width="match_parent"
@@ -54,7 +53,6 @@
         android:divider="@drawable/separator"
         android:showDividers="middle"
         android:paddingBottom="20dp">
-
 
         <TextView
             android:id="@+id/nav_mypage"
@@ -178,11 +176,6 @@
             android:layout_height="1dp"
             android:background="@drawable/separator" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@drawable/separator" />
-
         <TextView
             android:id="@+id/nav_category_3"
             android:text="@string/category3"
@@ -282,6 +275,11 @@
             android:textStyle="bold"
             android:textColor="@color/dark_gray"
             android:layout_margin="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
 
         <TextView
             android:id="@+id/nav_category_10"
