@@ -29,11 +29,11 @@ class ProductFragment : Fragment() {
         // 상품 목록을 생성하고 반환
         // 예시:
         val products = mutableListOf<Product>()
-        products.add(Product(R.drawable.cherry, "상품 1", "상품 설명 1"))
-        products.add(Product(R.drawable.egg, "상품 2", "상품 설명 2"))
-        products.add(Product(R.drawable.bread, "상품 3", "상품 설명 3"))
-        products.add(Product(R.drawable.bread2, "상품 4", "상품 설명 4"))
-        products.add(Product(R.drawable.banana, "상품 5", "상품 설명 5"))
+        products.add(Product(R.drawable.cherry, "[생생] 생체리", "18,400원","23,300"))
+        products.add(Product(R.drawable.egg, "[자취네] 계란", "18,400원","23,300"))
+        products.add(Product(R.drawable.bread, "[우리밀] 페스츄리", "18,400원","23,300"))
+        products.add(Product(R.drawable.bread2, "[우리밀] 식빵", "18,400원","23,300"))
+        products.add(Product(R.drawable.banana, "[남양] 바나나", "18,400원","23,300"))
         return products
     }
 }
