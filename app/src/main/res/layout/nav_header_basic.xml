@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="40dp"
+    android:divider="@drawable/separator"
+    android:showDividers="middle"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/current_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="송민진님"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="5dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="10" />
+
+        <ImageButton
+            android:id="@+id/close_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_close"
+            android:background="@color/white"
+            android:onClick="onCloseDrawer" />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/separator" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:textAlignment="center"
+        android:divider="@drawable/separator"
+        android:showDividers="middle"
+        android:paddingBottom="20dp">
+
+
+        <TextView
+            android:id="@+id/nav_mypage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="마이페이지"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/middle_gray"
+            android:layout_marginLeft="-10dp"
+            android:layout_marginRight="-20dp"
+            android:layout_weight="1"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/nav_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="좋아요"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/middle_gray"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:layout_marginLeft="30dp"
+            android:drawablePadding="-40dp"
+            app:drawableLeftCompat="@drawable/ic_heart"
+            app:drawableTint="@color/middle_gray"
+            android:layout_marginRight="-10dp"
+            app:drawableTintMode="screen" />
+
+        <TextView
+            android:id="@+id/nav_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="알림"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/middle_gray"
+            android:drawablePadding="-40dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:layout_marginLeft="40dp"
+            android:drawableTint="@color/middle_gray"
+            android:drawableTintMode="screen"
+            app:drawableLeftCompat="@drawable/ic_notification" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:padding="15dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="새벽투홈"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/nav_myorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="주문 (0)"
+            android:textSize="12dp"
+            android:layout_marginBottom="10dp"
+            
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/nav_mycart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="장바구니 (0)"
+            android:textSize="12dp"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_content_side"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:divider="@drawable/separator"
+        android:showDividers="middle">
+
+        <TextView
+            android:id="@+id/nav_category_1"
+            android:text="@string/category1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:layout_margin="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
+
+        <TextView
+            android:id="@+id/nav_category_2"
+            android:text="@string/category2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:layout_margin="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
+
+        <TextView
+            android:id="@+id/nav_category_3"
+            android:text="@string/category3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:layout_margin="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
+
+        <TextView
+            android:id="@+id/nav_category_4"
+            android:text="@string/category4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:layout_margin="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
+
+        <TextView
+            android:id="@+id/nav_category_5"
+            android:text="@string/category5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:layout_margin="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
+
+        <TextView
+            android:id="@+id/nav_category_6"
+            android:text="@string/category6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:layout_margin="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
+
+        <TextView
+            android:id="@+id/nav_category_7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/category7"
+            android:textColor="@color/dark_gray"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
+
+        <TextView
+            android:id="@+id/nav_category_8"
+            android:text="@string/category8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:layout_margin="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
+
+        <TextView
+            android:id="@+id/nav_category_9"
+            android:text="@string/category9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:layout_margin="10dp" />
+
+        <TextView
+            android:id="@+id/nav_category_10"
+            android:text="@string/category10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:layout_margin="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
+
+        <TextView
+            android:id="@+id/nav_category_11"
+            android:text="@string/category11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:layout_margin="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
+
+        <TextView
+            android:id="@+id/nav_category_12"
+            android:text="@string/category12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:layout_margin="10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/separator" />
+
+    </LinearLayout>
+
+</LinearLayout>

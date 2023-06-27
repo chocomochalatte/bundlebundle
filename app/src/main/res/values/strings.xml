@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">BundleBundle</string>
+    <string name="title_activity_basic">BasicActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="category1">과일과 채소</string>
+    <string name="category2">육류와 달걀</string>
+    <string name="category3">베이커리와 치즈</string>
+    <string name="category4">곡물과 견과</string>
+    <string name="category5">밥과 국, 면</string>
+    <string name="category6">밑반찬과 간식</string>
+    <string name="category7">물과 우유, 커피, 음료</string>
+    <string name="category8">과자와 초콜릿, 캔디</string>
+    <string name="category9">홍삼과 비타민, 영양제</string>
+    <string name="category10">양념과 오일, 통조림</string>
+    <string name="category11">생활용품</string>
+    <string name="category12">반려동물 사료와 간식</string>
 </resources>
