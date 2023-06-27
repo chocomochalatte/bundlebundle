@@ -7,6 +7,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.bundlebundle.databinding.ActivityMainPageBinding
 
+
 class MainPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +65,9 @@ class MainPageActivity : AppCompatActivity() {
         }
         setContentView(binding.root)
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container, ViewPagerFragment())
+            .add(R.id.fragment_container1, ViewPagerFragment())
+            .add(R.id.fragment_container2, ProductFragment())
             .commit()
+
     }
 }
