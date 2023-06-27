@@ -16,13 +16,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:contentInsetLeft="0dp"
+            android:contentInsetStart="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            android:contentInsetRight="0dp"
+            android:contentInsetEnd="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -33,12 +36,12 @@
                     android:orientation="horizontal">
 
                     <!-- 왼쪽 요소 -->
-                    <ImageButton
-                        android:id="@+id/menuButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:src="@drawable/menu" />
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/menuButton"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@color/white"-->
+<!--                        android:src="@drawable/ic_menu" />-->
 
                     <!-- 가운데 요소 -->
                     <ImageButton
@@ -76,62 +79,58 @@
                             android:visibility="invisible" />
                     </RelativeLayout>
                 </LinearLayout>
-                <!-- 수평선 -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/middle_gray"
-                    android:layout_marginLeft="-10dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <!-- Home 버튼 -->
-                    <Button
-                        android:id="@+id/homeButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:text="Home"
-                        android:textColor="@color/orange" />
-
-
-                    <!-- Best 버튼 -->
-                    <Button
-                        android:id="@+id/bestButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:text="Best"
-                        android:textColor="@color/middle_gray" />
-
-
-                    <!-- Sale 버튼 -->
-                    <Button
-                        android:id="@+id/saleButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:text="Sale"
-                        android:textColor="@color/middle_gray" />
-
-
-                    <!-- Premium 버튼 -->
-                    <Button
-                        android:id="@+id/premiumButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:text="Premium"
-                        android:textColor="@color/middle_gray" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
         </androidx.appcompat.widget.Toolbar>
+
+        <!-- 수평선 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/middle_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Home 버튼 -->
+            <Button
+                android:id="@+id/homeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Home"
+                android:textColor="@color/orange" />
+
+
+            <!-- Best 버튼 -->
+            <Button
+                android:id="@+id/bestButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Best"
+                android:textColor="@color/middle_gray" />
+
+
+            <!-- Sale 버튼 -->
+            <Button
+                android:id="@+id/saleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Sale"
+                android:textColor="@color/middle_gray" />
+
+
+            <!-- Premium 버튼 -->
+            <Button
+                android:id="@+id/premiumButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="Premium"
+                android:textColor="@color/middle_gray" />
+        </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

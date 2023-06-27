@@ -3,7 +3,7 @@ package com.example.bundlebundle
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,6 +12,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import com.example.bundlebundle.databinding.ActivityBasicBinding
 
 class BasicActivity : AppCompatActivity() {
@@ -25,9 +27,8 @@ class BasicActivity : AppCompatActivity() {
         binding = ActivityBasicBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.appBarBasic.toolbar)
+        setSupportActionBar(binding.toolbarMain.toolbar)
 
-        val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_basic)
 
@@ -36,6 +37,7 @@ class BasicActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
     }
 
     protected open fun setTopLevelMainFragment(): Set<Int> {
@@ -60,7 +62,7 @@ class BasicActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun onCloseDrawer(view: View) {
+    fun onCloseDrawer() {
         binding.drawerLayout.closeDrawers()
     }
 }
