@@ -15,12 +15,14 @@ class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageView: ImageView = itemView.findViewById(R.id.imageView)
         private val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
-        private val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
+        private val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionBigPriceView)
+        private val descriptionTextView2: TextView = itemView.findViewById(R.id.descriptionSmallPriceView)
 
         fun bind(product: Product) {
             imageView.setImageResource(product.imageResId)
             titleTextView.text = product.title
             descriptionTextView.text = product.description
+            descriptionTextView2.text = product.description
         }
     }
 
