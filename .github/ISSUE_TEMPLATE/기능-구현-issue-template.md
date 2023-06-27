@@ -1,4 +1,4 @@
----
+:---
 name: 기능 구현 issue template
 about: feature, fix branches
 title: ''
