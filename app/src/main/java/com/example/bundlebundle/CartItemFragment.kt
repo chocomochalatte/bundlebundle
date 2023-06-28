@@ -50,7 +50,7 @@ class CartItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCartBinding.inflate(layoutInflater, container, false)
+        binding = FragmentCartBinding.inflate(inflater, container, false)
 
         val myData = mutableListOf(
             CartItem("10000", "1등급 한우", "80000"),

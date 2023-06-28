@@ -27,9 +27,13 @@ class CartActivity : AppCompatActivity() {
             var transaction = fragmentManager.beginTransaction()
             //var fragment = EmptyCartFragment()
             var fragment = CartFragment()
-            transaction.replace(R.id.noMyJangfragment,fragment)
+            transaction.add(R.id.noMyJangfragment,fragment)
+
+            var fragment2 = CartTopBarFragment();
+            transaction.add(R.id.recyclercart_item1,fragment2)
+
             var fragment1 = CartItemFragment()
-            transaction.replace(R.id.recyclercart_item1,fragment1)
+            transaction.add(R.id.recyclercart_item1,fragment1)
             transaction.commit()
         }
 
@@ -40,10 +44,10 @@ class CartActivity : AppCompatActivity() {
             myJangButton.background = null
             //Fragment추가하는 부분 (이 부분은 장바구니 수량이 없는경우 조건을 걸어줘야함)
             var transaction = fragmentManager.beginTransaction()
+
             var fragment = EmptyGroupCartFragment()
             transaction.replace(R.id.noMyJangfragment,fragment)
             transaction.commit()
-
         }
 
         backButton.setOnClickListener{
