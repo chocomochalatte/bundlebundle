@@ -11,6 +11,10 @@ android {
         enabled=true
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "com.example.bundlebundle"
         minSdk 24
