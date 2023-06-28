@@ -13,16 +13,22 @@
         android:theme="@style/Theme.BundleBundle"
         tools:targetApi="31" >
         <activity
-            android:name=".MainDetailPageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainPageActivity"
-            android:exported="true" >
+            android:name=".BaseActivity"
+            android:exported="true"
+            android:label="@string/title_activity_base"
+            android:theme="@style/Theme.BundleBundle.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainDetailPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainPageActivity"
+            android:exported="true">
         </activity>
         <activity
             android:name=".MainActivity"
