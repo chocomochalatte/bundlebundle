@@ -94,7 +94,7 @@
     </LinearLayout>
 
     <android.widget.Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
@@ -103,28 +103,16 @@
         android:text="로그인"
         android:textColor="@android:color/white" />
 
-    <LinearLayout
+
+    <android.widget.Button
+        android:id="@+id/kakao_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/linear_border_black"
-        android:gravity="center"
-        android:padding="12dp">
-
-        <ImageView
-            android:id="@+id/imgLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/kakao_logoxml" />
-
-        <TextView
-            android:id="@+id/tvText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="카카오 로그인"
-            android:textColor="@android:color/black" />
-
-    </LinearLayout>
-
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/linear_border_middle_gray"
+        android:drawableLeft="@drawable/kakao_logoxml"
+        android:paddingLeft="120dp"
+        android:textColor="@android:color/white"/>
 
     <LinearLayout
         android:layout_width="match_parent"
