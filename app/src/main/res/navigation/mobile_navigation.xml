@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/sample_top_level_fragment"
-        android:name="com.example.bundlebundle.ui.home.HomeFragment"
+        android:name="com.example.bundlebundle.ui.sample.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/product_list"
-        android:name="com.example.bundlebundle.ProductGridFragment"
+        android:name="com.example.bundlebundle.ui.product.ProductGridFragment"
         tools:layout="@layout/fragment_product_grid_list" />
 
 </navigation>
