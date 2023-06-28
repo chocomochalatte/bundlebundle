@@ -77,6 +77,6 @@ class BaseActivity : AppCompatActivity() {
     }
 
     fun onCloseDrawer() {
-        binding.drawerLayout.closeDrawer(Gravity.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
     }
 }
