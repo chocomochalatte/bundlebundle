@@ -15,17 +15,17 @@
         <activity
             android:name=".ProductDetailActivity"
             android:exported="true">
-        <actovoty
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity
             android:name=".BaseActivity"
             android:exported="true"
             android:label="@string/title_activity_base"
-            android:theme="@style/Theme.BundleBundle.NoActionBar"/>
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:theme="@style/Theme.BundleBundle.NoActionBar">
         </activity>
         <activity
             android:name=".MainDetailPageActivity"
