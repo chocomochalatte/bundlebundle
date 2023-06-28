@@ -22,6 +22,9 @@
         </intent-filter>
         </activity>
         <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".BaseActivity"
             android:exported="true"
             android:label="@string/title_activity_base"
