@@ -6,4 +6,23 @@
     </style>
 
     <style name="Theme.BundleBundle" parent="Base.Theme.BundleBundle" />
+
+    <style name="Theme.BundleBundle.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- 테마에 관련된 속성들 -->
+    </style>
+
+    <style name="Theme.BundleBundle.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="contentInsetStart">-20dp</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/dark_gray</item>
+        <item name="colorAccent">@color/dark_gray</item>
+    </style>
+
+
+    <style name="Theme.BundleBundle.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
