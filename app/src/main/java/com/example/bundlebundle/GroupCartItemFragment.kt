@@ -1,6 +1,5 @@
 package com.example.bundlebundle
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,15 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bundlebundle.databinding.FragmentCartBinding
 import com.example.bundlebundle.databinding.FragmentCartItemBinding
+import com.example.bundlebundle.databinding.FragmentCartRecyclerViewItemBinding
+import com.example.bundlebundle.databinding.FragmentGroupCartItemBinding
 
-data class CartItem(val myjangitem_originalprice: String, val cartitem_name: String, val cartitem_discountprice: String)
+class CartItemViewHolder1(val binding: FragmentGroupCartItemBinding): RecyclerView.ViewHolder(binding.root)
 
-class CartItemViewHolder(val binding: FragmentCartItemBinding):RecyclerView.ViewHolder(binding.root)
-
-class CartItemAdapter(var myData: MutableList<CartItem>):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-
+class CartItemAdapter1(var myData: MutableList<CartItem>):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return  CartItemViewHolder(FragmentCartItemBinding.inflate(
+        return  CartItemViewHolder1(FragmentGroupCartItemBinding.inflate(
             LayoutInflater.from(parent.context),parent,false))
     }
 
@@ -28,40 +26,38 @@ class CartItemAdapter(var myData: MutableList<CartItem>):RecyclerView.Adapter<Re
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        var binding = (holder as CartItemViewHolder).binding
+        var binding = (holder as CartItemViewHolder1).binding
         val currentItem = myData[position]
-        Log.d("hong","$currentItem")
-        binding.cartitemName.text = currentItem.cartitem_name
-        binding.cartitemOriginalprice.text = currentItem.myjangitem_originalprice
-        binding.cartitemDiscountprice.text = currentItem.cartitem_discountprice
+        Log.d("honga","$currentItem")
+        binding.cartitemName1.text = currentItem.cartitem_name
+        binding.cartitemOriginalprice1.text = currentItem.myjangitem_originalprice
+        binding.cartitemDiscountprice1.text = currentItem.cartitem_discountprice
     }
 
 }
 
-class CartItemFragment : Fragment() {
+class GroupCartItemFragment : Fragment() {
 
-    private lateinit var binding: FragmentCartBinding
+    private lateinit var binding: FragmentCartRecyclerViewItemBinding
     private var myData = mutableListOf<CartItem>()
 
-
-    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCartBinding.inflate(inflater, container, false)
-
+        binding = FragmentCartRecyclerViewItemBinding.inflate(layoutInflater,container,false)
         val myData = mutableListOf(
             CartItem("10000", "1등급 한우", "80000"),
             CartItem("20000", "2등급 한우", "15000"),
             CartItem("30000", "3등급 한우", "15000")
         )
 
-        binding.recyclercartItem.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclercartItem3.layoutManager = LinearLayoutManager(requireContext())
 
-        var myAdapter = CartItemAdapter(myData)
-        binding.recyclercartItem.adapter = myAdapter
 
+        var myAdapter = CartItemAdapter1(myData)
+        binding.recyclercartItem3.adapter = myAdapter
+        Log.d("hong","왜 안와")
 
         return binding.root
     }

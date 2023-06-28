@@ -2,6 +2,7 @@ package com.example.bundlebundle
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import com.example.bundlebundle.databinding.ActivityCartBinding
@@ -33,7 +34,7 @@ class CartActivity : AppCompatActivity() {
             transaction.add(R.id.recyclercart_item1,fragment2)
 
             var fragment1 = CartItemFragment()
-            transaction.add(R.id.recyclercart_item1,fragment1)
+            transaction.replace(R.id.recyclercart_item1,fragment1)
             transaction.commit()
         }
 
@@ -45,8 +46,16 @@ class CartActivity : AppCompatActivity() {
             //Fragment추가하는 부분 (이 부분은 장바구니 수량이 없는경우 조건을 걸어줘야함)
             var transaction = fragmentManager.beginTransaction()
 
-            var fragment = EmptyGroupCartFragment()
+            var fragment = GroupCartTopBarFragment()
             transaction.replace(R.id.noMyJangfragment,fragment)
+
+            var fragment1 = GroupCartItemFragment()
+            transaction.replace(R.id.item_cartfragment,fragment1)
+
+            var fragment2 = CartBottomFragment()
+            transaction.replace(R.id.bottom_cartfragment,fragment2)
+
+
             transaction.commit()
         }
 

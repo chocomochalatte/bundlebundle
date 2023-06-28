@@ -65,13 +65,13 @@
             android:paddingBottom="5dp"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/cart_topbarname"
+                android:id="@+id/groupcart_topbarname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="7dp"
-                android:text="새벽배송 "/>
+                android:text="그룹 장바구니 "/>
             <TextView
-                android:id="@+id/myjang_cnt"
+                android:id="@+id/groupcart_cnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
