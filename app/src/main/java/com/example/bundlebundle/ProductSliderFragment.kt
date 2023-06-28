@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class ProductFragment : Fragment() {
+class ProductSliderFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var productAdapter: ProductAdapter
 
