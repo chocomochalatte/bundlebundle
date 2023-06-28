@@ -6,7 +6,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <include
-        layout="@layout/maintoolbar"
+        layout="@layout/toolbar_main"
         android:id="@+id/maintoolbar"/>
 
 </LinearLayout>

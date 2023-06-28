@@ -77,7 +77,7 @@
             android:orientation="horizontal">
 
             <!-- Home 버튼 -->
-            <Button
+            <android.widget.Button
                 android:id="@+id/homeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
 
 
             <!-- Best 버튼 -->
-            <Button
+            <android.widget.Button
                 android:id="@+id/bestButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
 
 
             <!-- Sale 버튼 -->
-            <Button
+            <android.widget.Button
                 android:id="@+id/saleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
 
 
             <!-- Premium 버튼 -->
-            <Button
+            <android.widget.Button
                 android:id="@+id/premiumButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
