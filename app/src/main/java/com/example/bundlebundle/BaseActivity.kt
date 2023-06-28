@@ -36,7 +36,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
         // 메인 fragment 넣기
         val topLevelDestinations = setTopLevelMainFragment()
-        Log.d("ming", topLevelDestinations.toString())
         appBarConfiguration = createAppBarConfiguration(topLevelDestinations, binding.drawerLayout)
 
         // navigation controller 설정
