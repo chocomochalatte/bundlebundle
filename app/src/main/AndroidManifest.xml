@@ -15,6 +15,12 @@
         <activity
             android:name=".ProductDetailActivity"
             android:exported="true">
+        <actovoty
+            android:name=".BaseActivity"
+            android:exported="true"
+            android:label="@string/title_activity_base"
+            android:theme="@style/Theme.BundleBundle.NoActionBar"/>
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
