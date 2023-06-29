@@ -15,13 +15,13 @@ abstract class SimpleTemplateActivity : AppCompatActivity() {
 
         setupToolbar()
 
-        val fragment = createFragment() // 추상 메서드 호출
-        setFragment(fragment)
+        val fragment = setFragment()
+        putFragment(fragment)
     }
 
-    protected abstract fun createFragment(): Fragment // 추상 메서드
+    protected abstract fun setFragment(): Fragment
 
-    protected fun setFragment(fragment: Fragment) {
+    protected fun putFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(binding.fragmentContainer.id, fragment)
             .commit()

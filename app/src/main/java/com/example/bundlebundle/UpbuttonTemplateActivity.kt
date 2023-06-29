@@ -2,7 +2,6 @@ package com.example.bundlebundle
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.bundlebundle.databinding.ActivityUpbuttonTemplateBinding
 
@@ -16,13 +15,13 @@ abstract class UpbuttonTemplateActivity : AppCompatActivity() {
 
         setupToolbar()
 
-        val fragment = createFragment()
-        setFragment(fragment)
+        val fragment = setFragment()
+        putFragment(fragment)
     }
 
-    protected abstract fun createFragment(): Fragment
+    abstract fun setFragment(): Fragment
 
-    protected fun setFragment(fragment: Fragment) {
+    protected fun putFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(binding.fragmentContainer.id, fragment)
             .commit()

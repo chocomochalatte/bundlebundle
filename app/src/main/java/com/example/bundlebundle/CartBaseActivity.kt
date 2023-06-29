@@ -8,13 +8,9 @@ class CartBaseActivity : SimpleTemplateActivity() {
         super.onCreate(savedInstanceState)
 
         binding.toolbarSimple.simpleToolbarTitle.text = "장바구니"
-
-        // 내부 fragment 생성 및 설정
-        val fragment = GroupCreateFragment.newInstance()
-        setFragment(fragment)
     }
 
-    override fun createFragment(): Fragment {
-        return ProductFragment()
+    override fun setFragment(): Fragment {
+        return GroupCreateFragment.newInstance()
     }
 }
