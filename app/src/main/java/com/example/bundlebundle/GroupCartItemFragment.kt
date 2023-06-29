@@ -8,57 +8,62 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bundlebundle.databinding.FragmentCartBinding
-import com.example.bundlebundle.databinding.FragmentCartItemBinding
-import com.example.bundlebundle.databinding.FragmentCartRecyclerViewItemBinding
+import com.example.bundlebundle.databinding.FragmentGroupCartBinding
 import com.example.bundlebundle.databinding.FragmentGroupCartItemBinding
 
-class CartItemViewHolder1(val binding: FragmentGroupCartItemBinding): RecyclerView.ViewHolder(binding.root)
+data class GroupItem(val nickname: String, val myjangitem_originalprice: String, val cartitem_name: String, val cartitem_discountprice: String)
 
-class CartItemAdapter1(var myData: MutableList<CartItem>):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class GroupCartItemViewHolder(var binding: FragmentGroupCartItemBinding): RecyclerView.ViewHolder(binding.root)
+
+class GroupCartItemAdapter(var data: MutableList<GroupItem>):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return  CartItemViewHolder1(FragmentGroupCartItemBinding.inflate(
+        return GroupCartItemViewHolder(FragmentGroupCartItemBinding.inflate(
             LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun getItemCount(): Int {
-        return myData.size
+        return data.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        var binding = (holder as CartItemViewHolder1).binding
-        val currentItem = myData[position]
+        var binding = (holder as GroupCartItemViewHolder).binding
+        val currentItem = data[position]
         Log.d("honga","$currentItem")
-        binding.cartitemName1.text = currentItem.cartitem_name
-        binding.cartitemOriginalprice1.text = currentItem.myjangitem_originalprice
-        binding.cartitemDiscountprice1.text = currentItem.cartitem_discountprice
+        binding.groupName.text=currentItem.nickname
+        binding.cartitemName.text = currentItem.cartitem_name
+        binding.cartitemOriginalprice.text = currentItem.myjangitem_originalprice
+        binding.cartitemDiscountprice.text = currentItem.cartitem_discountprice
     }
 
 }
 
 class GroupCartItemFragment : Fragment() {
 
-    private lateinit var binding: FragmentCartRecyclerViewItemBinding
-    private var myData = mutableListOf<CartItem>()
+    private lateinit var binding: FragmentGroupCartBinding
+    private var data = mutableListOf<GroupItem>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCartRecyclerViewItemBinding.inflate(layoutInflater,container,false)
-        val myData = mutableListOf(
-            CartItem("10000", "1등급 한우", "80000"),
-            CartItem("20000", "2등급 한우", "15000"),
-            CartItem("30000", "3등급 한우", "15000")
+        binding = FragmentGroupCartBinding.inflate(layoutInflater)
+
+        data = mutableListOf(
+            GroupItem("ming","10000", "1등급 한우", "80000"),
+            GroupItem("ming","20000", "2등급 한우", "15000"),
+            GroupItem("choi","30000", "3등급 한우", "15000"),
+            GroupItem("hong","30000", "3등급 한우", "15000")
         )
 
         binding.recyclercartItem3.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclercartItem4.layoutManager = LinearLayoutManager(requireContext())
 
+        var mAdapter1 = GroupCartItemAdapter(data)
+        binding.recyclercartItem3.adapter = mAdapter1
 
-        var myAdapter = CartItemAdapter1(myData)
-        binding.recyclercartItem3.adapter = myAdapter
-        Log.d("hong","왜 안와")
 
         return binding.root
     }
+
+
 }

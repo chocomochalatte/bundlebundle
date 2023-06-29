@@ -27,14 +27,14 @@ class CartActivity : AppCompatActivity() {
             //Fragment추가하는 부분 (이 부분은 장바구니 수량이 없는경우 조건을 걸어줘야함)
             var transaction = fragmentManager.beginTransaction()
             //var fragment = EmptyCartFragment()
-            var fragment = CartFragment()
-            transaction.add(R.id.noMyJangfragment,fragment)
-
-            var fragment2 = CartTopBarFragment();
-            transaction.add(R.id.recyclercart_item1,fragment2)
+            var fragment = CartTopBarFragment()
+            transaction.replace(R.id.noMyJangfragment,fragment)
 
             var fragment1 = CartItemFragment()
-            transaction.replace(R.id.recyclercart_item1,fragment1)
+            transaction.replace(R.id.item_cartfragment,fragment1)
+
+            var fragment2 = CartBottomFragment()
+            transaction.replace(R.id.bottom_cartfragment,fragment2)
             transaction.commit()
         }
 
