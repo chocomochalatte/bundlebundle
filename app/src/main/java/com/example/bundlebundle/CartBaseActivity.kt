@@ -2,6 +2,7 @@ package com.example.bundlebundle
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.bundlebundle.template.SimpleTemplateActivity
 
 class CartBaseActivity : SimpleTemplateActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -34,13 +34,13 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".SimpleTemplateActivity"
+            android:name=".template.SimpleTemplateActivity"
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ProductPageActivity"
+            android:name=".ProductPageTemplateActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +48,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BaseActivity"
+            android:name=".template.BaseTemplateActivity"
             android:exported="true"
             android:label="@string/title_activity_base"
             android:theme="@style/Theme.BundleBundle.NoActionBar" />

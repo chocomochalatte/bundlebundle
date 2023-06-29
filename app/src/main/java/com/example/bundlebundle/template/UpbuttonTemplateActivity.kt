@@ -1,4 +1,4 @@
-package com.example.bundlebundle
+package com.example.bundlebundle.template
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

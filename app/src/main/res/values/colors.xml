@@ -2,9 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="charcoalgray">#454545</color>
     <color name="light_gray">#AEA7A2</color>
     <color name="middle_gray">#777572</color>
     <color name="dark_gray">#454545</color>
+    <color name="light_pink">#FFD0CF</color>
+    <color name="dark_pink">#996666</color>
     <color name="orange">#FF6913</color>
+    <color name="box_stroke">#DAD9D6</color>
 </resources>

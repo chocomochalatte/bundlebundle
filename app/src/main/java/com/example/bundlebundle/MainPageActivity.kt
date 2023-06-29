@@ -30,14 +30,18 @@ class MainPageActivity : AppCompatActivity() {
         val bestButton =  binding.maintoolbar.bestButton
         val saleButton = binding.maintoolbar.saleButton
 
-        binding.maintoolbar.homeButton.isSelected = true // Home 버튼을 클릭된 상태로 설정
-
+        homeButton.isSelected = true // Home 버튼을 클릭된 상태로 설정
+        homeButton.setBackgroundResource(R.drawable.buttonunderline)
         homeButton.setOnClickListener {
             // Home 버튼 클릭 시
             homeButton.setTextColor(ContextCompat.getColor(this, R.color.orange))
             premiumButton.setTextColor(ContextCompat.getColor(this, R.color.middle_gray))
             bestButton.setTextColor(ContextCompat.getColor(this, R.color.middle_gray))
             saleButton.setTextColor(ContextCompat.getColor(this, R.color.middle_gray))
+            homeButton.setBackgroundResource(R.drawable.buttonunderline)
+            premiumButton.background = null
+            bestButton.background = null
+            saleButton.background = null
         }
 
         premiumButton.setOnClickListener {
@@ -46,6 +50,10 @@ class MainPageActivity : AppCompatActivity() {
             premiumButton.setTextColor(ContextCompat.getColor(this, R.color.orange))
             bestButton.setTextColor(ContextCompat.getColor(this, R.color.middle_gray))
             saleButton.setTextColor(ContextCompat.getColor(this, R.color.middle_gray))
+            premiumButton.setBackgroundResource(R.drawable.buttonunderline)
+            homeButton.background = null
+            bestButton.background = null
+            saleButton.background = null
         }
 
         bestButton.setOnClickListener {
@@ -54,6 +62,10 @@ class MainPageActivity : AppCompatActivity() {
             premiumButton.setTextColor(ContextCompat.getColor(this, R.color.middle_gray))
             bestButton.setTextColor(ContextCompat.getColor(this, R.color.orange))
             saleButton.setTextColor(ContextCompat.getColor(this, R.color.middle_gray))
+            bestButton.setBackgroundResource(R.drawable.buttonunderline)
+            homeButton.background = null
+            premiumButton.background = null
+            saleButton.background = null
         }
 
         saleButton.setOnClickListener {
@@ -62,11 +74,15 @@ class MainPageActivity : AppCompatActivity() {
             premiumButton.setTextColor(ContextCompat.getColor(this, R.color.middle_gray))
             bestButton.setTextColor(ContextCompat.getColor(this, R.color.middle_gray))
             saleButton.setTextColor(ContextCompat.getColor(this, R.color.orange))
+            saleButton.setBackgroundResource(R.drawable.buttonunderline)
+            homeButton.background = null
+            premiumButton.background = null
+            bestButton.background = null
         }
         setContentView(binding.root)
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container1, ViewPagerFragment())
-            .add(R.id.fragment_container2, ProductFragment())
+            .add(R.id.fragment_container2, ProductSliderFragment())
             .commit()
 
     }
