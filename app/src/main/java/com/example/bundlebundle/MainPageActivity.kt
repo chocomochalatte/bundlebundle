@@ -3,8 +3,10 @@ package com.example.bundlebundle
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.bundlebundle.databinding.ActivityMainPageBinding
+
 
 class MainPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,9 +22,9 @@ class MainPageActivity : AppCompatActivity() {
         }
 
         // 장바구니 아이템 개수 설정
-        //binding.maintoolbar.cartCount.text = "5"
+        binding.maintoolbar.cartCount.text = "5"
         // 장바구니 아이템 가시성 설정
-        //binding.maintoolbar.cartCount.visibility = View.VISIBLE // 보이도록 설정
+        binding.maintoolbar.cartCount.visibility = View.VISIBLE // 보이도록 설정
         val homeButton = binding.maintoolbar.homeButton
         val premiumButton = binding.maintoolbar.premiumButton
         val bestButton =  binding.maintoolbar.bestButton
@@ -78,5 +80,10 @@ class MainPageActivity : AppCompatActivity() {
             bestButton.background = null
         }
         setContentView(binding.root)
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment_container1, ViewPagerFragment())
+            .add(R.id.fragment_container2, ProductSliderFragment())
+            .commit()
+
     }
 }
