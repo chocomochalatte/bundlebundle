@@ -10,7 +10,8 @@ class CartBaseActivity : SimpleTemplateActivity() {
         binding.toolbarSimple.simpleToolbarTitle.text = "장바구니"
 
         // 내부 fragment 생성 및 설정
-        val fragment = ProductFragment()
+//        val fragment = GroupJoinFragment.newInstance("밍딩")
+        val fragment = GroupCreateFragment.newInstance()
         setFragment(fragment)
     }
 
