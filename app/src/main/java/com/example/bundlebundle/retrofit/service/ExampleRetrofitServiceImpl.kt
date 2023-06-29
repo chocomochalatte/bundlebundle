@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object GroupRetrofitServiceImpl {
     // 항상 URL에 /가 들어가야 한다
-    private const val BASE_URL = "http://15.164.186.213:3000/"
+    private const val BASE_URL = "http://localhost8080/bundlebundle/"
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
