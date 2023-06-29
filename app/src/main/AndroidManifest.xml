@@ -10,7 +10,9 @@
         android:name="android.permission.WRITE_APN_SETTINGS"
         tools:ignore="ProtectedPermissions" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:name=".GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -24,10 +26,6 @@
             android:name=".NewGroupCartActivity"
             android:label=""
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".CartBaseActivity"
@@ -37,15 +35,23 @@
             android:name=".template.SimpleTemplateActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
+            android:name=".ProductDetailActivity"
+            android:exported="true">
+        </activity>
         <activity
-            android:name=".ProductPageTemplateActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ProductPageTemplateActivity"
+            android:exported="true">
         </activity>
         <activity
             android:name=".template.BaseTemplateActivity"
@@ -54,7 +60,8 @@
             android:theme="@style/Theme.BundleBundle.NoActionBar" />
         <activity
             android:name=".MainDetailPageActivity"
-            android:exported="false" />
+            android:exported="true">
+        </activity>
         <activity
             android:name=".MainPageActivity"
             android:exported="true" />

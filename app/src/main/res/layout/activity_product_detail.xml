@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:src="@drawable/cherry"
+                android:scaleType="centerCrop"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="[산들내음] 저탄소 체리 2.5kg"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:gravity="right"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="15dp"
+                    android:text="28,000"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="50dp"
+                    android:gravity="left"
+                    android:paddingLeft="2dp"
+                    android:paddingTop="18dp"
+                    android:text="원"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="205dp">
+
+                    <ImageButton
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_gift"
+                        android:layout_marginRight="5dp"></ImageButton>
+
+                    <ImageButton
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_share"
+                        android:layout_marginRight="5dp"></ImageButton>
+
+                    <ImageButton
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_heart_gray"
+                        android:layout_marginRight="5dp"></ImageButton>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/separator" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:text="원산지"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    android:paddingLeft="15dp"
+                    android:gravity="center_vertical"
+                    />
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:text="국내산"
+                    android:textSize="12dp"
+                    android:paddingLeft="15dp"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:text="포토타입"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    android:paddingLeft="15dp"
+                    android:gravity="center_vertical"
+                    />
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="40dp"
+                    android:text="냉장"
+                    android:textSize="12dp"
+                    android:paddingLeft="15dp"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_add_cart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="장바구니"
+            android:background="@color/orange"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_open_bottom_sheet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="바로구매"
+            android:background="@color/orange"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</LinearLayout>
