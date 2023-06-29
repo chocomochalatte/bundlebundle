@@ -1,9 +1,10 @@
 package com.example.bundlebundle
 
 import android.os.Bundle
+import com.example.bundlebundle.template.BaseTemplateActivity
 
 // BaseActivity를 상속받아 만드는 클래스 예시!
-class ProductPageActivity : BaseActivity() {
+class ProductPageTemplateActivity : BaseTemplateActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

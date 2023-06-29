@@ -1,7 +1,6 @@
-package com.example.bundlebundle
+package com.example.bundlebundle.template
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
@@ -12,11 +11,12 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.ActivityBaseBinding
 import com.google.android.material.navigation.NavigationView
 
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseTemplateActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityBaseBinding
