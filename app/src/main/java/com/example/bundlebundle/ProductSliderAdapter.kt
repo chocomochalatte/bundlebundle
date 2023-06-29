@@ -1,5 +1,6 @@
 package com.example.bundlebundle
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-data class Product(val imageResId: Int, val title: String, val description: String)
+data class Product(val imageResId: Int, val title: String, val description: String, val description2: String)
 
 
 class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
@@ -18,12 +19,15 @@ class ProductAdapter(private val products: List<Product>) : RecyclerView.Adapter
         private val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionBigPriceView)
         private val descriptionTextView2: TextView = itemView.findViewById(R.id.descriptionSmallPriceView)
 
+
         fun bind(product: Product) {
             imageView.setImageResource(product.imageResId)
             titleTextView.text = product.title
             descriptionTextView.text = product.description
-            descriptionTextView2.text = product.description
+            descriptionTextView2.text = product.description2
+            descriptionTextView2.paintFlags = descriptionTextView2.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
