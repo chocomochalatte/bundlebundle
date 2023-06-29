@@ -5,7 +5,9 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
-    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"
+
+    <uses-permission
+        android:name="android.permission.WRITE_APN_SETTINGS"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -19,7 +21,8 @@
         android:theme="@style/Theme.BundleBundle"
         tools:targetApi="31">
         <activity
-            android:name=".CartBaseActivity"
+            android:name=".NewGroupCartActivity"
+            android:label=""
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,20 +30,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SimpleTemplateActivity"
+            android:name=".CartBaseActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".SimpleTemplateActivity"
+            android:exported="true" />
         <activity
             android:name=".BaseActivity"
             android:exported="true"
             android:label="@string/title_activity_base"
-            android:theme="@style/Theme.BundleBundle.NoActionBar"></activity>
+            android:theme="@style/Theme.BundleBundle.NoActionBar" />
         <activity
             android:name=".MainDetailPageActivity"
             android:exported="false" />
         <activity
             android:name=".MainPageActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
