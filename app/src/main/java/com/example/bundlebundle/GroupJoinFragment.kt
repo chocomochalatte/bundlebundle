@@ -13,10 +13,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [GroupCreateFragment.newInstance] factory method to
+ * Use the [GroupJoinFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class GroupCreateFragment : Fragment() {
+class GroupJoinFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -34,7 +34,7 @@ class GroupCreateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_group_create, container, false)
+        return inflater.inflate(R.layout.fragment_group_join, container, false)
     }
 
     companion object {
@@ -44,12 +44,12 @@ class GroupCreateFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment NewGroupFragment.
+         * @return A new instance of fragment GroupJoinFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            GroupCreateFragment().apply {
+            GroupJoinFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
