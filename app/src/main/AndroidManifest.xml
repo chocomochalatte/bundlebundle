@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -21,39 +21,44 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.BundleBundle"
         tools:targetApi="31">
         <activity
-            android:name=".NewGroupCartActivity"
-            android:label=""
+            android:name=".TestActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
+            android:name=".NewGroupCartActivity"
+            android:exported="true"
+            android:label=""></activity>
+        <activity
             android:name=".CartBaseActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".template.SimpleTemplateActivity"
             android:exported="true" />
         <activity
             android:name=".ProductDetailActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.LAUNCHER" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ProductPageTemplateActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".template.BaseTemplateActivity"
             android:exported="true"
@@ -61,17 +66,13 @@
             android:theme="@style/Theme.BundleBundle.NoActionBar" />
         <activity
             android:name=".MainDetailPageActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".MainPageActivity"
             android:exported="true" />
-
         <activity
             android:name=".CartActivity"
-            android:exported="true" >
-        </activity>
-
+            android:exported="true"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true" />
