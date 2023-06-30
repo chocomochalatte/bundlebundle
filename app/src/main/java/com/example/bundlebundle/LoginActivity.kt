@@ -5,10 +5,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.bundlebundle.retrofit.dataclass.member.LoginTokenVO
+import com.example.bundlebundle.retrofit.service.ApiService
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +39,27 @@ class LoginActivity : AppCompatActivity() {
                 if (error != null) {
                     Log.e("LOGIN", "카카오계정으로 로그인 실패", error)
                 } else if (token != null) {
+                    val retrofit: Retrofit = Retrofit.Builder()
+                        .baseUrl("http://10.0.2.2:8080/bundlebundle/api/member/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+
+                    val apiService: ApiService = retrofit.create(ApiService::class.java)
+                    val call = apiService.gettoken(token.accessToken)
+                    call.enqueue(object : Callback<LoginTokenVO>{
+                        override fun onResponse(
+                            call: Call<LoginTokenVO>,
+                            response: Response<LoginTokenVO>
+                        ) {
+                            val tokenInfo = response.body()
+                            Log.d("hong","$tokenInfo")
+                        }
+
+                        override fun onFailure(call: Call<LoginTokenVO>, t: Throwable) {
+                            call.cancel()
+                        }
+
+                    })
                     Log.i("LOGIN", "카카오계정으로 로그인 성공 ${token.accessToken}")
                 }
             }
@@ -54,6 +82,7 @@ class LoginActivity : AppCompatActivity() {
                         Log.i("LOGIN", "카카오톡으로 로그인 성공 ${token.accessToken}")
                         val intent = Intent(mContext, MainActivity::class.java)
                         startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+
                         finish()
                     }
                 }
