@@ -74,7 +74,7 @@ class CartActivity : AppCompatActivity() {
                 val fragment1 = CartItemFragment.newInstance(myData)
                 transaction.replace(R.id.item_cartfragment, fragment1)
 
-                var fragment2 = CartBottomFragment()
+                var fragment2 = CartBottomFragment().newInstance(myData)
                 transaction.replace(R.id.bottom_cartfragment,fragment2)
                 transaction.commit()
             }else{
