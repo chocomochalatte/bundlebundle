@@ -24,9 +24,11 @@ class CartActivity : AppCompatActivity() {
             grourJangButton.setTextColor(ContextCompat.getColor(this, R.color.middle_gray))
             myJangButton.setBackgroundResource(R.drawable.buttonunderline)
             grourJangButton.background = null
+
             //Fragment추가하는 부분 (이 부분은 장바구니 수량이 없는경우 조건을 걸어줘야함)
             var transaction = fragmentManager.beginTransaction()
             //var fragment = EmptyCartFragment()
+
             var fragment = CartTopBarFragment()
             transaction.replace(R.id.noMyJangfragment,fragment)
 

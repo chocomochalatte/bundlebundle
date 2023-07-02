@@ -7,16 +7,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.bundlebundle.databinding.FragmentCartBinding
 import com.example.bundlebundle.databinding.FragmentCartItemBinding
+import com.example.bundlebundle.retrofit.dataclass.CartVO
+import com.example.bundlebundle.retrofit.service.CartApiService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
-data class CartItem(val myjangitem_originalprice: String, val cartitem_name: String, val cartitem_discountprice: String)
+
 
 class CartItemViewHolder(val binding: FragmentCartItemBinding):RecyclerView.ViewHolder(binding.root)
 
-class CartItemAdapter(var myData: MutableList<CartItem>):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class CartItemAdapter(var myData: CartVO):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return  CartItemViewHolder(FragmentCartItemBinding.inflate(
@@ -24,25 +33,29 @@ class CartItemAdapter(var myData: MutableList<CartItem>):RecyclerView.Adapter<Re
     }
 
     override fun getItemCount(): Int {
-        return myData.size
+        return myData.cartProducts.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var binding = (holder as CartItemViewHolder).binding
-        val currentItem = myData[position]
-        Log.d("hong","$currentItem")
-        binding.cartitemName.text = currentItem.cartitem_name
-        binding.cartitemOriginalprice.text = currentItem.myjangitem_originalprice
-        binding.cartitemDiscountprice.text = currentItem.cartitem_discountprice
-    }
+        val currentItem = myData.cartProducts[position]
+        val cnt = myData.cartCnt
 
-}
+        Glide.with(binding.root.context)
+            .load(currentItem.productThumbnailImg)  //이미지 URL 설정
+            .into(binding.mycartitemImg)    //imageView에 넣기
+
+        binding.mycartitemName.text = currentItem.productName
+        binding.mycartitemOriginalprice.text = currentItem.productPrice
+        binding.mycartitemProductCnt.text = currentItem.productCnt.toString()
+        }
+    }
 
 class CartItemFragment : Fragment() {
 
     private lateinit var binding: FragmentCartBinding
-    private var myData = mutableListOf<CartItem>()
-
+    private lateinit var myData:CartVO
+    private lateinit var myAdapter: CartItemAdapter
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -51,18 +64,41 @@ class CartItemFragment : Fragment() {
     ): View? {
         binding = FragmentCartBinding.inflate(inflater, container, false)
 
-        val myData = mutableListOf(
-            CartItem("10000", "1등급 한우", "80000"),
-            CartItem("20000", "2등급 한우", "15000"),
-            CartItem("30000", "3등급 한우", "15000")
-        )
+        //api 호출
+        //1. retrofit 객체 생성
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl("http://10.0.2.2:8080/bundlebundle/api/cart/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        //2. Service 객체 생성
+        val apiService:CartApiService = retrofit.create(CartApiService::class.java)
+
+        // Call 객체 생성
+        val call = apiService.checkCart(1)
+
+        //4. 네트워크 통신
+        call.enqueue(object: Callback<CartVO>{
+            override fun onResponse(call: Call<CartVO>, response: Response<CartVO>) {
+                myData = response.body()!!
+                Log.d("honga","$myData")
+
+                myAdapter = CartItemAdapter(myData)
+                binding.recyclercartItem.adapter = myAdapter
+
+                // RecyclerView 업데이트
+                myAdapter.notifyDataSetChanged()
+            }
+
+            override fun onFailure(call: Call<CartVO>, t: Throwable) {
+                call.cancel()
+            }
+
+        })
 
         binding.recyclercartItem.layoutManager = LinearLayoutManager(requireContext())
 
-        var myAdapter = CartItemAdapter(myData)
-        binding.recyclercartItem.adapter = myAdapter
-
-
         return binding.root
     }
+
 }

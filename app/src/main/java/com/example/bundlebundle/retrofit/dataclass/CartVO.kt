@@ -1,12 +1,12 @@
 package com.example.bundlebundle.retrofit.dataclass
 
-data class Cart(
+
+data class CartVO(
     val cartCnt: Int,
-    val memberId: Int,
-    val cartProducts: List<CartProduct>
+    val cartProducts: List<CartProductVO>
 )
 
-data class CartProduct(
+data class CartProductVO(
     val cartId: Int,
     val productId: Int,
     val productOrigin: String,
@@ -16,5 +16,3 @@ data class CartProduct(
     val productPrice: String,
     val productCnt: Int
 )
-
-
