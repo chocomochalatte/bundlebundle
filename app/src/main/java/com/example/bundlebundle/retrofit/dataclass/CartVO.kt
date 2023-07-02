@@ -13,6 +13,7 @@ data class CartProductVO(
     val productBrand: String,
     val productName: String,
     val productThumbnailImg: String,
-    val productPrice: String,
-    val productCnt: Int
+    val productPrice: Int,
+    val productCnt: Int,
+    val discountRate: Int
 )

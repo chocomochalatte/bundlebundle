@@ -46,7 +46,12 @@ class CartItemAdapter(var myData: CartVO):RecyclerView.Adapter<RecyclerView.View
             .into(binding.mycartitemImg)    //imageView에 넣기
 
         binding.mycartitemName.text = currentItem.productName
-        binding.mycartitemOriginalprice.text = currentItem.productPrice
+        binding.mycartitemOriginalprice.text = currentItem.productPrice.toString()
+
+        val discountRate = currentItem.discountRate / 100.0 // 비율로 변환
+        val discountPrice = (1 - discountRate) * currentItem.productPrice
+        val discountPriceInt = discountPrice.toInt() // 정수로 변환
+        binding.mycartitemDiscountprice.text = discountPriceInt.toString()
         binding.mycartitemProductCnt.text = currentItem.productCnt.toString()
         }
     }
