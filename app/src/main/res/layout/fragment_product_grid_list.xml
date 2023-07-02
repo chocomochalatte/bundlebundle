@@ -7,5 +7,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.product.ProductGridFragment"
+    tools:context=".product.list.ProductGridFragment"
     tools:listitem="@layout/fragment_product_grid" />

@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/product_list"
-        android:name="com.example.bundlebundle.ui.product.ProductGridFragment"
+        android:name="com.example.bundlebundle.product.list.ProductGridFragment"
         tools:layout="@layout/fragment_product_grid_list" />
 
 </navigation>
