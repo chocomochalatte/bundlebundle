@@ -2,54 +2,45 @@ package com.example.bundlebundle.product.list
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import com.example.bundlebundle.databinding.FragmentProductGridBinding
+import android.widget.ImageView
+import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.example.bundlebundle.R
 import com.example.bundlebundle.retrofit.dataclass.ProductVO
-import com.squareup.picasso.Picasso
+import java.text.NumberFormat
+import java.util.Locale
 
-class ProductItemRecyclerViewAdapter(
-    private val values: List<ProductVO>
-) : RecyclerView.Adapter<ProductItemRecyclerViewAdapter.ViewHolder>() {
+class ProductItemRecyclerViewAdapter(private val productList: List<ProductVO>) : RecyclerView.Adapter<ProductItemRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // 뷰 홀더를 생성하는 메서드
-        val binding = FragmentProductGridBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return ViewHolder(binding)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.fragment_product_grid, parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // 뷰 홀더와 데이터를 바인딩하는 메서드
-        val item = values[position]
-        holder.bind(item)
-
-        holder.viewHolder = this
+        val product = productList[position]
+        holder.bindProduct(product)
     }
 
-    override fun getItemCount(): Int {
-        // 아이템 개수를 반환하는 메서드
-        return values?.size ?: 0
-    }
+    override fun getItemCount(): Int = productList.size
 
-    inner class ViewHolder(private val binding: FragmentProductGridBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val productBrandTextView: TextView = view.findViewById(R.id.item_brand)
+        private val productNameTextView: TextView = view.findViewById(R.id.item_name)
+        private val productImageView: ImageView = view.findViewById(R.id.item_thumbnail_img)
+        private val productPriceTextView: TextView = view.findViewById(R.id.item_price)
 
-        // 뷰 홀더 내부 클래스
-        var viewHolder: ProductItemRecyclerViewAdapter? = null
+        fun bindProduct(product: ProductVO) {
+            productBrandTextView.text = "[${product.brand}]"
+            productNameTextView.text = product.name
+            productPriceTextView.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(product.price)
 
-        fun bind(item: ProductVO) {
-            // 아이템을 뷰에 바인딩하는 메서드
-            binding.apply {
-                Picasso.get().load(item.thumbnailImg).into(itemThumbnailImg)
-                itemBrand.text = "[${item.brand}]"
-                itemName.text = item.name
-                itemPrice.text = item.price.toString()
-
-                this@ViewHolder.viewHolder = this@ProductItemRecyclerViewAdapter
-            }
+            Glide.with(itemView)
+                .load(product.thumbnailImg)
+                .into(productImageView)
         }
     }
 }

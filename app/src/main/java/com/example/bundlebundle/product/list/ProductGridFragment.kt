@@ -1,7 +1,7 @@
 package com.example.bundlebundle.product.list
 
 import android.os.Bundle
-import android.util.Log
+import android.text.style.TtsSpan.ARG_QUERY_STRING
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,29 +10,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.bundlebundle.R
+import com.example.bundlebundle.databinding.ActivityProductPageBinding
+import com.example.bundlebundle.retrofit.ApiClient.apiService
 import com.example.bundlebundle.retrofit.dataclass.ProductVO
+import kotlinx.coroutines.runBlocking
 
 /* 상품 목록을 표시하는 Fragment */
 class ProductGridFragment : Fragment() {
 
     private var columnCount = 2
-    private var productList: List<ProductVO>? = null
+    private var sortType: String = "best"
+    private var products: List<ProductVO> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
+            sortType = it.getString("sortType").toString()
+        }
+
+        getProductFromApi(sortType)
+
+        bindProductData(products)
+    }
+
+    private fun bindProductData(productList: List<ProductVO>) {
+        val recyclerView = view as? RecyclerView
+        recyclerView?.adapter = ProductItemRecyclerViewAdapter(productList)
+    }
+
+    private fun getProductFromApi(sortType: String) {
+        runBlocking {
+            products = apiService.showProducts(sortType)
         }
     }
-
-    fun setProductList(products: List<ProductVO>) {
-        productList = products
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.product_list)
-        recyclerView?.adapter = ProductItemRecyclerViewAdapter(productList ?: emptyList())
-        recyclerView?.adapter?.notifyDataSetChanged()
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +62,7 @@ class ProductGridFragment : Fragment() {
             view.layoutManager = layoutManager
 
             // RecyclerView에 어댑터 설정
-            view.adapter = ProductItemRecyclerViewAdapter(productList ?: emptyList())
+            view.adapter = ProductItemRecyclerViewAdapter(products ?: emptyList())
         }
         return view
     }
@@ -59,21 +70,11 @@ class ProductGridFragment : Fragment() {
 
     companion object {
 
-        // 컬럼 수 설정
-        private const val ARG_COLUMN_COUNT = "column-count"
-        private const val ARG_QUERY_STRING = "query-string"
-        /**
-         * ProductGridFragment의 인스턴스를 생성하는 메서드
-         *
-         * @param columnCount 목록의 열 수
-         * @return [ProductGridFragment] 인스턴스 */
-
         @JvmStatic
-        fun newInstance(queryString: String): ProductGridFragment {
+        fun newInstance(sortType: String): ProductGridFragment {
             return ProductGridFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, 2)
-                    putString(ARG_QUERY_STRING, queryString)
+                    putString("sortType", sortType)
                 }
             }
         }
