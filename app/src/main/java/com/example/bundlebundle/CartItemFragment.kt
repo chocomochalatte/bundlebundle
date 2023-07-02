@@ -62,48 +62,41 @@ class CartItemFragment : Fragment() {
     private lateinit var myData:CartVO
     private lateinit var myAdapter: CartItemAdapter
 
-    @SuppressLint("MissingInflatedId")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentCartBinding.inflate(inflater, container, false)
 
-        //api 호출
-        //1. retrofit 객체 생성
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080/bundlebundle/api/cart/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        arguments?.let {
+            myData = it.getParcelable(MY_CART_ITEM)!!
 
-        //2. Service 객체 생성
-        val apiService:CartApiService = retrofit.create(CartApiService::class.java)
+            myAdapter = CartItemAdapter(myData)
+            binding.recyclercartItem.adapter = myAdapter
 
-        // Call 객체 생성
-        val call = apiService.checkCart(1)
+            // RecyclerView 업데이트
+            myAdapter.notifyDataSetChanged()
 
-        //4. 네트워크 통신
-        call.enqueue(object: Callback<CartVO>{
-            override fun onResponse(call: Call<CartVO>, response: Response<CartVO>) {
-                myData = response.body()!!
-                Log.d("honga","$myData")
+        }
 
-                myAdapter = CartItemAdapter(myData)
-                binding.recyclercartItem.adapter = myAdapter
-
-                // RecyclerView 업데이트
-                myAdapter.notifyDataSetChanged()
-            }
-
-            override fun onFailure(call: Call<CartVO>, t: Throwable) {
-                call.cancel()
-            }
-
-        })
 
         binding.recyclercartItem.layoutManager = LinearLayoutManager(requireContext())
 
         return binding.root
     }
+
+    companion object {
+        private const val MY_CART_ITEM = "argMyData"
+        fun newInstance(myData: CartVO): CartItemFragment {
+            val fragment = CartItemFragment()
+            val args = Bundle().apply {
+                putParcelable(MY_CART_ITEM, myData)
+            }
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
 
 }

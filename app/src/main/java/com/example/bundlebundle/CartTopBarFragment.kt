@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.bundlebundle.databinding.FragmentCartTopbarBinding
+import com.example.bundlebundle.retrofit.dataclass.CartVO
 
 
 class CartTopBarFragment : Fragment() {
@@ -15,7 +16,24 @@ class CartTopBarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentCartTopbarBinding.inflate(layoutInflater)
+        arguments?.let {
+            val myData = it.getParcelable<CartVO>(MY_CART_TOTAL_CNT)
+            val cartCnt = myData?.cartCnt.toString()
+            binding.mycartitemTotalcnt.text= cartCnt
+        }
         return binding.root
     }
 
+    fun newInstance(myData: CartVO): CartTopBarFragment {
+        var fragment = CartTopBarFragment()
+        val args = Bundle().apply {
+            putParcelable(MY_CART_TOTAL_CNT,myData)
+        }
+        fragment.arguments = args
+        return fragment
+    }
+
+    companion object {
+        private const val MY_CART_TOTAL_CNT = "argMyData"
+    }
 }
