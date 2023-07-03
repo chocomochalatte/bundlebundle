@@ -9,7 +9,6 @@
     <uses-permission
         android:name="android.permission.WRITE_APN_SETTINGS"
         tools:ignore="ProtectedPermissions" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -21,62 +20,53 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BundleBundle"
-        tools:targetApi="31"
-        android:usesCleartextTraffic="true">
-
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".product.list.ProductGridViewPagerActivity"
+            android:exported="false" />
         <activity
             android:name=".NewGroupCartActivity"
-            android:label=""
-            android:exported="true" />
-
+            android:exported="true"
+            android:label="" />
         <activity
             android:name=".CartBaseActivity"
             android:exported="true" />
-
         <activity
             android:name=".template.SimpleTemplateActivity"
             android:exported="true" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".product.list.ProductPageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".product.detail.ProductDetailActivity"
-            android:exported="true">
-        </activity>
-
+            android:exported="true"></activity>
         <activity
             android:name=".template.BaseTemplateActivity"
             android:exported="true"
             android:label="@string/title_activity_base"
             android:theme="@style/Theme.BundleBundle.NoActionBar" />
-
         <activity
             android:name=".MainDetailPageActivity"
             android:exported="false" />
-
         <activity
             android:name=".MainPageActivity"
             android:exported="true" />
-
         <activity
             android:name=".CartActivity"
             android:exported="true" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-
     </application>
 
 </manifest>

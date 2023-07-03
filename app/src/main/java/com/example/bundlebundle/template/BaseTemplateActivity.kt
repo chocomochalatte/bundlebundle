@@ -12,7 +12,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.ActivityBaseBinding
+import com.example.bundlebundle.product.list.MenuTabAdapter
+import com.example.bundlebundle.product.list.ProductGridFragment
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 
 abstract class BaseTemplateActivity : AppCompatActivity() {
@@ -26,15 +30,19 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         binding = ActivityBaseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setActionBarAndNavigationDrawer()
+
+        // 메인 fragment 넣기
+        val topLevelDestinations = setTopLevelMainFragment()
+        appBarConfiguration = createAppBarConfiguration(topLevelDestinations, binding.drawerLayout)
+    }
+
+    private fun setActionBarAndNavigationDrawer() {
         // Action Bar 설정
         setSupportActionBar(binding.toolbarMain.toolbar)
 
         // navigation drawer 구성요소 초기화
         val navView: NavigationView = binding.navView
-
-        // 메인 fragment 넣기
-        val topLevelDestinations = setTopLevelMainFragment()
-        appBarConfiguration = createAppBarConfiguration(topLevelDestinations, binding.drawerLayout)
 
         // ActionBarDrawerToggle 추가
         val toggle = ActionBarDrawerToggle(
@@ -50,7 +58,6 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         // navigation drawer닫기 버튼
         val navHeaderView = navView.getHeaderView(0)
         val closeButton = navHeaderView.findViewById<ImageButton>(R.id.close_btn)
-
         closeButton?.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }

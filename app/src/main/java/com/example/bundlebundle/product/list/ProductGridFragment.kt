@@ -58,30 +58,29 @@ class ProductGridFragment : Fragment() {
         }
     }
 
-    private fun bindProductData(products: List<ProductVO>) {
-        binding.productGridList.adapter = ProductGridAdapter(products)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProductGridBinding.inflate(inflater, container, false)
 
-        bindSortType()
+        bindWithApiResponse()
 
         binding.productGridList.layoutManager = GridLayoutManager(requireContext(), columnCount)
 
         return binding.root
     }
 
-    private fun bindSortType() {
+    private fun bindWithApiResponse() {
         sortType = arguments?.getString(ARG_SORT_TYPE) ?: "best"
 
         lifecycleScope.launch {
             products = getProductFromApi(sortType)?: emptyList()
             bindProductData(products)
         }
+    }
+    private fun bindProductData(products: List<ProductVO>) {
+        binding.productGridList.adapter = ProductGridAdapter(products)
     }
 
     companion object {
