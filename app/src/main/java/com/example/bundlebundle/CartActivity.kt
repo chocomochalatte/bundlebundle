@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import com.example.bundlebundle.databinding.ActivityCartBinding
+import com.example.bundlebundle.retrofit.dataclass.CartCheckVO
 import com.example.bundlebundle.retrofit.dataclass.CartVO
 import com.example.bundlebundle.retrofit.service.CartApiService
 import okhttp3.Request
@@ -17,11 +18,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class CartActivity : AppCompatActivity() {
+
+class CartActivity : AppCompatActivity(), CartItemAdapter.OnCartItemDeleteListener {
 
     private lateinit var fragmentManager: FragmentManager
     private lateinit var myJangButton: TextView
     private lateinit var grourJangButton: TextView
+    private lateinit var cartItemAdapter: CartItemAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityCartBinding.inflate(layoutInflater)
@@ -77,6 +81,9 @@ class CartActivity : AppCompatActivity() {
                 var fragment2 = CartBottomFragment().newInstance(myData)
                 transaction.replace(R.id.bottom_cartfragment,fragment2)
                 transaction.commit()
+
+                // CartItemAdapter 초기화
+                cartItemAdapter.setOnCartItemDeleteListener(this)
             }else{
                 var transaction = fragmentManager.beginTransaction()
                 var fragment = EmptyCartFragment()
@@ -84,8 +91,6 @@ class CartActivity : AppCompatActivity() {
                 transaction.commit()
             }
         }
-
-
     }
 
     private fun showGroupJangFragments() {
@@ -131,5 +136,63 @@ class CartActivity : AppCompatActivity() {
 
         })
     }
+
+
+
+    override fun onCartItemDeleted(productId: Int, memberId: Int) {
+            val retrofit = Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:8080/bundlebundle/api/cart/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            val apiService:CartApiService = retrofit.create(CartApiService::class.java)
+
+            val call = apiService.deleteCartItem(memberId,productId)
+
+            call.enqueue(object: Callback<CartCheckVO>{
+                override fun onResponse(call: Call<CartCheckVO>, response: Response<CartCheckVO>) {
+                    val myData = response.body()
+                    if(myData?.exists==true){
+                        // 삭제가 성공적으로 수행된 경우
+                        // 다시 데이터 가져오는 로직
+                        val retrofit = Retrofit.Builder()
+                            .baseUrl("http://10.0.2.2:8080/bundlebundle/api/cart/")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build()
+
+                        val apiService:CartApiService = retrofit.create(CartApiService::class.java)
+
+                        val call = apiService.checkCart(memberId)
+
+                        call.enqueue(object: Callback<CartVO>{
+                            override fun onResponse(call: Call<CartVO>, response: Response<CartVO>) {
+                                val data = response.body()
+                                // 예시: 삭제 후에 CartTopBarFragment와 CartBottomFragment를 업데이트한다고 가정
+                                val transaction = fragmentManager.beginTransaction()
+
+                                // 업데이트된 데이터를 사용하여 새로운 Fragment 인스턴스 생성
+                                val updatedTopBarFragment = CartTopBarFragment().newInstance(data!!)
+                                val updatedBottomFragment = CartBottomFragment().newInstance(data)
+
+                                // 기존 Fragment를 대체하여 업데이트된 Fragment로 교체
+                                transaction.replace(R.id.noMyCartItemfragment, updatedTopBarFragment)
+                                transaction.replace(R.id.bottom_cartfragment, updatedBottomFragment)
+
+                                transaction.commit()
+                            }
+
+                            override fun onFailure(call: Call<CartVO>, t: Throwable) {
+                                call.cancel()
+                            }
+                        })
+                    }else{
+                    }
+                }
+
+                override fun onFailure(call: Call<CartCheckVO>, t: Throwable) {
+                    call.cancel()
+                }
+            })
+        }
 
 }

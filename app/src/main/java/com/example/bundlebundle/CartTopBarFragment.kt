@@ -33,7 +33,18 @@ class CartTopBarFragment : Fragment() {
         return fragment
     }
 
+
+
     companion object {
+        fun newInstance(data: CartVO): Fragment {
+            var fragment = CartTopBarFragment()
+            val args = Bundle().apply {
+                putParcelable(MY_CART_TOTAL_CNT,data)
+            }
+            fragment.arguments = args
+            return fragment
+        }
+
         private const val MY_CART_TOTAL_CNT = "argMyData"
     }
 }

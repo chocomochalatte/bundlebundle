@@ -34,6 +34,7 @@ data class CartVO(
 }
 
 data class CartProductVO(
+    val memberId: Int,
     val cartId: Int,
     val productId: Int,
     val productOrigin: String,

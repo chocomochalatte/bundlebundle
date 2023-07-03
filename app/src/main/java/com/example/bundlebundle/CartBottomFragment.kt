@@ -72,7 +72,18 @@ class CartBottomFragment : Fragment() {
         return fragment
     }
 
+
+
     companion object {
+        fun newInstance(data: CartVO): Fragment {
+            var fragment = CartBottomFragment()
+            val args = Bundle().apply {
+                putParcelable(CartBottomFragment.MY_CART_BOTTOM,data)
+            }
+            fragment.arguments = args
+            return fragment
+        }
+
         private const val MY_CART_BOTTOM = "argMyData"
     }
 
