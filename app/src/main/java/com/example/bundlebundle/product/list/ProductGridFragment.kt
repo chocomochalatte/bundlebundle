@@ -39,9 +39,7 @@ class ProductGridFragment : Fragment() {
         _binding = FragmentProductGridBinding.inflate(inflater, container, false)
 
         bindWithApiResponse()
-
         binding.productGridList.layoutManager = GridLayoutManager(requireContext(), columnCount)
-
         return binding.root
     }
 
