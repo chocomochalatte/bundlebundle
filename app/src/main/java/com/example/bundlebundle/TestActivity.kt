@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.bundlebundle.databinding.ActivityTestBinding
 import com.example.bundlebundle.retrofit.dataclass.Cart
-import com.example.bundlebundle.retrofit.service.ApiService
+import com.example.bundlebundle.retrofit.ApiService
 import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,7 +32,7 @@ class TestActivity : AppCompatActivity() {
             .build()
 
         //2. Service 객체 생성
-        val apiService:ApiService = retrofit.create(ApiService::class.java)
+        val apiService: ApiService = retrofit.create(ApiService::class.java)
 
 
         // Call 객체 생성

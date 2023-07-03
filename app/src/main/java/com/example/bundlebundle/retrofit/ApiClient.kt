@@ -10,6 +10,7 @@ import java.io.IOException
 
 object ApiClient {
     private const val BASE_URL = "http://10.0.2.2:8080/bundlebundle/api/"
+    private var jwtToken: String? = null;
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
@@ -22,22 +23,12 @@ object ApiClient {
         retrofit.create(ApiService::class.java)
     }
 
-    fun okHttpClient(interceptor: AppInterceptor): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            }).build()
+    fun setJwtToken(token: String?) {
+        jwtToken = token
     }
 
-    class AppInterceptor : Interceptor {
-        @Throws(IOException::class)
-        override fun intercept(chain: Interceptor.Chain) : Response = with(chain) {
-            val newRequest = request().newBuilder()
-                .addHeader("(header Key)", "(header Value)")
-                .build()
-            proceed(newRequest)
-        }
+    fun getJwtToken(): String? {
+        return jwtToken
     }
 
 }

@@ -18,13 +18,9 @@ import retrofit2.Response
 
 @HiltAndroidApp
 class LoginActivity : AppCompatActivity() {
-    companion object {
-        lateinit var prefs: PreferenceUtil
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        prefs = PreferenceUtil(applicationContext)
 
         //컨텍스트 얻기
         val context: Context = this
@@ -52,8 +48,7 @@ class LoginActivity : AppCompatActivity() {
                                 tokenInfo?.let { info ->
                                     // 서버 응답 처리
                                     Log.i("RealLOGIN", "카카오계정으로 로그인 성공 :  ${info.token}")
-                                    LoginActivity.prefs.setString("accessToken", info.token);
-
+                                    ApiClient.setJwtToken(info.token)
                                 } ?: run {
                                     // 응답이 null인 경우 처리
                                     Log.e("RealLOGIN", "서버 응답이 null입니다.")

@@ -1,4 +1,4 @@
-package com.example.bundlebundle
+package com.example.bundlebundle.product.slider
 
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bundlebundle.R
 
 data class Product(val imageResId: Int, val title: String, val description: String, val description2: String)
 

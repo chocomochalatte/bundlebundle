@@ -1,6 +1,7 @@
 package com.example.bundlebundle.retrofit
 
 import com.example.bundlebundle.retrofit.dataclass.Cart
+import com.example.bundlebundle.retrofit.dataclass.ProductVO
 /*import com.example.bundlebundle.retrofit.dataclass.ProductVO*/
 import com.example.bundlebundle.retrofit.dataclass.member.LoginTokenVO
 import retrofit2.Call
@@ -16,7 +17,7 @@ interface ApiService {
         @Query("id") memberId: Int
     ): Call<Cart>
 
-/*    @GET("products")
+    @GET("products")
     fun showProducts(
         @Query("sort") sortType: String
     ): Call<List<ProductVO>>
@@ -24,7 +25,7 @@ interface ApiService {
     @GET("products/{productId}")
     fun showProductDetail(
         @Path("productId") productId: Int
-    ): ProductVO*/
+    ): ProductVO
 
     @POST("member/oauth/token/{id}")
     fun gettoken(

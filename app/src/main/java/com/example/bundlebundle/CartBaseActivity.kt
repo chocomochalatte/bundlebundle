@@ -2,6 +2,7 @@ package com.example.bundlebundle
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.bundlebundle.group.GroupCreateFragment
 import com.example.bundlebundle.template.SimpleTemplateActivity
 
 class CartBaseActivity : SimpleTemplateActivity() {
