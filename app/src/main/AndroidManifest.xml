@@ -42,7 +42,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".product.list.ProductListActivity"
+            android:name=".product.list.ProductPageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -14,6 +14,6 @@
     <fragment
         android:id="@+id/product_list"
         android:name="com.example.bundlebundle.product.list.ProductGridFragment"
-        tools:layout="@layout/fragment_product_grid_list" />
+        tools:layout="@layout/fragment_product_grid" />
 
 </navigation>
