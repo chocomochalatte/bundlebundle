@@ -16,12 +16,12 @@ interface ApiService {
     ): Call<Cart>
 
     @GET("products")
-    suspend fun showProducts(
+    fun showProducts(
         @Query("sort") sortType: String
-    ): List<ProductVO>
+    ): Call<List<ProductVO>>
 
     @GET("products/{productId}")
-    suspend fun showProductDetail(
+    fun showProductDetail(
         @Path("productId") productId: Int
     ): ProductVO
 
