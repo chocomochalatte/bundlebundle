@@ -11,22 +11,25 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.bundlebundle.SharedMyCartItem.myData
 import com.example.bundlebundle.databinding.ActivityCartBinding
-import com.example.bundlebundle.databinding.FragmentCartBinding
 import com.example.bundlebundle.databinding.FragmentGroupCartBinding
 import com.example.bundlebundle.databinding.FragmentGroupCartItemBinding
-import com.example.bundlebundle.retrofit.dataclass.CartVO
-import com.example.bundlebundle.retrofit.dataclass.GroupCartListVO
 
+
+import com.example.bundlebundle.retrofit.dataclass.GroupCartListVO
+import java.text.NumberFormat
+import java.util.Locale
 
 class GroupCartItemViewHolder(var binding: FragmentGroupCartItemBinding): RecyclerView.ViewHolder(binding.root)
-
-class GroupCartItemAdapter(private val noMyCartItemContainer: LinearLayout,
-                           private val itemCartContainer: LinearLayout,
-                           private val bottomCartContainer: LinearLayout,
-                           private val fragmentManager: FragmentManager,
-                           var groupData: GroupCartListVO):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class GroupCartItemAdapter(
+    nickbinding: FragmentGroupCartBinding,
+    private val noMyCartItemContainer: LinearLayout,
+    private val itemCartContainer: LinearLayout,
+    private val bottomCartContainer: LinearLayout,
+    private val fragmentManager: FragmentManager,
+    var groupData: GroupCartListVO
+):RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+    private val nickbinding: FragmentGroupCartBinding = nickbinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return GroupCartItemViewHolder(FragmentGroupCartItemBinding.inflate(
             LayoutInflater.from(parent.context),parent,false))
@@ -38,20 +41,32 @@ class GroupCartItemAdapter(private val noMyCartItemContainer: LinearLayout,
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var binding = (holder as GroupCartItemViewHolder).binding
-        val currentItem = groupData.groupCart[position]
-        Log.d("honga","$currentItem")
 
-        binding.groupNickname.text = currentItem.groupNickname
-        binding.groupitemItemCnt.text = currentItem.cartCnt.toString()
+        Log.d("honga","4 + ${groupData}")
+        Log.d("honga","4 + ${groupData.totalCnt}")
+        for (i in 0 until groupData.totalCnt) {
+            val cartProduct = groupData.groupCart[i]
+            Log.d("honga","3 + ${cartProduct}")
+            nickbinding.groupcartNickname.text = cartProduct.groupNickname
+            for ( j in 0 until cartProduct.cartCnt){
 
-        for (i in 0 until currentItem.cartProducts.size) {
-            val cartProduct = currentItem.cartProducts[i]
-            Glide.with(binding.root.context)
-                .load(cartProduct.productThumbnailImg)  //이미지 URL 설정
-                .into(binding.groupitemImg)    //imageView에 넣기
-            binding.groupitemName.text = cartProduct.productName
-            binding.groupitemOriginalprice.text = cartProduct.productPrice.toString()
-            binding.groupitemDiscountprice.text = cartProduct.
+                Glide.with(binding.root.context)
+                    .load(cartProduct.cartProducts[j].productThumbnailImg)  //이미지 URL 설정
+                    .into(binding.groupitemImg)    //imageView에 넣기
+
+                binding.groupitemItemCnt.text = cartProduct.cartProducts[j].productCnt.toString()
+
+                binding.groupitemName.text = cartProduct.cartProducts[j].productName
+                val OriginalPriceFormatted =
+                    NumberFormat.getNumberInstance(Locale.getDefault()).format(cartProduct.cartProducts[j].productPrice)
+                binding.groupitemOriginalprice.text = OriginalPriceFormatted
+
+                val discountRate = cartProduct.cartProducts[j].discountRate / 100.0 // 비율로 변환
+                val discountPrice = ((1 - discountRate) * cartProduct.cartProducts[j].productPrice).toInt()
+                val discountPriceFormatted =
+                    NumberFormat.getNumberInstance(Locale.getDefault()).format(discountPrice)
+                binding.groupitemDiscountprice.text = discountPriceFormatted
+            }
         }
     }
 
@@ -68,32 +83,50 @@ class GroupCartItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentGroupCartBinding.inflate(inflater, container, false)
+        arguments?.let {
+            groupData = it.getParcelable(GROUP_CART_ITEM)!!
 
+            val bind = ActivityCartBinding.inflate(layoutInflater)
+            val noMyCartItemContainer = bind.noMyCartItemfragment
+            val itemCartContainer = bind.itemCartfragment
+            val bottomCartContainer = bind.bottomCartfragment
 
-        val bind = ActivityCartBinding.inflate(layoutInflater)
-        val noMyCartItemContainer = bind.noMyCartItemfragment
-        val itemCartContainer = bind.itemCartfragment
-        val bottomCartContainer = bind.bottomCartfragment
+            groupAdapter = fragmentManager?.let { it1 ->
+                GroupCartItemAdapter(
+                    binding,
+                    noMyCartItemContainer,
+                    itemCartContainer,
+                    bottomCartContainer,
+                    it1,
+                    groupData
+                )
+            }!!
 
-        groupAdapter = fragmentManager?.let { it1 ->
-            GroupCartItemAdapter(
-                noMyCartItemContainer,
-                itemCartContainer,
-                bottomCartContainer,
-                it1,
-                groupData
-            )
-        }!!
+            binding.groupcartItems.adapter=groupAdapter
+        }
 
-        binding.groupcartNickname.adapter = groupAdapter
-        binding.groupcartItems.adapter = groupAdapter
-
-
-        binding.groupcartNickname.layoutManager = LinearLayoutManager(requireContext())
         binding.groupcartItems.layoutManager = LinearLayoutManager(requireContext())
-
         return binding.root
     }
 
+    fun newInstance(groupData: GroupCartListVO): GroupCartItemFragment {
+        val fragment = GroupCartItemFragment()
+        val args = Bundle().apply {
+            putParcelable(GROUP_CART_ITEM, groupData)
+        }
+        fragment.arguments = args
+        return fragment
+    }
 
+    companion object {
+        private const val GROUP_CART_ITEM = "argMyData"
+        fun newInstance(groupData: GroupCartListVO): GroupCartItemFragment {
+            val fragment = GroupCartItemFragment()
+            val args = Bundle().apply {
+                putParcelable(GROUP_CART_ITEM, groupData)
+            }
+            fragment.arguments = args
+            return fragment
+        }
+    }
 }

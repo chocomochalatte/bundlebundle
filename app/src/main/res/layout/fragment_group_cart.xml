@@ -2,19 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <!-- 여기에 Text부분-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/groupcart_nickname"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_gray" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:paddingBottom="5dp"
+        android:background="@color/light_gray" />
 
     <!--여기에 각각 장바구니 item부분-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/groupcart_items"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupcart_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_group_cart"
+        tools:itemCount="2"/>
 
 </LinearLayout>

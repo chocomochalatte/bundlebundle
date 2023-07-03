@@ -100,13 +100,13 @@ class CartActivity : AppCompatActivity() {
             if(groupData != null && groupData.totalCnt > 0){
                 val transaction = fragmentManager.beginTransaction()
 
-                val fragment = GroupCartTopBarFragment()
+                val fragment = GroupCartTopBarFragment().newInstance(groupData)
                 transaction.replace(R.id.noMyCartItemfragment, fragment)
 
-                val fragment1 = GroupCartItemFragment()
+                val fragment1 = GroupCartItemFragment().newInstance(groupData)
                 transaction.replace(R.id.item_cartfragment, fragment1)
 
-                val fragment2 = GroupCartBottomFragment()
+                val fragment2 = GroupCartBottomFragment().newInstance(groupData)
                 transaction.replace(R.id.bottom_cartfragment, fragment2)
 
                 transaction.commit()
@@ -117,9 +117,6 @@ class CartActivity : AppCompatActivity() {
                 transaction.commit()
             }
         }
-
-
-
     }
 
     private fun MyCartItemapiReqeust(callback: (myData: CartVO?) -> Unit){
