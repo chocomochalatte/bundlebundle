@@ -28,7 +28,12 @@
         <activity
             android:name=".NewGroupCartActivity"
             android:exported="true"
-            android:label="" />
+            android:label="">
+      </activity>
+      <activity
+            android:name=".TestActivity"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".CartBaseActivity"
             android:exported="true" />
