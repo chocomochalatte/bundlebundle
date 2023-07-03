@@ -60,7 +60,6 @@ class ProductGridFragment : Fragment() {
 
     private fun bindProductData(products: List<ProductVO>) {
         binding.productGridList.adapter = ProductGridAdapter(products)
-        Log.d("ming", "adaptor bound")
     }
 
     override fun onCreateView(
@@ -78,12 +77,10 @@ class ProductGridFragment : Fragment() {
 
     private fun bindSortType() {
         sortType = arguments?.getString(ARG_SORT_TYPE) ?: "best"
-        Log.d("ming", "-----------sortType=$sortType")
 
         lifecycleScope.launch {
             products = getProductFromApi(sortType)?: emptyList()
             bindProductData(products)
-            Log.d("ming", "-----------products=$products")
         }
     }
 
