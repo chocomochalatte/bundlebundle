@@ -1,4 +1,4 @@
-package com.example.bundlebundle.product.list
+package com.example.bundlebundle.product.slider
 
 import androidx.fragment.app.Fragment
 import android.os.Bundle
