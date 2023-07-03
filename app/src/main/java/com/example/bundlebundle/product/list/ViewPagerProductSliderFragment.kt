@@ -1,4 +1,4 @@
-package com.example.bundlebundle
+package com.example.bundlebundle.product.list
 
 import androidx.fragment.app.Fragment
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentViewPagerBinding
 import com.example.bundlebundle.databinding.ItemPagerBinding
 

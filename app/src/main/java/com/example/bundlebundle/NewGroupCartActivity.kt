@@ -2,6 +2,7 @@ package com.example.bundlebundle
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.bundlebundle.group.GroupJoinFragment
 import com.example.bundlebundle.template.UpbuttonTemplateActivity
 
 class NewGroupCartActivity : UpbuttonTemplateActivity() {

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".template.BaseTemplateActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -35,18 +36,10 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <!-- 왼쪽 요소 -->
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/menuButton"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:background="@color/white"-->
-<!--                        android:src="@drawable/ic_menu" />-->
-
                     <!-- 가운데 요소 -->
                     <ImageButton
                         android:id="@+id/shopImage"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:background="@color/white"
@@ -83,66 +76,30 @@
 
         <!-- 수평선 -->
         <View
+            android:id="@+id/line_view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/middle_gray" />
 
-        <LinearLayout
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/menu_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            app:layout_constraintTop_toBottomOf="@+id/line_view"
+            app:tabTextColor="@color/black"
+            app:tabSelectedTextColor="@color/orange"
+            app:tabIndicatorColor="@color/orange"
+            app:tabIndicatorFullWidth="true">
 
-            <!-- Home 버튼 -->
-            <Button
-                android:id="@+id/homeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="Home"
-                android:textColor="@color/orange" />
+        </com.google.android.material.tabs.TabLayout>
 
-
-            <!-- Best 버튼 -->
-            <Button
-                android:id="@+id/bestButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="Best"
-                android:textColor="@color/middle_gray" />
-
-
-            <!-- Sale 버튼 -->
-            <Button
-                android:id="@+id/saleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="Sale"
-                android:textColor="@color/middle_gray" />
-
-
-            <!-- Premium 버튼 -->
-            <Button
-                android:id="@+id/premiumButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="Premium"
-                android:textColor="@color/middle_gray" />
-        </LinearLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/menu_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/menu_tab_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"/>
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <include layout="@layout/content_base" />
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fab"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="bottom|end"-->
-<!--        android:layout_marginEnd="@dimen/fab_margin"-->
-<!--        android:layout_marginBottom="16dp"-->
-<!--        app:srcCompat="@android:drawable/ic_dialog_email" />-->
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
