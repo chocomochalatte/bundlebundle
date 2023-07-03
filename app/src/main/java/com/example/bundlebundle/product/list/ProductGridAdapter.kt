@@ -16,8 +16,7 @@ import java.util.Locale
 
 class ProductGridViewHolder(private val binding: ItemProductGridBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(product: ProductVO) {
-        binding.itemBrand.text = product.brand
-        binding.itemName.text = product.name
+        binding.itemFullname.text = "[${product.brand}] ${product.name}"
         binding.itemPrice.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(product.price)
 
         val requestOptions = RequestOptions()
