@@ -10,12 +10,12 @@ import retrofit2.http.Path
 
 interface CartApiService {
 
-    @GET("individual/{memberId}")
+    @GET("cart/individual/{memberId}")
     fun checkCart(
         @Path("memberId") memberId: Int
     ): Call<CartVO>
 
-    @DELETE("{memberId}/{productId}")
+    @DELETE("cart/{memberId}/{productId}")
     fun deleteCartItem(
         @Path("memberId") memberId: Int,
         @Path("productId") productId: Int
