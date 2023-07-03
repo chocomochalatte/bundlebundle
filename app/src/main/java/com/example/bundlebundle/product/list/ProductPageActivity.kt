@@ -7,32 +7,32 @@ import com.example.bundlebundle.template.BaseTemplateActivity
 
 class ProductPageActivity: BaseTemplateActivity() {
 
+    override fun setTopLevelMainFragment(): Set<Int> {
+        return setOf(R.id.main_content_fragment_container)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 아무 것도 안 클릭했을 때
-        replaceFragment(ProductGridFragment.newInstance("discount"))
-
         binding.toolbarMain.saleButton.setOnClickListener {
             val fragment = ProductGridFragment.newInstance("discount")
-            replaceFragment(fragment)
+            navigateToFragment(fragment)
         }
 
         binding.toolbarMain.bestButton.setOnClickListener {
             val fragment = ProductGridFragment.newInstance("best")
-            replaceFragment(fragment)
+            navigateToFragment(fragment)
         }
 
         binding.toolbarMain.newButton.setOnClickListener {
             val fragment = ProductGridFragment.newInstance("newest")
-            replaceFragment(fragment)
+            navigateToFragment(fragment)
         }
-
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    private fun navigateToFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-                              .replace(R.id.main_content_fragment, fragment)
-                              .commit()
+            .replace(R.id.main_content_fragment_container, fragment)
+            .commit()
     }
 }

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".template.BaseTemplateActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -35,14 +35,6 @@
                     android:layout_marginBottom="15dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
-
-                    <!-- 왼쪽 요소 -->
-<!--                    <ImageButton-->
-<!--                        android:id="@+id/menuButton"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:background="@color/white"-->
-<!--                        android:src="@drawable/ic_menu" />-->
 
                     <!-- 가운데 요소 -->
                     <ImageButton
@@ -134,27 +126,4 @@
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/app_bar_base">
-
-        <fragment
-            android:id="@+id/nav_host_frag"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:defaultNavHost="true"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@navigation/mobile_navigation" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <include layout="@layout/content_base" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

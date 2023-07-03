@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.lifecycleScope
 import com.example.bundlebundle.R
+import com.example.bundlebundle.databinding.FragmentProductGridBinding
 import com.example.bundlebundle.retrofit.dataclass.ProductVO
 import kotlin.coroutines.resumeWithException
 import com.example.bundlebundle.retrofit.ApiClient
@@ -26,25 +28,13 @@ import kotlin.coroutines.suspendCoroutine
 
 /* 상품 목록을 표시하는 Fragment */
 class ProductGridFragment : Fragment() {
+    private var _binding: FragmentProductGridBinding? = null
+    val binding get() = _binding!!
 
-private var columnCount = 2
+    private var columnCount = 2
     private lateinit var sortType: String
     private lateinit var products: List<ProductVO>
     private var apiService = ApiClient.apiService
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        sortType = arguments?.getString(ARG_SORT_TYPE, "best") ?: "best"
-        Log.d("ming", "-----------sortType=$sortType")
-
-        lifecycleScope.launch {
-            products = getProductFromApi(sortType)?: emptyList()
-            bindProductData(products)
-            Log.d("ming", "-----------products=$products")
-        }
-
-    }
 
     private suspend fun getProductFromApi(sortType: String): List<ProductVO> {
         return withContext(Dispatchers.IO) {
@@ -69,26 +59,32 @@ private var columnCount = 2
     }
 
     private fun bindProductData(products: List<ProductVO>) {
-        val recyclerView = view as? RecyclerView
-        recyclerView?.adapter = ProductGridAdapter(products)
+        binding.productGridList.adapter = ProductGridAdapter(products)
+        Log.d("ming", "adaptor bound")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_product_grid, container, false)
+    ): View {
+        _binding = FragmentProductGridBinding.inflate(inflater, container, false)
 
-        if (view is RecyclerView) {
-            val layoutManager = when {
-                columnCount <= 1 -> LinearLayoutManager(context)
-                else -> GridLayoutManager(context, columnCount)
-            }
-            view.layoutManager = layoutManager
-            view.adapter = ProductGridAdapter(products)
+        bindSortType()
+
+        binding.productGridList.layoutManager = GridLayoutManager(requireContext(), columnCount)
+
+        return binding.root
+    }
+
+    private fun bindSortType() {
+        sortType = arguments?.getString(ARG_SORT_TYPE) ?: "best"
+        Log.d("ming", "-----------sortType=$sortType")
+
+        lifecycleScope.launch {
+            products = getProductFromApi(sortType)?: emptyList()
+            bindProductData(products)
+            Log.d("ming", "-----------products=$products")
         }
-
-        return view
     }
 
     companion object {
@@ -102,5 +98,10 @@ private var columnCount = 2
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
