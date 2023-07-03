@@ -7,13 +7,13 @@
 
     <!-- 여기에 Text부분-->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclercart_item3"
+            android:id="@+id/groupcart_nickname"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
     <!--여기에 각각 장바구니 item부분-->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclercart_item4"
+            android:id="@+id/groupcart_items"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

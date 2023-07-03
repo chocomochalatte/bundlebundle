@@ -1,6 +1,7 @@
 package com.example.bundlebundle
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.example.bundlebundle.databinding.ActivityCartBinding
 import com.example.bundlebundle.databinding.FragmentCartBinding
 import com.example.bundlebundle.databinding.FragmentCartItemBinding
 import com.example.bundlebundle.retrofit.ApiClient
+import com.example.bundlebundle.retrofit.dataclass.CartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.CartCheckVO
 import com.example.bundlebundle.retrofit.dataclass.CartProductVO
 import com.example.bundlebundle.retrofit.dataclass.CartVO
@@ -70,11 +72,104 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
             NumberFormat.getNumberInstance(Locale.getDefault()).format(currentItem.productCnt)
         binding.mycartitemProductCnt.text = productCntFormatted
 
+        // 삭제버튼 누른 경우
         binding.mycartitemDelete.setOnClickListener {
             val productId = currentItem.productId
             val memberId = currentItem.memberId
             deleteCartItem(memberId, productId)
         }
+
+        // + 버튼 누른 경우
+        binding.mycartitemPlus.setOnClickListener {
+            val productId = currentItem.productId
+            val memberId = currentItem.memberId
+            val productCnt = currentItem.productCnt+1
+
+            plusProductCnt(memberId,productId,productCnt)
+        }
+
+        // - 버튼 누른 경우
+        binding.mycartitemMinus.setOnClickListener {
+            val productId = currentItem.productId
+            val memberId = currentItem.memberId
+            val productCnt = currentItem.productCnt-1
+            minusProductCnt(memberId,productId,productCnt)
+        }
+    }
+
+
+
+    private fun plusProductCnt(memberId: Int, productId: Int, productCnt: Int) {
+        val apiService = ApiClient.cartapiService
+
+        // Call 객체 생성
+        val call = apiService.changeCartItemCnt(memberId, productId, productCnt)
+
+
+        call.enqueue(object : Callback<CartChangeVO>{
+            override fun onResponse(call: Call<CartChangeVO>, response: Response<CartChangeVO>) {
+                val myData = response.body()
+                if(myData!=null){
+                    val apiService = ApiClient.cartapiService
+
+                    val call = apiService.checkCart(memberId)
+
+                    call.enqueue(object : Callback<CartVO> {
+                        override fun onResponse(call: Call<CartVO>, response: Response<CartVO>) {
+                            val responseData = response.body()
+                            // 프래그먼트를 다시 로딩
+                            replaceFragments(responseData)
+                            notifyDataSetChanged()
+                        }
+                        override fun onFailure(call: Call<CartVO>, t: Throwable) {
+                            call.cancel()
+                        }
+                    })
+                }else{
+
+                }
+
+            }
+            override fun onFailure(call: Call<CartChangeVO>, t: Throwable) {
+                call.cancel()
+            }
+        })
+    }
+
+    private fun minusProductCnt(memberId: Int, productId: Int, productCnt: Int) {
+        val apiService = ApiClient.cartapiService
+
+        // Call 객체 생성
+        val call = apiService.changeCartItemCnt(memberId, productId, productCnt)
+
+        call.enqueue(object : Callback<CartChangeVO>{
+            override fun onResponse(call: Call<CartChangeVO>, response: Response<CartChangeVO>) {
+                val myData = response.body()
+                if(myData!=null){
+                    val apiService = ApiClient.cartapiService
+
+                    val call = apiService.checkCart(memberId)
+
+                    call.enqueue(object : Callback<CartVO> {
+                        override fun onResponse(call: Call<CartVO>, response: Response<CartVO>) {
+                            val responseData = response.body()
+                            // 프래그먼트를 다시 로딩
+                            replaceFragments(responseData)
+                            notifyDataSetChanged()
+                        }
+                        override fun onFailure(call: Call<CartVO>, t: Throwable) {
+                            call.cancel()
+                        }
+                    })
+                }else{
+
+                }
+
+            }
+            override fun onFailure(call: Call<CartChangeVO>, t: Throwable) {
+                call.cancel()
+            }
+        })
     }
 
     private fun deleteCartItem(memberId: Int, productId: Int) {
@@ -123,23 +218,44 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
         val newTopBarFragment = myData?.let { CartTopBarFragment.newInstance(it) }
         val newItemFragment = myData?.let { CartItemFragment.newInstance(it) }
         val newBottomFragment = myData?.let { CartBottomFragment.newInstance(it) }
+        val newEmptyCartFragment = EmptyCartFragment()
+        if (myData?.cartCnt == 0) {
+            if (noMyCartItemContainer != null && newTopBarFragment != null) {
+                fragmentManager.beginTransaction()
+                    .replace(noMyCartItemContainer.id, newEmptyCartFragment)
+                    .commit()
+            }
+            if (itemCartContainer != null && newItemFragment != null) {
+                fragmentManager.beginTransaction()
+                    .replace(noMyCartItemContainer.id, newItemFragment)
+                    .commit()
+            }
+            if (bottomCartContainer != null && newBottomFragment != null) {
+                fragmentManager.beginTransaction()
+                    .replace(noMyCartItemContainer.id, newBottomFragment)
+                    .commit()
+            }
 
-        // Replace the fragments if the corresponding container is available
-        if (noMyCartItemContainer != null && newTopBarFragment != null) {
-            fragmentManager.beginTransaction()
-                .replace(noMyCartItemContainer.id, newTopBarFragment)
-                .commit()
+        } else {
+            // Replace the fragments if the corresponding container is available
+            if (noMyCartItemContainer != null && newTopBarFragment != null) {
+                fragmentManager.beginTransaction()
+                    .replace(noMyCartItemContainer.id, newTopBarFragment)
+                    .commit()
+            }
+            if (itemCartContainer != null && newItemFragment != null) {
+                fragmentManager.beginTransaction()
+                    .replace(itemCartContainer.id, newItemFragment)
+                    .commit()
+            }
+            if (bottomCartContainer != null && newBottomFragment != null) {
+                fragmentManager.beginTransaction()
+                    .replace(bottomCartContainer.id, newBottomFragment)
+                    .commit()
+            }
         }
-        if (itemCartContainer != null && newItemFragment != null) {
-            fragmentManager.beginTransaction()
-                .replace(itemCartContainer.id, newItemFragment)
-                .commit()
-        }
-        if (bottomCartContainer != null && newBottomFragment != null) {
-            fragmentManager.beginTransaction()
-                .replace(bottomCartContainer.id, newBottomFragment)
-                .commit()
-        }
+
+
     }
 
 
