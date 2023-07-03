@@ -8,15 +8,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
-import com.example.bundlebundle.BottomSheetPurchaseFragment
-import com.example.bundlebundle.databinding.ActivityBaseBinding
+import com.example.bundlebundle.BottomSheetFragment
 import com.example.bundlebundle.databinding.FragmentProductDetailBinding
-import com.example.bundlebundle.databinding.FragmentProductGridBinding
-import com.example.bundlebundle.product.list.ProductGridFragment
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.ProductVO
 import retrofit2.Call
@@ -33,12 +28,15 @@ class ProductDetailFragment: Fragment() {
     private val apiService = ApiClient.apiService
     private var productId by Delegates.notNull<Int>()
 
-    private lateinit var openBottomSheetButton: Button
     private lateinit var productImageView: ImageView
+    private lateinit var productFullnameTextView: TextView
     private lateinit var productNameTextView: TextView
     private lateinit var productPriceTextView: TextView
     private lateinit var productOriginTextView: TextView
     private lateinit var productPackageTypeTextView: TextView
+
+    private lateinit var goPurchaseButton: Button
+    private lateinit var addCartButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,17 +56,23 @@ class ProductDetailFragment: Fragment() {
     }
 
     private fun initializeViews() {
-        openBottomSheetButton = binding.buttonOpenBottomSheet
-        productImageView = binding.productImageView
+        goPurchaseButton = binding.buttonGoPurchase
+        addCartButton = binding.buttonAddCart
+        productFullnameTextView = binding.productFullNameTextView
         productNameTextView = binding.productFullNameTextView
+        productImageView = binding.productImageView
         productPriceTextView = binding.productPriceTextView
         productOriginTextView = binding.productOriginTextView
         productPackageTypeTextView = binding.productPackageTypeTextView
+
     }
 
     private fun setupButtonListeners() {
-        openBottomSheetButton.setOnClickListener {
-            openBottomSheet()
+        goPurchaseButton.setOnClickListener {
+            openBottomSheet(BottomSheetFragment.newInstance("purchase"))
+        }
+        addCartButton.setOnClickListener {
+            openBottomSheet(BottomSheetFragment.newInstance("cart"))
         }
     }
 
@@ -92,7 +96,7 @@ class ProductDetailFragment: Fragment() {
     private fun bindProductData(product: ProductVO?) {
         product?.let {
             Glide.with(this).load(it.thumbnailImg).into(productImageView)
-            productNameTextView.text = it.name
+            productFullnameTextView.text = "[${it.brand}] ${it.name}"
             val priceFormatted: String = NumberFormat.getNumberInstance(Locale.getDefault()).format(it.price)
             productPriceTextView.text = priceFormatted
             productOriginTextView.text = it.origin
@@ -100,9 +104,8 @@ class ProductDetailFragment: Fragment() {
         }
     }
 
-    private fun openBottomSheet() {
-        val bottomSheetFragment = BottomSheetPurchaseFragment()
-        bottomSheetFragment.show(requireActivity().supportFragmentManager, "bottomSheet")
+    private fun openBottomSheet(fragment: BottomSheetFragment) {
+        fragment.show(requireActivity().supportFragmentManager, "bottomSheet")
     }
 
     override fun onDestroyView() {
