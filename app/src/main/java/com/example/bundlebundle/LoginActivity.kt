@@ -11,14 +11,20 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import dagger.hilt.android.HiltAndroidApp
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@HiltAndroidApp
 class LoginActivity : AppCompatActivity() {
+    companion object {
+        lateinit var prefs: PreferenceUtil
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        prefs = PreferenceUtil(applicationContext)
 
         //컨텍스트 얻기
         val context: Context = this
@@ -45,8 +51,9 @@ class LoginActivity : AppCompatActivity() {
                                 val tokenInfo = response.body()
                                 tokenInfo?.let { info ->
                                     // 서버 응답 처리
-                                    Log.i("RealLOGIN", "CHECK $info")
-                                    Log.i("RealLOGIN", "카카오계정으로 로그인 성공 : 엑세스 토큰 ${token.accessToken}")
+                                    Log.i("RealLOGIN", "카카오계정으로 로그인 성공 :  ${info.token}")
+                                    LoginActivity.prefs.setString("accessToken", info.token);
+
                                 } ?: run {
                                     // 응답이 null인 경우 처리
                                     Log.e("RealLOGIN", "서버 응답이 null입니다.")
@@ -62,7 +69,6 @@ class LoginActivity : AppCompatActivity() {
                         }
                     })
 
-                    Log.i("RealLOGIN", "카카오계정으로 로그인 성공 : 엑세스 토큰 ${token.accessToken}")
                 }
             }
 
