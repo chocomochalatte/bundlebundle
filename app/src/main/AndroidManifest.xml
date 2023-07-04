@@ -28,7 +28,7 @@
             android:exported="true"
             android:label="">
       </activity>
-      
+
         <activity
             android:name=".CartBaseActivity"
             android:exported="true" />
@@ -64,19 +64,6 @@
         <activity
             android:name=".product.detail.ProductDetailActivity"
             android:exported="true" />
-            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:host="oauth"
-                    android:scheme="@string/kakao_oauth_host" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ProductPageTemplateActivity"
-            android:exported="true"></activity>
         <activity
             android:name=".template.BaseTemplateActivity"
             android:exported="true"

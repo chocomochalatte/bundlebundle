@@ -1,6 +1,7 @@
 package com.example.bundlebundle.retrofit
 
 import android.util.Log
+import com.example.bundlebundle.retrofit.service.CartApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -51,15 +52,16 @@ object ApiClient {
         retrofit.create(ApiService::class.java)
     }
 
+    val cartapiService: CartApiService by lazy {
+        retrofit.create(CartApiService::class.java)
+
+    }
+
     fun setJwtToken(token: String?) {
         jwtToken = token
     }
 
     fun getJwtToken(): String? {
         return jwtToken
-
-    val cartapiService: CartApiService by lazy {
-        retrofit.create(CartApiService::class.java)
-
     }
 }
