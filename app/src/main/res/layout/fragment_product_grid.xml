@@ -7,18 +7,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/fragment_container1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <FrameLayout
-        android:id="@+id/fragment_container2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
     <Spinner
         android:id="@+id/product_sorting_spinner"
         android:layout_width="wrap_content"
@@ -33,5 +21,38 @@
         tools:context=".product.list.ProductGridFragment"
         tools:listitem="@layout/item_product_grid"
         android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:layout_marginTop="-15dp"
+        android:id="@+id/fragment_container1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/adv_text_sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:textStyle="normal"
+        android:textSize="15dp"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/adv_text_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:gravity="center"
+        />
+
+    <FrameLayout
+        android:id="@+id/fragment_container2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 </LinearLayout>
