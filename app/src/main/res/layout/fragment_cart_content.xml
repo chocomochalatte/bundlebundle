@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,9 +10,18 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/toolbar_cart"
-            android:id="@+id/jangbaguni_toolbar"/>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/orange"
+            app:tabIndicatorHeight="2dp"
+            app:tabTextColor="@color/middle_gray"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicator="@color/orange"
+            app:tabSelectedTextColor="@color/orange" />
 
         <LinearLayout
             android:id="@+id/noMyJangfragment"
@@ -20,7 +29,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,9 +43,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-
-
 
         <LinearLayout
             android:id="@+id/bottom_cartfragment"

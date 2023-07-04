@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:outlineSpotShadowColor="@color/light_gray"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[산들내음] 저탄소 체리 2.5kg"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnMinus"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:text="-"
+                        android:textSize="18dp"
+                        android:onClick="decrementQuantity"
+                        android:background="@drawable/linear_border_middle_gray"/>
+
+                    <TextView
+                        android:id="@+id/tvQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="18dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:background="@color/white"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnPlus"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:text="+"
+                        android:textSize="18dp"
+                        android:onClick="incrementQuantity"
+                        android:background="@drawable/linear_border_middle_gray"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="28,800"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:layout_marginRight="3dp">
+                    </TextView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="원">
+                    </TextView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/separator" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:gravity="right">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="총 금액"
+            android:paddingRight="5dp">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="28,800"
+            android:textSize="20dp"
+            android:textStyle="bold">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="원">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/bottom_sheet_group_cart_button"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:text="그룹 장바구니"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:background="@color/purple"-->
+<!--            android:textColor="@color/white" />-->
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bottom_sheet_purchase_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="바로 구매하기"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@color/orange"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <!-- 바텀시트에 추가할 다른 뷰들을 여기에 추가할 수 있습니다 -->
+
+</LinearLayout>
