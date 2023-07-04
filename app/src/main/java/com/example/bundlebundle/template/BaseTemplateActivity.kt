@@ -40,16 +40,30 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         if (ApiClient.getJwtToken()!=null) {
             navigationView.inflateHeaderView(com.example.bundlebundle.R.layout.nav_header_basic)
             Log.d("test","로그인됨")
+
+            //로그아웃 리스너 설정
+            val headerView = navigationView.getHeaderView(0)
+            val button = headerView.findViewById<Button>(R.id.logout_btn)
+            Log.d("test","button $button")
+            button.setOnClickListener {
+                Log.d("test","로그아웃버튼클릭")
+                ApiClient.setJwtToken(null);
+                //로그아웃 메소드 실행
+                val intent = Intent(this, this@BaseTemplateActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            }
         } else {
             navigationView.inflateHeaderView(R.layout.nav_header_with_login)
             Log.d("test","로그인되지 않음")
 
-            // 버튼 클릭 이벤트 처리
+            // 로그인 리스너 설정
             val headerView = navigationView.getHeaderView(0)
             val button = headerView.findViewById<Button>(R.id.btn_oauth_login)
             Log.d("test","button $button")
             button.setOnClickListener {
-                Log.d("test","버튼클릭")
+                Log.d("test","로그인버튼클릭")
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
