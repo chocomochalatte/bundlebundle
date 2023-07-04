@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.ui.AppBarConfiguration
+import com.example.bundlebundle.CartActivity
 import com.example.bundlebundle.LoginActivity
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.ActivityBaseBinding
@@ -84,10 +85,19 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbarMain.toolbar)
 
         val drawerLayout_home = binding.drawerLayout
+
         val menuCloseButton = binding.navView.closeBtn
         menuCloseButton.setOnClickListener {
             drawerLayout_home.closeDrawer(GravityCompat.START)
         }
+
+        val cartShortcutBtn = binding.toolbarMain.cartImage
+        cartShortcutBtn.setOnClickListener {
+            val newIntent = Intent(this, CartActivity::class.java)
+            newIntent.putExtra("tab", "personal")
+            startActivity(newIntent)
+        }
+
 
         // 메뉴 버튼 클릭 리스너 설정
         val menuButton = binding.toolbarMain.menuBtn
