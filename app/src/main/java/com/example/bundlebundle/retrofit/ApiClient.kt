@@ -57,5 +57,9 @@ object ApiClient {
 
     fun getJwtToken(): String? {
         return jwtToken
+
+    val cartapiService: CartApiService by lazy {
+        retrofit.create(CartApiService::class.java)
+
     }
 }

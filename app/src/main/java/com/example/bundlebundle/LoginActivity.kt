@@ -72,6 +72,7 @@ class LoginActivity : AppCompatActivity() {
                 if (error != null) {
                     Log.e("LOGIN", "카카오계정으로 로그인 실패", error)
                 } else if (token != null) {
+
                     val apiService = ApiClient.apiService
                    val call: Call<LoginTokenVO> = apiService.gettoken(token.accessToken)
                     call.enqueue(object : Callback<LoginTokenVO> {
@@ -102,6 +103,7 @@ class LoginActivity : AppCompatActivity() {
                             Log.e("RealLOGIN", "서버 응답이 실패했습니다. 상태 코드: ${t.printStackTrace()}")
                         }
                     })
+
 
                 }
             }
