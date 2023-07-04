@@ -6,10 +6,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/light_gray" />
 
     <View
         android:layout_width="match_parent"
@@ -21,7 +17,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groupcart_items"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:listitem="@layout/item_group_cart"
         tools:itemCount="2"/>
 

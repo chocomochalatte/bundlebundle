@@ -90,7 +90,8 @@ class CartActivity : AppCompatActivity() {
     private fun showGroupJangFragments() {
         GroupCartItemapiReqeust{
             groupData ->
-            if(groupData != null && groupData.totalCnt > 0){
+
+            if( groupData != null && groupData.totalCnt > 0){
                 val transaction = fragmentManager.beginTransaction()
 
                 val fragment = GroupCartTopBarFragment().newInstance(groupData)
@@ -146,7 +147,7 @@ class CartActivity : AppCompatActivity() {
         call.enqueue(object: Callback<GroupCartListVO>{
             override fun onResponse(call: Call<GroupCartListVO>, response: Response<GroupCartListVO>) {
                 val groupData = response.body()
-                callback(groupData) // 콜백 함수 호출하여 myData 전달
+                callback(groupData) // 콜백 함수 호출하여 groupData 전달
             }
 
             override fun onFailure(call: Call<GroupCartListVO>, t: Throwable) {
