@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.ui.AppBarConfiguration
 import com.example.bundlebundle.LoginActivity
@@ -34,49 +36,46 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         binding = ActivityBaseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navigationView = findViewById<NavigationView>(com.example.bundlebundle.R.id.nav_view)
-        navigationView.removeHeaderView(navigationView.getHeaderView(0))
-
-        if (ApiClient.getJwtToken()!=null) {
-            navigationView.inflateHeaderView(com.example.bundlebundle.R.layout.nav_header_basic)
-            Log.d("test","로그인됨")
-
-            //로그아웃 리스너 설정
-            val headerView = navigationView.getHeaderView(0)
-            val button = headerView.findViewById<Button>(R.id.logout_btn)
-            Log.d("test","button $button")
-            button.setOnClickListener {
-                Log.d("test","로그아웃버튼클릭")
-                ApiClient.setJwtToken(null);
-                //로그아웃 메소드 실행
-                val intent = Intent(this, this@BaseTemplateActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
-            }
-        } else {
-            navigationView.inflateHeaderView(R.layout.nav_header_with_login)
-            Log.d("test","로그인되지 않음")
-
-            // 로그인 리스너 설정
-            val headerView = navigationView.getHeaderView(0)
-            val button = headerView.findViewById<Button>(R.id.btn_oauth_login)
-            Log.d("test","button $button")
-            button.setOnClickListener {
-                Log.d("test","로그인버튼클릭")
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-            }
-
-        }
-        navigationView.invalidate()
+//        if (ApiClient.getJwtToken()!=null) {
+//            navigationView.inflateHeaderView(com.example.bundlebundle.R.layout.nav_header_basic)
+//            Log.d("test","로그인됨")
+//
+//            //로그아웃 리스너 설정
+//            val headerView = navigationView.getHeaderView(0)
+//            val button = headerView.findViewById<Button>(R.id.logout_btn)
+//            Log.d("test","button $button")
+//            button.setOnClickListener {
+//                Log.d("test","로그아웃버튼클릭")
+//                ApiClient.setJwtToken(null);
+//                //로그아웃 메소드 실행
+//                val intent = Intent(this, this@BaseTemplateActivity::class.java)
+//                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//                startActivity(intent)
+//                finish()
+//            }
+//        } else {
+//            navigationView.inflateHeaderView(R.layout.nav_header_with_login)
+//            Log.d("test","로그인되지 않음")
+//
+//            // 로그인 리스너 설정
+//            val headerView = navigationView.getHeaderView(0)
+//            val button = headerView.findViewById<Button>(R.id.btn_oauth_login)
+//            Log.d("test","button $button")
+//            button.setOnClickListener {
+//                Log.d("test","로그인버튼클릭")
+//                val intent = Intent(this, LoginActivity::class.java)
+//                startActivity(intent)
+//            }
+//
+//        }
+//        navigationView.invalidate()
         setActionBarAndNavigationDrawer()
 
         // 메인 fragment 넣기
         val topLevelDestinations = setTopLevelMainFragment()
         appBarConfiguration = createAppBarConfiguration(topLevelDestinations, binding.drawerLayout)
 
-        val textView = binding.navView.getHeaderView(0).findViewById<TextView>(R.id.current_user_name)
+        val textView = binding.navView.currentUserName
         var myName : String? = "기본이름입니다";
         //API 요청 시작
         val apiService = ApiClient.apiService
@@ -108,12 +107,10 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         })
     }
 
+
     private fun setActionBarAndNavigationDrawer() {
         // Action Bar 설정
         setSupportActionBar(binding.toolbarMain.toolbar)
-
-        // navigation drawer 구성요소 초기화
-        val navView: NavigationView = binding.navView
 
         // ActionBarDrawerToggle 추가
         val toggle = ActionBarDrawerToggle(
@@ -126,14 +123,24 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        // 툴바 버튼 클릭 시 드로어 열기/닫기
+        binding.toolbarMain.toolbar.setNavigationOnClickListener {
+            if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                binding.drawerLayout.openDrawer(GravityCompat.START)
+            }
+        }
+
         // navigation drawer닫기 버튼
-        val navHeaderView = navView.getHeaderView(0)
-        val closeButton = navHeaderView.findViewById<ImageButton>(com.example.bundlebundle.R.id.close_btn)
-        closeButton?.setOnClickListener {
+        val closeButton = binding.navView.closeBtn
+        closeButton.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
+            Log.d("jw", "닫기 버튼 클릭했읍니다.")
         }
 
     }
+
 
     /* 상속받은 모든 클래스에서 Override 필요
      * toolbar 밑에 둘 메인 fragment를 무엇으로 할 것인지 아이디로 지정 */
