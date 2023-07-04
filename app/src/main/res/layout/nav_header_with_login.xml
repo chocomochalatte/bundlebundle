@@ -120,13 +120,13 @@
             android:layout_gravity="center"/>
 
         <android.widget.Button
-            android:id="@+id/oauth_login"
+            android:id="@+id/btn_oauth_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@drawable/linear_border"
             android:textColor="@android:color/white"
-            android:text="로그인"/>
+            android:text="로그인" />
 
     </LinearLayout>
 
