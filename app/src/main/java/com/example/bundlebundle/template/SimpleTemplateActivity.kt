@@ -2,6 +2,7 @@ package com.example.bundlebundle.template
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.bundlebundle.databinding.ActivitySimpleTemplateBinding
 
@@ -17,9 +18,13 @@ abstract class SimpleTemplateActivity : AppCompatActivity() {
 
         val fragment = setFragment()
         putFragment(fragment)
+
+        binding.toolbarSimple.simpleToolbarTitle.text = setTitle()
     }
 
     protected abstract fun setFragment(): Fragment
+
+    protected abstract fun setTitle(): String
 
     protected fun putFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
@@ -30,5 +35,16 @@ abstract class SimpleTemplateActivity : AppCompatActivity() {
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbarSimple.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // 뒤로가기 버튼 클릭 시 수행할 동작
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

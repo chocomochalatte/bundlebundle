@@ -12,7 +12,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 object ApiClient {
-    private const val BASE_URL = "http://10.0.2.2:8080/bundlebundle/api/"
+    private const val BASE_URL = "http://ryulrudaga.com:23000/api/"
+//    private const val BASE_URL = "http://10.0.2.2:8080/bundlebundle/api/"
     private var jwtToken: String? = null
 
     private val retrofit: Retrofit by lazy {
