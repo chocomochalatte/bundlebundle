@@ -3,17 +3,17 @@
     <style name="Base.Theme.BundleBundle" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorAccent">@color/orange</item>
     </style>
 
-    <style name="Theme.BundleBundle" parent="Base.Theme.BundleBundle" />
+    <style name="Theme.BundleBundle" parent="Base.Theme.BundleBundle">
+        <item name="colorAccent">@color/orange</item>
+    </style>
 
     <style name="Theme.BundleBundle.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- 테마에 관련된 속성들 -->
+        <item name="colorAccent">@color/orange</item>
     </style>
 
     <style name="Theme.BundleBundle.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light">
@@ -21,8 +21,12 @@
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/dark_gray</item>
         <item name="colorAccent">@color/dark_gray</item>
+<!--        <item name="colorAccent">@color/orange</item>-->
     </style>
 
 
-    <style name="Theme.BundleBundle.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.BundleBundle.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">@color/orange</item>
+    </style>
+
 </resources>

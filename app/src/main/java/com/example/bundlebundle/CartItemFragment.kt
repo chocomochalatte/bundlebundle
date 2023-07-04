@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.bundlebundle.databinding.ActivityCartBinding
 import com.example.bundlebundle.databinding.FragmentCartBinding
+import com.example.bundlebundle.databinding.FragmentCartContentBinding
 import com.example.bundlebundle.databinding.FragmentCartItemBinding
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.CartChangeVO
@@ -272,7 +272,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
             arguments?.let {
                 myData = it.getParcelable(MY_CART_ITEM)!!
 
-                val bind = ActivityCartBinding.inflate(layoutInflater)
+                val bind = FragmentCartContentBinding.inflate(layoutInflater)
                 val noMyCartItemContainer = bind.noMyCartItemfragment
                 val itemCartContainer = bind.itemCartfragment
                 val bottomCartContainer = bind.bottomCartfragment

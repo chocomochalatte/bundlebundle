@@ -10,4 +10,6 @@
     <color name="orange">#FF6913</color>
     <color name="purple">#9D008E</color>
     <color name="box_stroke">#DAD9D6</color>
+
+    <color name="accent_color">#FF6913</color>
 </resources>
