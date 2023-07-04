@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.bundlebundle.databinding.FragmentProductDetailBinding
 import com.example.bundlebundle.retrofit.ApiClient
+import com.example.bundlebundle.retrofit.ApiClient.productApiService
 import com.example.bundlebundle.retrofit.dataclass.ProductVO
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
@@ -25,7 +26,7 @@ class ProductDetailFragment: Fragment() {
     private var _binding: FragmentProductDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val apiService = ApiClient.apiService
+    private val productApiService = ApiClient.productApiService
     private var productId by Delegates.notNull<Int>()
 
     private lateinit var productImageView: ImageView
@@ -77,7 +78,7 @@ class ProductDetailFragment: Fragment() {
     }
 
     private fun getProductFromApi(productId: Int) {
-        apiService.showProductDetail(productId).enqueue(object : Callback<ProductVO> {
+        productApiService.showProductDetail(productId).enqueue(object : Callback<ProductVO> {
             override fun onResponse(call: Call<ProductVO>, response: Response<ProductVO>) {
                 if (response.isSuccessful) {
                     val product = response.body()

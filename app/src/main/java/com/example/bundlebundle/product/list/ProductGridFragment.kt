@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentProductGridBinding
 import com.example.bundlebundle.retrofit.ApiClient
+import com.example.bundlebundle.retrofit.ApiClient.apiService
 import com.example.bundlebundle.retrofit.dataclass.ProductVO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +31,7 @@ class ProductGridFragment : Fragment() {
     private var columnCount = 2
     private lateinit var sortType: String
     private lateinit var products: List<ProductVO>
-    private val apiService = ApiClient.apiService
+    private val productApiService = ApiClient.productApiService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +56,7 @@ class ProductGridFragment : Fragment() {
     private suspend fun getProductFromApi(sortType: String): List<ProductVO>? {
         return withContext(Dispatchers.IO) {
             suspendCoroutine<List<ProductVO>?> { continuation ->
-                val call = apiService.showProducts(sortType)
+                val call = productApiService.showProducts(sortType)
                 call.enqueue(object : Callback<List<ProductVO>> {
                     override fun onResponse(call: Call<List<ProductVO>>, response: Response<List<ProductVO>>) {
                         if (response.isSuccessful) {

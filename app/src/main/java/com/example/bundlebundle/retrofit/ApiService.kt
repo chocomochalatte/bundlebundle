@@ -22,16 +22,6 @@ interface ApiService {
         @Query("id") memberId: Int
     ): Call<CartVO>
 
-    @GET("products")
-    fun showProducts(
-        @Query("sort") sortType: String
-    ): Call<List<ProductVO>>
-
-    @GET("products/{productId}")
-    fun showProductDetail(
-        @Path("productId") productId: Int
-    ): Call<ProductVO>
-
     @POST("member/oauth/token/{id}")
     fun gettoken(
         @Path("id") token: String
