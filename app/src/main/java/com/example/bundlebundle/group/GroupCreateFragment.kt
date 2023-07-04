@@ -21,7 +21,6 @@ class GroupCreateFragment : Fragment() {
     }
 
     companion object {
-        // 이 팩토리 메서드를 사용하여 제공된 매개변수로 새로운 인스턴스를 생성
         @JvmStatic
         fun newInstance() =
             GroupCreateFragment().apply {

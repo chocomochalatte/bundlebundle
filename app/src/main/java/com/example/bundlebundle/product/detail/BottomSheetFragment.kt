@@ -37,7 +37,6 @@ open class BottomSheetFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBottomSheetBinding.inflate(inflater, container, false)
-
         selection = arguments?.getString(ARG_SELECTION) ?: "cart"
         return binding.root
     }
@@ -46,38 +45,6 @@ open class BottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         intent = requireActivity().intent
-
-//        when (selection) {
-//            "cart" -> {
-//                var cartBtn = view.findViewById<AppCompatButton>(R.id.bottom_sheet_personal_cart_button)
-//                cartBtn.text = "개인 장바구니"
-//                cartBtn.setOnClickListener {
-//                    val newIntent = Intent(context, CartActivity::class.java)
-//                    newIntent.putExtra("tab", "personal")
-//                    newIntent.putExtra("productId", intent.getIntExtra("productId", -1))
-//                    newIntent.putExtra("productCnt", quantity)
-//                    requireActivity().startActivity(newIntent)
-//                }
-//            }
-//            "purchase" -> {
-//                binding.bottomSheetLeftButton
-//                var purchaseBtn = view.findViewById<AppCompatButton>(R.id.bottom_sheet_purchase_button)
-//                purchaseBtn.text = "바로 구매하기"
-//                purchaseBtn.setOnClickListener {
-////                    val intent = Intent(context, PurchaseActivity::class.java)
-////                    startActivity(intent)
-//                }
-//            }
-//        }
-//        var groupCartBtn = view.findViewById<AppCompatButton>(R.id.bottom_sheet_group_cart_button)
-//        groupCartBtn.setOnClickListener {
-//            val newIntent = Intent(context, CartActivity::class.java)
-//            newIntent.putExtra("tab", "group")
-//            newIntent.putExtra("productId", intent.getIntExtra("productId", -1))
-//            newIntent.putExtra("productCnt", quantity)
-//            requireActivity().startActivity(newIntent)
-//        }
-
         tvQuantity = view.findViewById(R.id.tvQuantity)
 
         val btnMinus = view.findViewById<Button>(R.id.btnMinus)

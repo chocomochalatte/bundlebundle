@@ -16,11 +16,6 @@
         <item name="colorAccent">@color/orange</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- 테마에 관련된 속성들 -->
-        <item name="colorAccent">@color/orange</item>
-    </style>
-
     <style name="Theme.BundleBundle.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="contentInsetStart">-20dp</item>
         <item name="colorPrimary">@color/white</item>
@@ -33,4 +28,5 @@
     <style name="Theme.BundleBundle.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorAccent">@color/orange</item>
     </style>
+
 </resources>
