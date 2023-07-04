@@ -31,18 +31,22 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     protected lateinit var binding: ActivityBaseBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+
+        binding = ActivityBaseBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
 
         if (ApiClient.getJwtToken()!=null) {
             navigationView.inflateHeaderView(R.layout.nav_header_basic)
+            Log.d("test","로그인됨")
         } else {
             navigationView.inflateHeaderView(R.layout.nav_header_with_login)
+            Log.d("test","로그인되지 않음")
         }
-
-        super.onCreate(savedInstanceState)
 
         binding = ActivityBaseBinding.inflate(layoutInflater)
         setContentView(binding.root)

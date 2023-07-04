@@ -1,6 +1,6 @@
 package com.example.bundlebundle.retrofit
 
-import com.example.bundlebundle.retrofit.dataclass.Cart
+import com.example.bundlebundle.retrofit.dataclass.CartVO
 import com.example.bundlebundle.retrofit.dataclass.ProductVO
 import com.example.bundlebundle.retrofit.dataclass.member.LoginTokenVO
 import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
@@ -16,7 +16,7 @@ interface ApiService {
     @POST("individual/{id}")
     fun getInfo(
         @Query("id") memberId: Int
-    ): Call<Cart>
+    ): Call<CartVO>
 
     @GET("products")
     fun showProducts(
