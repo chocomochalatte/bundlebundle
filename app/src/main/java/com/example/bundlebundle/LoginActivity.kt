@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.bundlebundle.product.list.ProductPageActivity
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.member.LoginTokenVO
 import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
@@ -81,6 +82,12 @@ class LoginActivity : AppCompatActivity() {
                                     // 서버 응답 처리
                                     Log.i("RealLOGIN", "카카오계정으로 로그인 성공 :  ${info.token}")
                                     ApiClient.setJwtToken(info.token)
+
+                                    val intent = Intent(this@LoginActivity, ProductPageActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    startActivity(intent)
+                                    finish()
+
                                 } ?: run {
                                     // 응답이 null인 경우 처리
                                     Log.e("RealLOGIN", "서버 응답이 null입니다.")
@@ -115,9 +122,9 @@ class LoginActivity : AppCompatActivity() {
                         UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
                     } else if (token != null) {
                         Log.i("LOGIN", "카카오톡으로 로그인 성공 ${token.accessToken}")
-                        val intent = Intent(mContext, MainActivity::class.java)
-                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-
+                        val intent = Intent(this, ProductPageActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
                         finish()
                     }
                 }
