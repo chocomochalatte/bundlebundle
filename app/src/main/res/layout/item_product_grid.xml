@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/item_thumbnail_img"
+        android:layout_width="205dp"
+        android:layout_height="205dp"
+        android:scaleType="centerCrop"
+        android:padding="5dp"
+        android:src="@drawable/apples"
+        tools:ignore="RtlSymmetry" />
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="7dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_gravity="start">-->
+
+        <TextView
+            android:id="@+id/item_fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:lineBreakStyle="loose"
+            android:layout_margin="7dp"
+            android:textColor="@color/black"
+            android:text="" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/item_brand"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textAppearance="?attr/textAppearanceListItem"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="12sp"-->
+<!--            android:text="" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/item_name"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="12sp"-->
+<!--            android:lineBreakStyle="none"-->
+<!--            android:text=""/>-->
+
+<!--    </LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/item_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="28,000원" />
+
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="fitCenter"
+            android:background="@color/white"
+            android:src="@drawable/ic_cart_orange" />
+
+    </LinearLayout>
+
+</LinearLayout>

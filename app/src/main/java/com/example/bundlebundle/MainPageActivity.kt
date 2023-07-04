@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.bundlebundle.databinding.ActivityMainPageBinding
+import com.example.bundlebundle.product.slider.ProductSliderFragment
+import com.example.bundlebundle.product.slider.ViewPagerFragment
 
 
 class MainPageActivity : AppCompatActivity() {

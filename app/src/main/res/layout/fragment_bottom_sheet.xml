@@ -9,14 +9,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/linear_border_middle_gray"
+        android:background="@color/white"
+        android:outlineSpotShadowColor="@color/light_gray"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="[산들내음] 저탄소 체리 2.5kg"
-            android:padding="8dp"></TextView>
+            android:textStyle="bold"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,48 +31,45 @@
                 android:orientation="horizontal"
                 android:gravity="center">
 
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnMinus"
-                    android:layout_width="30dp"
-                    android:background="@color/white"
-                    android:layout_height="30dp"
-                    android:text="-"
-                    android:textSize="18dp"
-                    android:onClick="decrementQuantity" />
-
-                <TextView
-                    android:id="@+id/tvQuantity"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="18dp"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
-                    android:background="@color/white"/>
+                    android:layout_weight="1" >
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnPlus"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:text="+"
-                    android:textSize="18dp"
-                    android:onClick="incrementQuantity"
-                    android:background="@color/white"/>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnMinus"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:text="-"
+                        android:textSize="18dp"
+                        android:onClick="decrementQuantity"
+                        android:background="@drawable/linear_border_middle_gray"/>
+
+                    <TextView
+                        android:id="@+id/tvQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="18dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:background="@color/white"/>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnPlus"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:text="+"
+                        android:textSize="18dp"
+                        android:onClick="incrementQuantity"
+                        android:background="@drawable/linear_border_middle_gray"/>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="150dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="총 금액"
-                        android:textSize="15dp"
-                        android:textStyle="bold"
-                        android:layout_marginRight="5dp">
-                    </TextView>
+                    android:layout_marginRight="15dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -131,21 +130,25 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_add_cart"
+            android:id="@+id/bottom_sheet_left_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="10dp"
             android:text="그룹 장바구니"
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:background="@color/purple"
             android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_open_bottom_sheet"
+            android:id="@+id/bottom_sheet_right_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="바로구매"
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:background="@color/orange"
             android:textColor="@color/white" />
 
