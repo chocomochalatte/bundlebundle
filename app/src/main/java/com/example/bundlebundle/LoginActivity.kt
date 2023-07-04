@@ -13,13 +13,13 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
-//import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.HiltAndroidApp
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kotlin.text.Typography.dagger
 
-//@HiltAndroidApp
+@HiltAndroidApp
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
