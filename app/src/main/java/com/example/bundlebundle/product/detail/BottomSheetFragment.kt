@@ -1,5 +1,7 @@
-package com.example.bundlebundle
+package com.example.bundlebundle.product.detail
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,37 +9,42 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
-import com.example.bundlebundle.product.detail.ProductDetailFragment
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.bundlebundle.CartActivity
+import com.example.bundlebundle.R
+import com.example.bundlebundle.databinding.FragmentBottomSheetBinding
+import com.example.bundlebundle.databinding.FragmentProductGridBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlin.properties.Delegates
 
 
-class BottomSheetFragment : BottomSheetDialogFragment() {
+open class BottomSheetFragment : BottomSheetDialogFragment() {
+
+    private var _binding: FragmentBottomSheetBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var tvQuantity: TextView
     private var quantity = 0
+    private lateinit var intent: Intent
 
     private var selection by Delegates.notNull<String>()
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        selection = arguments?.getString(BottomSheetFragment.ARG_SELECTION) ?: "cart"
-
-        val view = inflater.inflate(R.layout.fragment_bottom_sheet, container, false)
-        return view
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentBottomSheetBinding.inflate(inflater, container, false)
+        selection = arguments?.getString(ARG_SELECTION) ?: "cart"
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
 
-        when (selection) {
-            "cart" -> view.findViewById<AppCompatButton>(R.id.bottom_sheet_right_button).text = "개인 장바구니"
-            "purchase" -> view.findViewById<AppCompatButton>(R.id.bottom_sheet_right_button).text = "바로 구매하기"
-        }
-
+        intent = requireActivity().intent
         tvQuantity = view.findViewById(R.id.tvQuantity)
 
         val btnMinus = view.findViewById<Button>(R.id.btnMinus)

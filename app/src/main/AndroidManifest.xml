@@ -30,9 +30,6 @@
       </activity>
 
         <activity
-            android:name=".CartBaseActivity"
-            android:exported="true" />
-        <activity
             android:name=".template.SimpleTemplateActivity"
             android:exported="true" />
         <activity

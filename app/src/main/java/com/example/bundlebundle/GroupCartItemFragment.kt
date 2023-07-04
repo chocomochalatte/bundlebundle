@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.bundlebundle.databinding.ActivityCartBinding
+import com.example.bundlebundle.databinding.FragmentCartContentBinding
 import com.example.bundlebundle.databinding.FragmentGroupCartBinding
 import com.example.bundlebundle.databinding.ItemGroupCartBinding
 import com.example.bundlebundle.databinding.ItemGroupCartProductBinding
@@ -310,10 +310,12 @@ class GroupCartItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentGroupCartBinding.inflate(inflater, container, false)
+
+
         arguments?.let {
             groupData = it.getParcelable(GROUP_CART_ITEM)!!
 
-            val bind = ActivityCartBinding.inflate(layoutInflater)
+            val bind = FragmentCartContentBinding.inflate(layoutInflater)
             val noMyCartItemContainer = bind.noMyCartItemfragment
             val itemCartContainer = bind.itemCartfragment
             val bottomCartContainer = bind.bottomCartfragment
