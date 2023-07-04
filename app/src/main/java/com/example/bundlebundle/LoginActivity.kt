@@ -5,8 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.bundlebundle.retrofit.ApiService
 import com.example.bundlebundle.retrofit.dataclass.member.LoginTokenVO
-import com.example.bundlebundle.retrofit.service.ApiService
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -45,29 +45,29 @@ class LoginActivity : AppCompatActivity() {
                         .build()
 
                     val apiService: ApiService = retrofit.create(ApiService::class.java)
-                    val call: Call<LoginTokenVO> = apiService.gettoken(token.accessToken)
-                    call.enqueue(object : Callback<LoginTokenVO> {
-                        override fun onResponse(call: Call<LoginTokenVO>, response: Response<LoginTokenVO>) {
-                            if (response.isSuccessful) {
-                                val tokenInfo = response.body()
-                                tokenInfo?.let { info ->
-                                    // 서버 응답 처리
-                                    Log.i("RealLOGIN", "CHECK $info")
-                                    Log.i("RealLOGIN", "카카오계정으로 로그인 성공 : 엑세스 토큰 ${token.accessToken}")
-                                } ?: run {
-                                    // 응답이 null인 경우 처리
-                                    Log.e("RealLOGIN", "서버 응답이 null입니다.")
-                                }
-                            } else {
-                                // 응답이 실패한 경우 처리
-                                Log.e("RealLOGIN", "서버 응답이 실패했습니다. 상태 코드: ${response.code()}")
-                            }
-                        }
-
-                        override fun onFailure(call: Call<LoginTokenVO>, t: Throwable) {
-                            Log.e("RealLOGIN", "서버 응답이 실패했습니다. 상태 코드: ${t.printStackTrace()}")
-                        }
-                    })
+//                    val call: Call<LoginTokenVO> = apiService.(token.accessToken)
+//                    call.enqueue(object : Callback<LoginTokenVO> {
+//                        override fun onResponse(call: Call<LoginTokenVO>, response: Response<LoginTokenVO>) {
+//                            if (response.isSuccessful) {
+//                                val tokenInfo = response.body()
+//                                tokenInfo?.let { info ->
+//                                     서버 응답 처리
+//                                    Log.i("RealLOGIN", "CHECK $info")
+//                                    Log.i("RealLOGIN", "카카오계정으로 로그인 성공 : 엑세스 토큰 ${token.accessToken}")
+//                                } ?: run {
+//                                     응답이 null인 경우 처리
+//                                    Log.e("RealLOGIN", "서버 응답이 null입니다.")
+//                                }
+//                            } else {
+//                                 응답이 실패한 경우 처리
+//                                Log.e("RealLOGIN", "서버 응답이 실패했습니다. 상태 코드: ${response.code()}")
+//                            }
+//                        }
+//
+//                        override fun onFailure(call: Call<LoginTokenVO>, t: Throwable) {
+//                            Log.e("RealLOGIN", "서버 응답이 실패했습니다. 상태 코드: ${t.printStackTrace()}")
+//                        }
+//                    })
 
                     Log.i("RealLOGIN", "카카오계정으로 로그인 성공 : 엑세스 토큰 ${token.accessToken}")
                 }

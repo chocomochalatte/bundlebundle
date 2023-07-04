@@ -23,7 +23,7 @@ interface ApiService {
     @GET("products/{productId}")
     fun showProductDetail(
         @Path("productId") productId: Int
-    ): ProductVO
+    ): Call<ProductVO>
 
 
 
