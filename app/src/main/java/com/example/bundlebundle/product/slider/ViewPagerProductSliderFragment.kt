@@ -48,7 +48,7 @@ class ViewPagerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val myData = mutableListOf<Int>()
-        myData.add(R.drawable.banana)
+        myData.add(R.drawable.peaches)
         myData.add(R.drawable.apples)
         myData.add(R.drawable.cherry)
 
