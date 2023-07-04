@@ -113,7 +113,6 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
         })
     }
 
-
     private fun showAlert(title: String, message: String, positiveListener: DialogInterface.OnClickListener) {
         val negativeListener = DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() }
 

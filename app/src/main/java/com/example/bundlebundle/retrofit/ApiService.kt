@@ -2,7 +2,6 @@ package com.example.bundlebundle.retrofit
 
 import com.example.bundlebundle.retrofit.dataclass.CartVO
 import com.example.bundlebundle.group.GroupMemberCartVO
-import com.example.bundlebundle.retrofit.dataclass.Cart
 import com.example.bundlebundle.retrofit.dataclass.GroupIdVO
 import com.example.bundlebundle.retrofit.dataclass.ProductVO
 import com.example.bundlebundle.retrofit.dataclass.member.LoginTokenVO
