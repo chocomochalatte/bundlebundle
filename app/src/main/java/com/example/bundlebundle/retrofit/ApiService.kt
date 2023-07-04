@@ -4,6 +4,7 @@ import com.example.bundlebundle.retrofit.dataclass.Cart
 import com.example.bundlebundle.retrofit.dataclass.ProductVO
 /*import com.example.bundlebundle.retrofit.dataclass.ProductVO*/
 import com.example.bundlebundle.retrofit.dataclass.member.LoginTokenVO
+import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -32,6 +33,9 @@ interface ApiService {
         @Path("id") token: String
     ): Call<LoginTokenVO>
 
+    @GET("member/info")
+    fun getmember(
+    ): Call<MemberVO>
 
 
 }

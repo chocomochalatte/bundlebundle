@@ -1,8 +1,10 @@
 package com.example.bundlebundle.template
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -14,9 +16,11 @@ import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.ActivityBaseBinding
 import com.example.bundlebundle.product.list.MenuTabAdapter
 import com.example.bundlebundle.product.list.ProductGridFragment
+import com.example.bundlebundle.retrofit.ApiClient
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import org.w3c.dom.Text
 
 
 abstract class BaseTemplateActivity : AppCompatActivity() {
@@ -35,6 +39,14 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         // 메인 fragment 넣기
         val topLevelDestinations = setTopLevelMainFragment()
         appBarConfiguration = createAppBarConfiguration(topLevelDestinations, binding.drawerLayout)
+
+        val textView = binding.navView.getHeaderView(0).findViewById<TextView>(R.id.current_user_name)
+        val apiService = ApiClient.apiService
+
+        //API 요청 시작
+
+
+        textView.text = "노이노"+"님";
     }
 
     private fun setActionBarAndNavigationDrawer() {
@@ -61,6 +73,7 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         closeButton?.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
+
     }
 
     /* 상속받은 모든 클래스에서 Override 필요

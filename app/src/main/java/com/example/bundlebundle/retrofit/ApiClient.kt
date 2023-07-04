@@ -1,7 +1,9 @@
 package com.example.bundlebundle.retrofit
 
+import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -10,12 +12,38 @@ import java.io.IOException
 
 object ApiClient {
     private const val BASE_URL = "http://10.0.2.2:8080/bundlebundle/api/"
-    private var jwtToken: String? = null;
+    private var jwtToken: String? = null
 
     private val retrofit: Retrofit by lazy {
+        val httpClient = OkHttpClient.Builder()
+            .addInterceptor(object : Interceptor {
+                @Throws(IOException::class)
+                override fun intercept(chain: Interceptor.Chain): Response {
+                    val originalRequest: Request = chain.request()
+
+                    // JWT 토큰이 있는 경우 헤더에 추가
+                    val token = getJwtToken()
+                    val newRequest: Request = if (token != null) {
+                        originalRequest.newBuilder()
+                            .header("Authorization", "$token")
+                            .build()
+                    } else {
+                        originalRequest
+                    }
+
+                    Log.i("TestActivity", "인터셉터를 통해 토큰 담김")
+                    return chain.proceed(newRequest)
+                }
+            })
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+            .build()
+
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(httpClient)
             .build()
     }
 
@@ -30,5 +58,4 @@ object ApiClient {
     fun getJwtToken(): String? {
         return jwtToken
     }
-
 }
