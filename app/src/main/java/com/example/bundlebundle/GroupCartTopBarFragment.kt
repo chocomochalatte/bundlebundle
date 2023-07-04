@@ -22,7 +22,7 @@ class GroupCartTopBarFragment : Fragment() {
         binding = FragmentGroupCartTopBarBinding.inflate(layoutInflater)
         arguments?.let {
             val groupData = it.getParcelable<GroupCartListVO>(GROUP_CART_TOTAL_CNT)
-            val groupCartCnt = groupData.totalCnt.toString()
+            val groupCartCnt = groupData?.totalCnt.toString()
             binding.groupcartitemCnt.text = groupCartCnt
 
         }

@@ -17,6 +17,7 @@ import com.example.bundlebundle.databinding.ItemGroupCartBinding
 import com.example.bundlebundle.databinding.ItemGroupCartProductBinding
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.CartCheckVO
+import com.example.bundlebundle.retrofit.dataclass.GroupCartChangeVO
 
 
 import com.example.bundlebundle.retrofit.dataclass.GroupCartListVO
@@ -77,6 +78,25 @@ class GroupCartProductsAdapter(
                 deleteCartItem(memberId,productId,groupId)
             }
 
+            // + 버튼 누른 경우
+            binding.groupitemPlus.setOnClickListener {
+                val memberId = cartProduct.memberId
+                val productId = cartProduct.productId
+                val groupId = cartProduct.groupId
+                val productCnt = cartProduct.productCnt+1
+
+                plusProductCnt(memberId,productId,groupId,productCnt)
+            }
+
+            // - 버튼 누른 경우
+            binding.groupitemMinus.setOnClickListener {
+                val memberId = cartProduct.memberId
+                val productId = cartProduct.productId
+                val groupId = cartProduct.groupId
+                val productCnt = cartProduct.productCnt-1
+                minusProductCnt(memberId,productId,groupId,productCnt)
+            }
+
         }else{
             Glide.with(binding.root.context)
                 .load(cartProduct.productThumbnailImg)  //이미지 URL 설정
@@ -96,9 +116,87 @@ class GroupCartProductsAdapter(
             binding.groupitemDiscountprice.text = discountPriceFormatted
         }
 
-
-
     }
+
+    private fun minusProductCnt(memberId: Int, productId: Int, groupId: Int, productCnt: Int) {
+        val apiService = ApiClient.cartapiService
+
+        val call = apiService.changeGroupCartItemCnt(memberId, productId, groupId, productCnt)
+
+        call.enqueue(object : Callback<GroupCartChangeVO>{
+            override fun onResponse(
+                call: Call<GroupCartChangeVO>,
+                response: Response<GroupCartChangeVO>
+            ) {
+                val apiService = ApiClient.cartapiService
+
+                val call = apiService.groupcheckCart(groupId)
+
+                call.enqueue(object : Callback<GroupCartListVO>{
+                    override fun onResponse(
+                        call: Call<GroupCartListVO>,
+                        response: Response<GroupCartListVO>) {
+                        val responseData = response.body()
+                        Log.d("aaaa","aaa + ${responseData}")
+                        // 프래그먼트를 다시 로딩
+                        if (responseData != null) {
+                            replaceFragments(responseData)
+                        }
+                        notifyDataSetChanged()
+                    }
+
+                    override fun onFailure(call: Call<GroupCartListVO>, t: Throwable) {
+                        call.cancel()
+                    }
+                })
+            }
+
+            override fun onFailure(call: Call<GroupCartChangeVO>, t: Throwable) {
+                call.cancel()
+            }
+
+        })
+    }
+
+    private fun plusProductCnt(memberId: Int, productId: Int, groupId: Int, productCnt: Int) {
+        val apiService = ApiClient.cartapiService
+
+        val call = apiService.changeGroupCartItemCnt(memberId, productId, groupId, productCnt)
+
+        call.enqueue(object : Callback<GroupCartChangeVO>{
+            override fun onResponse(
+                call: Call<GroupCartChangeVO>,
+                response: Response<GroupCartChangeVO>
+            ) {
+                val apiService = ApiClient.cartapiService
+
+                val call = apiService.groupcheckCart(groupId)
+
+                call.enqueue(object : Callback<GroupCartListVO>{
+                    override fun onResponse(
+                        call: Call<GroupCartListVO>,
+                        response: Response<GroupCartListVO>) {
+                        val responseData = response.body()
+
+                        // 프래그먼트를 다시 로딩
+                        if (responseData != null) {
+                            replaceFragments(responseData)
+                        }
+                        notifyDataSetChanged()
+                    }
+
+                    override fun onFailure(call: Call<GroupCartListVO>, t: Throwable) {
+                        call.cancel()
+                    }
+                })
+            }
+            override fun onFailure(call: Call<GroupCartChangeVO>, t: Throwable) {
+                call.cancel()
+            }
+        })
+    }
+
+
 
     private fun deleteCartItem(memberId: Int, productId: Int, groupId: Int) {
         val apiService = ApiClient.cartapiService
