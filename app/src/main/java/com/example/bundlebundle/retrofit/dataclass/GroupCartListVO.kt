@@ -5,9 +5,11 @@ import android.os.Parcelable
 
 data class GroupCartListVO(
     val totalCnt: Int,
+    val memberId: Int,
     val groupCart: List<GroupCartItemsVO>
 ): Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readInt(),
         TODO("groupCart")
     ) {
@@ -15,6 +17,7 @@ data class GroupCartListVO(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(totalCnt)
+        parcel.writeInt(memberId)
     }
 
     override fun describeContents(): Int {
@@ -40,6 +43,8 @@ data class GroupCartItemsVO(
 )
 
 data class GroupCartProduct(
+    val groupId: Int,
+    val memberId: Int,
     val productId: Int,
     val productOrigin: String,
     val productBrand: String,

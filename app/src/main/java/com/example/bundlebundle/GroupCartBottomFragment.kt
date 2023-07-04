@@ -35,7 +35,7 @@ class GroupCartBottomFragment : Fragment() {
                 grouporderCnt += groupData.groupCart[i].cartCnt
                 for (j in 0 until size) {
                     val currentitem = groupData.groupCart[i].cartProducts
-                    grouptotalprice += currentitem[j].productPrice
+                    grouptotalprice += currentitem[j].productPrice * currentitem[j].productCnt
                     val discountRate = (currentitem[j]?.discountRate ?: 0) / 100.0 // 비율로 변환
                     val discount = (discountRate * (currentitem[j]?.productPrice ?: 0)).toInt()
                     groupdiscountprice += discount * (currentitem[j]?.productCnt ?: 0)

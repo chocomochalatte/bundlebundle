@@ -37,4 +37,12 @@ interface CartApiService {
     fun groupcheckCart(
         @Path("groupId") groupId: Int
     ): Call<GroupCartListVO>
+
+    @DELETE("cart/group/{memberId}/{productId}/{groupId}")
+    fun deleteGroupCartItem(
+        @Path("memberId") memberId: Int,
+        @Path("productId") productId: Int,
+        @Path("groupId") groupId: Int
+    ): Call<CartCheckVO>
+
 }

@@ -2,24 +2,17 @@ package com.example.bundlebundle
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.FragmentManager
-import com.example.bundlebundle.SharedMyCartItem.myData
 import com.example.bundlebundle.databinding.ActivityCartBinding
 import com.example.bundlebundle.retrofit.ApiClient
-import com.example.bundlebundle.retrofit.dataclass.CartCheckVO
 import com.example.bundlebundle.retrofit.dataclass.CartVO
 import com.example.bundlebundle.retrofit.dataclass.GroupCartListVO
-import com.example.bundlebundle.retrofit.service.CartApiService
-import okhttp3.Request
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 
