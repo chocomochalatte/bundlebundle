@@ -53,7 +53,7 @@ interface CartApiService {
 
     @POST("cart")
     fun addToPersonalCart(
-        cartChangeVO: CartChangeVO
+        @Body cartChangeVO: CartChangeVO
     ): Call<CartChangeVO>
 
 }
