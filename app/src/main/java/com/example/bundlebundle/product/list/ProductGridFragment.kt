@@ -64,6 +64,8 @@ class ProductGridFragment : Fragment() {
             binding.productSortingSpinner.isVisible = false
             binding.productGridList.isVisible = false
 
+            sortType = "best"
+
 //            binding.advText.setTextSize(25F)
         }
 
