@@ -7,18 +7,20 @@
     android:orientation="vertical">
 
 
-    <View
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:paddingBottom="5dp"
-        android:background="@color/light_gray" />
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="주문 내역" />
 
     <!--여기에 각각 장바구니 item부분-->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/groupcart_items"
+        android:id="@+id/order_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_group_cart"
+        tools:listitem="@layout/item_order_list"
         tools:itemCount="2"/>
 
 </LinearLayout>

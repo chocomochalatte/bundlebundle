@@ -3,6 +3,7 @@ package com.example.bundlebundle.product.detail
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.NumberFormat
+import java.util.Locale
 
 
 class BottomSheetCartFragment : BottomSheetDialogFragment() {
@@ -31,6 +34,10 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
 
     private lateinit var tvQuantity: TextView
     private var quantity = 1
+
+    private var newProductCnt=0
+    private var totalPrice=0
+
     private lateinit var intent: Intent
 
     private val cartApiService = ApiClient.cartApiService
@@ -41,14 +48,51 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBottomSheetCartBinding.inflate(inflater, container, false)
+
+
+
         return binding.root
     }
+
+    private fun minusProductCnt() {
+        val productCnt = binding.tvQuantity.text.toString().replace(",", "").toInt()
+        val price = binding.productPrice.text.toString().replace(",", "").toInt()
+        if (productCnt > 1) {
+            newProductCnt = productCnt - 1
+            binding.tvQuantity.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(newProductCnt)
+            totalPrice = newProductCnt * price
+            binding.productTotalprice.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(totalPrice)
+        }
+    }
+
+    private fun plusProductCnt() {
+        val productCnt = binding.tvQuantity.text.toString().replace(",", "").toInt()
+        val price = binding.productPrice.text.toString().replace(",", "").toInt()
+        newProductCnt = productCnt + 1
+        binding.tvQuantity.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(newProductCnt)
+        totalPrice = newProductCnt * price
+        binding.productTotalprice.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(totalPrice)
+    }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         intent = requireActivity().intent
         tvQuantity = view.findViewById(R.id.tvQuantity)
+
+        Log.d("aaa","${binding.tvQuantity}")
+
+        // 마이너스 버튼 누른 경우
+        binding.btnMinus.setOnClickListener{
+            minusProductCnt()
+        }
+
+        // 플러스 버튼 누른 경우
+        binding.btnPlus.setOnClickListener {
+            plusProductCnt()
+        }
 
         binding.bottomSheetPersonalCartButton.setOnClickListener {
             val posListener = DialogInterface.OnClickListener { dialog, _ -> addToPersonalCart() }

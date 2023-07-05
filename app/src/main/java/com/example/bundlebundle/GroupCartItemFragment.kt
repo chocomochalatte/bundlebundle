@@ -49,7 +49,7 @@ class GroupCartProductsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return  cartProducts.size
+        return cartProducts.size
     }
 
     override fun onBindViewHolder(holder: GroupCartProductItemViewHolder, position: Int) {

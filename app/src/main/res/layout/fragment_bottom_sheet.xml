@@ -72,6 +72,7 @@
                     android:layout_marginRight="15dp">
 
                     <TextView
+                        android:id="@+id/tvPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="28,800"
@@ -110,6 +111,7 @@
         </TextView>
 
         <TextView
+            android:id="@+id/tvtotalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="28,800"
