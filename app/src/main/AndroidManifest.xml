@@ -35,6 +35,11 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
@@ -49,6 +54,7 @@
                     android:scheme="@string/kakao_oauth_host" />
             </intent-filter>-->
         </activity>
+      
         <activity
             android:name=".product.list.ProductPageActivity"
             android:exported="true">
@@ -57,6 +63,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+      
         <activity
             android:name=".product.detail.ProductDetailActivity"
             android:exported="true" />
