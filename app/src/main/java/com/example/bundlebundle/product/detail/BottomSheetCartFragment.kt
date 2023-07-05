@@ -134,8 +134,9 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
     }
 
     private fun moveToGroupCreatePage() {
-        val newIntent = Intent(context, GroupActivity(GroupCreateFragment.newInstance())::class.java)
+        val newIntent = Intent(context, GroupActivity()::class.java)
         newIntent.putExtra("tab", "group")
+        newIntent.putExtra("pageType", "create")
         newIntent.putExtra("productId", intent.getIntExtra("productId", -1))
         newIntent.putExtra("productCnt", quantity)
         requireActivity().startActivity(newIntent)

@@ -76,34 +76,6 @@ class CartContentFragment : Fragment() {
         cartTab.getTabAt(tabIndex)?.select()
     }
 
-
-//    private fun setTabListeners(fragmentManager: FragmentManager) {
-//        cartTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab) {
-//                val transaction = fragmentManager.beginTransaction()
-//                val fragment = when (tab.position) {
-//                    0 -> CartTopBarFragment()
-//                    else -> GroupCartTopBarFragment()
-//                }
-//                transaction.replace(R.id.noMyJangfragment, fragment)
-//
-//                val fragment1 = when (tab.position) {
-//                    0 -> CartItemAdapter.CartItemFragment()
-//                    else -> GroupCartItemFragment()
-//                }
-//                transaction.replace(R.id.item_cartfragment, fragment1)
-//
-//                transaction.replace(R.id.bottom_cartfragment, CartBottomFragment())
-//
-//                transaction.commit()
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-//
-//            override fun onTabReselected(tab: TabLayout.Tab?) {}
-//        })
-//    }
-
     private fun setTabListeners() {
         val tabListener = object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {

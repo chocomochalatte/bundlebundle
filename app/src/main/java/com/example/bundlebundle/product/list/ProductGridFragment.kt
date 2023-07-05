@@ -63,8 +63,7 @@ class ProductGridFragment : Fragment() {
             binding.advTextSub.text = "산지 직송 및 예약 판매"
             binding.productSortingSpinner.isVisible = false
             binding.productGridList.isVisible = false
-
-//            binding.advText.setTextSize(25F)
+            sortType="best"
         }
 
         lifecycleScope.launch {

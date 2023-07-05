@@ -98,7 +98,6 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
             startActivity(newIntent)
         }
 
-
         // 메뉴 버튼 클릭 리스너 설정
         val menuButton = binding.toolbarMain.menuBtn
         menuButton.setOnClickListener {
@@ -125,14 +124,11 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
 
     }
 
-    /* 상속받은 모든 클래스에서 Override 필요
-     * toolbar 밑에 둘 메인 fragment를 무엇으로 할 것인지 아이디로 지정 */
     protected open fun setTopLevelMainFragment(): Set<Int>  {
         return setOf(com.example.bundlebundle.R.id.main_content_fragment_container)
     }
 
     private fun createAppBarConfiguration(topLevelDestinations: Set<Int>, drawerLayout: DrawerLayout): AppBarConfiguration {
-        // AppBarConfiguration 객체 생성하여 반환
         return AppBarConfiguration.Builder(topLevelDestinations)
             .setOpenableLayout(drawerLayout)
             .build()

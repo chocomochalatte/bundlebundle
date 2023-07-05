@@ -20,7 +20,8 @@ class EmptyGroupCartFragment : Fragment() {
         val binding = FragmentEmptyGroupCartBinding.inflate(inflater, container,false)
 
         binding.createGroupCartBtn.setOnClickListener {
-            val intent = Intent(context, GroupActivity(GroupCreateFragment.newInstance())::class.java)
+            val intent = Intent(context, GroupActivity()::class.java)
+            intent.putExtra("pageType", "create")
             startActivity(intent)
         }
 
