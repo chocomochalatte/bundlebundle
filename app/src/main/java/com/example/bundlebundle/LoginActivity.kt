@@ -12,6 +12,7 @@ import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
+import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.HiltAndroidApp
 import retrofit2.Call
@@ -21,6 +22,8 @@ import retrofit2.Response
 @HiltAndroidApp
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        var keyHash = Utility.getKeyHash(this)
+        Log.d("hasg",keyHash);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
@@ -73,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.e("LOGIN", "카카오계정으로 로그인 실패", error)
                 } else if (token != null) {
 
-                    val apiService = ApiClient.apiService
+                   val apiService = ApiClient.apiService
                    val call: Call<LoginTokenVO> = apiService.gettoken(token.accessToken)
                     call.enqueue(object : Callback<LoginTokenVO> {
                         override fun onResponse(call: Call<LoginTokenVO>, response: Response<LoginTokenVO>) {
@@ -104,7 +107,6 @@ class LoginActivity : AppCompatActivity() {
                         }
                     })
 
-
                 }
             }
 
@@ -123,7 +125,40 @@ class LoginActivity : AppCompatActivity() {
                         // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                         UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
                     } else if (token != null) {
-                        Log.i("LOGIN", "카카오톡으로 로그인 성공 ${token.accessToken}")
+                        Log.i("RealLOGIN", "카카오톡으로 로그인 성공 카카오톡있음: ${token.accessToken}")
+
+                        val apiService = ApiClient.apiService
+                        val call: Call<LoginTokenVO> = apiService.gettoken(token.accessToken)
+                        Log.i("RealLOGIN", "카카오 엑세스 토큰 카카오톡있음:  ${token.accessToken}")
+                        call.enqueue(object : Callback<LoginTokenVO> {
+                            override fun onResponse(call: Call<LoginTokenVO>, response: Response<LoginTokenVO>) {
+                                if (response.isSuccessful) {
+                                    val tokenInfo = response.body()
+                                    tokenInfo?.let { info ->
+                                        // 서버 응답 처리
+                                        Log.i("RealLOGIN", "카카오계정으로 로그인 성공 카카오톡있음:  ${info.token}")
+                                        ApiClient.setJwtToken(info.token)
+
+                                        val intent = Intent(this@LoginActivity, ProductPageActivity::class.java)
+                                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                        startActivity(intent)
+                                        finish()
+
+                                    } ?: run {
+                                        // 응답이 null인 경우 처리
+                                        Log.e("RealLOGIN", "서버 응답이 null입니다.")
+                                    }
+                                } else {
+                                    // 응답이 실패한 경우 처리
+                                    Log.e("RealLOGIN", "서버 응답이 실패했습니다. 상태 코드: ${response.code()}")
+                                }
+                            }
+
+                            override fun onFailure(call: Call<LoginTokenVO>, t: Throwable) {
+                                Log.e("RealLOGIN", "서버 응답이 실패했습니다. 상태 코드: ${t.printStackTrace()}")
+                            }
+                        })
+
                         val intent = Intent(this, ProductPageActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
