@@ -1,5 +1,6 @@
 package com.example.bundlebundle.cart
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,7 @@ class CartContentFragment : Fragment() {
     private lateinit var fragmentManager: FragmentManager
 
     private lateinit var cartTab: TabLayout
+    private lateinit var intent: Intent
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,12 +48,13 @@ class CartContentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fragmentManager = parentFragmentManager
+        intent = requireActivity().intent
 
         cartTab = binding.tabLayout
         setTab(cartTab)
         setTabListeners()
 
-        val startingTab: String = requireActivity().intent.getStringExtra("tab") ?: "personal"
+        val startingTab: String = intent.getStringExtra("tab") ?: "personal"
         setStartingTab(startingTab)
     }
 
@@ -175,16 +178,14 @@ class CartContentFragment : Fragment() {
                 call.cancel()
                 callback(null) // 실패 시 null을 전달
             }
-
         })
     }
 
     private fun GroupCartItemapiReqeust(callback: (groupData: GroupCartListVO?) -> Unit){
         //1. retrofit 객체 생성
         val apiService = ApiClient.cartApiService
-
-        // Call 객체 생성
-        val call = apiService.groupcheckCart(1)
+        val groupId = intent.getIntExtra("groupId", -1)
+        val call = apiService.groupcheckCart(groupId)
 
         // 4. 네트워크 통신
         call.enqueue(object: Callback<GroupCartListVO>{

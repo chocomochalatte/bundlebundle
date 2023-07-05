@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import com.example.bundlebundle.CartActivity
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentGroupCreateBinding
+import com.example.bundlebundle.product.list.ProductPageActivity
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.ApiClient.groupApiService
 import com.example.bundlebundle.retrofit.dataclass.GroupIdVO
@@ -57,25 +58,31 @@ class GroupCreateFragment : Fragment() {
             override fun onResponse(call: Call<GroupVO>, response: Response<GroupVO>) {
                 if (response.isSuccessful) {
                     Log.d("ming",GroupNicknameVO(nickname).toString())
-                    val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group") }
+                    val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group", response.body()!!.id) }
                     showAlert("그룹 장바구니 생성 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
                 } else {
                     Log.d("Group Create Fragment", response.body().toString())
-                    showAlert("${response.body().toString()} 오류 : ${response.body()}", "그룹 장바구니 생성이 실패하였습니다.", DialogInterface.OnClickListener { dialog, _ -> moveToCart("group") })
+                    showAlert("ERROR : ${response.body()}", "그룹 장바구니 생성이 실패하였습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
                 }
             }
 
             override fun onFailure(call: Call<GroupVO>, t: Throwable) {
                 t.printStackTrace()
                 Log.d("Group Create Fragment", t.toString())
-                showAlert("요청 싫패 : ${t.message}", "그룹 장바구니 생성이 실패하였습니다.", DialogInterface.OnClickListener { dialog, _ -> moveToCart("group") })
+                showAlert("ERROR : ${t.message}", "그룹 장바구니 생성이 실패하였습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
             }
         })
     }
 
-    private fun moveToCart(startingTab: String) {
+    private fun moveToCart(startingTab: String, groupId: Int) {
         val intent = Intent(requireActivity(), CartActivity::class.java)
-        intent.putExtra("startindTab", startingTab)
+        intent.putExtra("tab", startingTab)
+        intent.putExtra("groupId", groupId)
+        startActivity(intent)
+    }
+
+    private fun moveToMain() {
+        val intent = Intent(requireActivity(), ProductPageActivity::class.java)
         startActivity(intent)
     }
 
