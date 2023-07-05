@@ -23,6 +23,7 @@ import com.example.bundlebundle.databinding.FragmentCartContentBinding
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.CartVO
 import com.example.bundlebundle.retrofit.dataclass.GroupCartListVO
+import com.example.bundlebundle.template.EmptyWhiteFragment
 import com.google.android.material.tabs.TabLayout
 import retrofit2.Call
 import retrofit2.Callback
@@ -132,6 +133,9 @@ class CartContentFragment : Fragment() {
                 var transaction = fragmentManager.beginTransaction()
                 var fragment = EmptyCartFragment()
                 transaction.replace(R.id.noMyCartItemfragment,fragment)
+                var fragment1 = EmptyWhiteFragment()
+                transaction.replace(R.id.noMyCartItemfragment,fragment1)
+                transaction.replace(R.id.bottom_cartfragment,fragment1)
                 transaction.commit()
             }
         }
