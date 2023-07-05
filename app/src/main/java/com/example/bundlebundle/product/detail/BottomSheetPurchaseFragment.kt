@@ -13,11 +13,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bundlebundle.CartActivity
 import com.example.bundlebundle.R
-import com.example.bundlebundle.databinding.FragmentBottomSheetBinding
 import com.example.bundlebundle.databinding.FragmentBottomSheetPurchaseBinding
-import com.example.bundlebundle.databinding.FragmentProductGridBinding
+
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.text.NumberFormat
+import java.util.Locale
 import kotlin.properties.Delegates
 
 
@@ -29,6 +30,9 @@ class BottomSheetPurchaseFragment : BottomSheetFragment() {
     private lateinit var tvQuantity: TextView
     private var quantity = 0
     private lateinit var intent: Intent
+
+    private var newProductCnt=0
+    private var totalPrice=0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,12 +48,42 @@ class BottomSheetPurchaseFragment : BottomSheetFragment() {
         intent = requireActivity().intent
         tvQuantity = binding.tvQuantity
 
+        // 마이너스 버튼 누른 경우
+        binding.btnMinus.setOnClickListener{
+            minusProductCnt()
+        }
+
+        // 플러스 버튼 누른 경우
+        binding.btnPlus.setOnClickListener {
+            plusProductCnt()
+        }
+
         binding.bottomSheetPurchaseButton.setOnClickListener {
             var purchaseBtn = view.findViewById<AppCompatButton>(R.id.bottom_sheet_purchase_button)
 //            val newIntent = Intent(context, PurchaseActivity::class.java)
 //            newIntent.putExtra("productId", intent.getIntExtra("productId"))
 //            newIntent.putExtra("productCnt", tvQuantity)
 //            startActivity(intent)
+        }
+    }
+
+    private fun plusProductCnt() {
+        val productCnt = binding.tvQuantity.text.toString().replace(",", "").toInt()
+        val price = binding.tvPrice.text.toString().replace(",", "").toInt()
+        newProductCnt = productCnt + 1
+        binding.tvQuantity.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(newProductCnt)
+        totalPrice = newProductCnt * price
+        binding.tvtotalPrice.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(totalPrice)
+    }
+
+    private fun minusProductCnt() {
+        val productCnt = binding.tvQuantity.text.toString().replace(",", "").toInt()
+        val price = binding.tvPrice.text.toString().replace(",", "").toInt()
+        if (productCnt > 1) {
+            newProductCnt = productCnt - 1
+            binding.tvQuantity.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(newProductCnt)
+            totalPrice = newProductCnt * price
+            binding.tvtotalPrice.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(totalPrice)
         }
     }
 }
