@@ -8,7 +8,7 @@ data class ProductOrderVO(
     val groupId: Int,
     val price: Int,
     val thumbnailImg: String,
-    val createdAt: Timestamp,
+    val createdAt: String,
     val name: String,
     val productCnt: Int,
     val orderId: Int

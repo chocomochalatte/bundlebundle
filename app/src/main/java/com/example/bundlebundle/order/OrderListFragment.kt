@@ -9,14 +9,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-//import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentOrderListBinding
+import com.example.bundlebundle.product.slider.ProductSliderFragment
+import com.example.bundlebundle.product.slider.ViewPagerFragment
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.order.ProductOrderVO
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 
 class OrderListFragment : Fragment() {
@@ -29,6 +37,10 @@ class OrderListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        parentFragmentManager.beginTransaction()
+            .add(R.id.adv_slider_area, ProductSliderFragment())
+            .commit()
     }
 
     override fun onCreateView(
@@ -43,36 +55,37 @@ class OrderListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         intent = requireActivity().intent
+        val orderId = requireActivity().intent.getIntExtra("orderId", -1)
 
-        val orderProducts = getResultFromApi()?: emptyList()
-        binding.orderItems.adapter = OrderViewAdapter(orderProducts)
+        lifecycleScope.launch {
+            val result: List<ProductOrderVO> = getResultFromApi(orderId)!!
+        }
     }
 
-    private fun getResultFromApi(): List<ProductOrderVO>? {
-        val orderId = requireActivity().intent.getIntExtra("orderId", -1)
-        var result: List<ProductOrderVO> ?= null
-
-        orderApiService.showOrderProducts(orderId).enqueue(object : Callback<List<ProductOrderVO>> {
-            override fun onResponse(
-                call: Call<List<ProductOrderVO>>,
-                response: Response<List<ProductOrderVO>>
-            ) {
-                when (response.isSuccessful) {
-                    true -> {
-                        result = response.body()
+    private suspend fun getResultFromApi(orderId: Int): List<ProductOrderVO>? {
+        return withContext(Dispatchers.IO) {
+            suspendCoroutine<List<ProductOrderVO>?> { continuation ->
+                val call = orderApiService.showOrderProducts(orderId)
+                call.enqueue(object : Callback<List<ProductOrderVO>> {
+                    override fun onResponse(
+                        call: Call<List<ProductOrderVO>>,
+                        response: Response<List<ProductOrderVO>>
+                    ) {
+                        when (response.isSuccessful) {
+                            true -> {
+                                binding.orderItems.layoutManager = LinearLayoutManager(requireContext())
+                                binding.orderItems.adapter = OrderViewAdapter(response.body()!!)
+                            }
+                            false -> showAlert("ERROR", "서버에서 오류가 발생했습니다.", { dialog, _ -> })
+                        }
                     }
 
-                    else -> {
-                        showAlert("ERROR", "서버에서 오류가 발생했습니다.", { dialog, _ -> })
+                    override fun onFailure(call: Call<List<ProductOrderVO>>, t: Throwable) {
+                        continuation.resumeWithException(t)
                     }
-                }
+                })
             }
-
-            override fun onFailure(call: Call<List<ProductOrderVO>>, t: Throwable) {
-                showAlert("ERROR", "서버 응답이 실패했습니다.", { dialog, _ -> })
-            }
-        })
-        return result
+        }
     }
 
     private fun showAlert(

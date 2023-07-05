@@ -8,6 +8,8 @@ import com.example.bundlebundle.databinding.ItemOrderListBinding
 import com.example.bundlebundle.retrofit.dataclass.order.ProductOrderVO
 
 class OrderViewAdapter(var orderData:List<ProductOrderVO>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return OrderViewListHolder(
             ItemOrderListBinding.inflate(
@@ -19,13 +21,16 @@ class OrderViewAdapter(var orderData:List<ProductOrderVO>): RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+        val currentItem = orderData[position]
         var binding = (holder as OrderViewListHolder).binding
+        binding.orderlistName.text = currentItem.name
+        binding.orderlistPrice.text = currentItem.price.toString()
+        binding.orderlistProductcnt.text = currentItem.productCnt.toString()
+
         Glide.with(binding.root.context)
-            .load(orderData[position].thumbnailImg)  //이미지 URL 설정
-            .into(binding.orderlistImg)    //imageView에 넣기
-        binding.orderlistName.text = orderData[position].name
-        binding.orderlistPrice.text = orderData[position].price.toString()
-        binding.orderlistProductcnt.text = orderData[position].productCnt.toString()
+             .load(orderData[position].thumbnailImg)  //이미지 URL 설정
+             .into(binding.orderlistImg)    //imageView에 넣기
     }
 
 }
