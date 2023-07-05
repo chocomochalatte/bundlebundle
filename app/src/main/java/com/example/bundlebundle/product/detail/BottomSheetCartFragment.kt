@@ -9,15 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import com.example.bundlebundle.cart.CartActivity
 import com.example.bundlebundle.group.GroupActivity
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentBottomSheetCartBinding
-import com.example.bundlebundle.group.GroupMemberCartVO
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.cart.CartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.group.GroupIdVO
+import com.example.bundlebundle.retrofit.dataclass.product.ProductVO
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,6 +32,8 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBottomSheetCartBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var productInfo: ProductVO
 
     private var productId by Delegates.notNull<Int>()
     private lateinit var tvQuantity: TextView
@@ -49,7 +52,16 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBottomSheetCartBinding.inflate(inflater, container, false)
+
+        bindWithVO()
         return binding.root
+    }
+
+    private fun bindWithVO() {
+        productInfo = arguments?.getParcelable(BottomSheetFragment.PRODUCT_INFO)!!
+        binding.productPrice.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(productInfo.price)
+        binding.productFullname.text = "[${productInfo.brand}] ${productInfo.name}"
+        binding.productTotalprice.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(productInfo.price)
     }
 
     private fun minusProductCnt() {
@@ -204,6 +216,19 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        fun newInstance(data: ProductVO): Fragment {
+            var fragment = BottomSheetCartFragment()
+            val args = Bundle().apply {
+                putParcelable(PRODUCT_INFO, data)
+            }
+            fragment.arguments = args
+            return fragment
+        }
+
+        private const val PRODUCT_INFO = "productVO"
     }
 }
 

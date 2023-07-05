@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
@@ -131,6 +133,11 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         loginBtn.setOnClickListener {
             Log.d("test","로그인 버튼 클릭")
             goToLogin()
+        }
+
+        val navView = binding.navView.drawerArea
+        navView.setOnClickListener {
+            true
         }
 
     }

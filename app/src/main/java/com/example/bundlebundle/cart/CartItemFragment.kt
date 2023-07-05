@@ -61,6 +61,8 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
         val OriginalPriceFormatted =
             NumberFormat.getNumberInstance(Locale.getDefault()).format(currentItem.productPrice)
         binding.mycartitemOriginalprice.text = OriginalPriceFormatted
+        binding.mycartitemOriginalprice.paintFlags
+        binding.mycartitemOriginalpriceWon.paintFlags
 
         val discountRate = currentItem.discountRate / 100.0 // 비율로 변환
         val discountPrice = ((1 - discountRate) * currentItem.productPrice).toInt()

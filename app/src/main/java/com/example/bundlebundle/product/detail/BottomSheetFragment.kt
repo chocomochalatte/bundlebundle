@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentBottomSheetBinding
+import com.example.bundlebundle.retrofit.dataclass.product.ProductVO
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlin.properties.Delegates
@@ -22,6 +24,8 @@ open class BottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var tvQuantity: TextView
     private var quantity = 0
     private lateinit var intent: Intent
+
+    private lateinit var productInfo: ProductVO
 
     private var selection by Delegates.notNull<String>()
 
@@ -69,14 +73,16 @@ open class BottomSheetFragment : BottomSheetDialogFragment() {
 
     companion object {
         private const val ARG_SELECTION = "selection"
+        internal const val PRODUCT_INFO = "productVO"
 
-        @JvmStatic
-        fun newInstance(selection: String): BottomSheetFragment {
-            return BottomSheetFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_SELECTION, selection)
-                }
+        fun newInstance(selection: String, productInfo: ProductVO): Fragment {
+            val fragment = BottomSheetFragment()
+            val args = Bundle().apply {
+                putString(ARG_SELECTION, selection)
+                putParcelable(PRODUCT_INFO, productInfo)
             }
+            fragment.arguments = args
+            return fragment
         }
     }
 }
