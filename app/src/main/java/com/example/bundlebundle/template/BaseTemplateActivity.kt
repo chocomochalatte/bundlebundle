@@ -5,8 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -17,8 +16,6 @@ import com.example.bundlebundle.cart.CartActivity
 import com.example.bundlebundle.member.LoginActivity
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.ActivityBaseBinding
-import com.example.bundlebundle.global.MainDetailPageActivity
-import com.example.bundlebundle.product.list.ProductPageActivity
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
 import retrofit2.Call
@@ -73,15 +70,16 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
                 } else {
                     // 응답이 실패한 경우 처리
                     Log.e("TestActivity", "서버 응답이 실패했습니다. 상태 코드: ${response.code()}")
-                    showAlert("ERROR : ${response.body()}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
+//                    showAlert("ERROR : ${response.body()}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ ->  })
                 }
             }
 
             override fun onFailure(call: Call<MemberVO>, t: Throwable) {
                 Log.e("TestActivity", "서버 응답이 실패했습니다. 상태 코드: ${t.printStackTrace()}")
-                showAlert("ERROR : ${t.message}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
+//                showAlert("ERROR : ${t.message}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ ->  })
             }
         })
+
     }
 
     fun updateNavViewLayout() {
@@ -147,8 +145,9 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         logoutBtn.setOnClickListener {
             Log.d("TESTLOGOUT","로그아웃 버튼 클릭")
             ApiClient.setJwtToken(null);
-            recreate()
-            Log.d("TESTLOGOUT","${ApiClient.getJwtToken()}")
+            finish()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
 
     }
@@ -163,11 +162,6 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
             setNegativeButton("취소", negativeListener)
             create()
         }.show()
-    }
-
-    private fun moveToMain() {
-        val intent = Intent(this, ProductPageActivity::class.java)
-        startActivity(intent)
     }
 
     private fun goToLogin() {

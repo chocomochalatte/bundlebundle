@@ -5,11 +5,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import com.example.bundlebundle.R
 import com.example.bundlebundle.product.list.ProductPageActivity
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.member.LoginTokenVO
 import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
+import com.example.bundlebundle.template.BaseTemplateActivity
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -169,6 +171,11 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
             }
+        }
+
+        val imageView = findViewById<ImageView>(R.id.hyundai_food_img)
+        imageView.setOnClickListener {
+            startActivity((Intent(this@LoginActivity, ProductPageActivity::class.java)))
         }
     }
 
