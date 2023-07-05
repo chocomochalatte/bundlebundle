@@ -2,6 +2,7 @@ package com.example.bundlebundle.template
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.bundlebundle.databinding.ActivitySimpleTemplateBinding
@@ -28,7 +29,7 @@ abstract class SimpleTemplateActivity : AppCompatActivity() {
 
     protected fun putFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(binding.fragmentContainer.id, fragment)
+            .replace(binding.fragmentContainerSimple.id, fragment)
             .commit()
     }
 
@@ -46,5 +47,9 @@ abstract class SimpleTemplateActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

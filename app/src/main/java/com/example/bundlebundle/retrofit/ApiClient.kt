@@ -3,6 +3,7 @@ package com.example.bundlebundle.retrofit
 import android.util.Log
 import com.example.bundlebundle.retrofit.service.CartApiService
 import com.example.bundlebundle.retrofit.service.GroupApiService
+import com.example.bundlebundle.retrofit.service.OrderApiService
 import com.example.bundlebundle.retrofit.service.ProductApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -66,6 +67,10 @@ object ApiClient {
 
     val groupApiService: GroupApiService by lazy {
         retrofit.create(GroupApiService::class.java)
+    }
+
+    val orderApiService: OrderApiService by lazy {
+        retrofit.create(OrderApiService::class.java)
     }
 
     fun setJwtToken(token: String?) {

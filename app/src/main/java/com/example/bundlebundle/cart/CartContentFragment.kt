@@ -1,17 +1,23 @@
 package com.example.bundlebundle.cart
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentCartContentBinding
 import com.example.bundlebundle.retrofit.ApiClient
+import com.example.bundlebundle.retrofit.ApiClient.apiService
 import com.example.bundlebundle.retrofit.dataclass.cart.CartVO
 import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartListVO
+import com.example.bundlebundle.retrofit.dataclass.order.GroupOrderVO
+import com.example.bundlebundle.retrofit.dataclass.order.ProductOrderVO
 import com.google.android.material.tabs.TabLayout
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,6 +28,9 @@ class CartContentFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var fragmentManager: FragmentManager
+
+    private val cartApiService = ApiClient.cartApiService
+    private val orderApiService = ApiClient.orderApiService
 
     private lateinit var cartTab: TabLayout
     private lateinit var intent: Intent
@@ -140,6 +149,7 @@ class CartContentFragment : Fragment() {
                 transaction.replace(R.id.item_cartfragment, fragment1)
 
                 val fragment2 = GroupCartBottomFragment().newInstance(groupData)
+
                 transaction.replace(R.id.bottom_cartfragment, fragment2)
 
                 transaction.commit()
@@ -153,11 +163,8 @@ class CartContentFragment : Fragment() {
     }
 
     private fun MyCartItemapiReqeust(callback: (myData: CartVO?) -> Unit){
-        //1. retrofit 객체 생성
-        val apiService = ApiClient.cartApiService
-
         // Call 객체 생성
-        val call = apiService.checkCart()
+        val call = cartApiService.checkCart()
 
         // 4. 네트워크 통신
         call.enqueue(object: Callback<CartVO> {
@@ -175,10 +182,9 @@ class CartContentFragment : Fragment() {
     }
 
     private fun GroupCartItemapiReqeust(callback: (groupData: GroupCartListVO?) -> Unit){
-        //1. retrofit 객체 생성
-        val apiService = ApiClient.cartApiService
+
         val groupId = intent.getIntExtra("groupId", -1)
-        val call = apiService.groupcheckCart()
+        val call = cartApiService.groupcheckCart()
 
         // 4. 네트워크 통신
         call.enqueue(object: Callback<GroupCartListVO>{
@@ -195,4 +201,8 @@ class CartContentFragment : Fragment() {
         })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

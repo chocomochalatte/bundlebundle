@@ -1,23 +1,36 @@
 package com.example.bundlebundle.cart
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentGroupCartBottomBinding
+import com.example.bundlebundle.order.OrderActivity
+import com.example.bundlebundle.retrofit.ApiClient.orderApiService
 import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartListVO
+import com.example.bundlebundle.retrofit.dataclass.order.GroupOrderVO
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.NumberFormat
 import java.util.Locale
 
 
 class GroupCartBottomFragment : Fragment() {
+    private var _binding: FragmentGroupCartBottomBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentGroupCartBottomBinding.inflate(layoutInflater)
+        _binding = FragmentGroupCartBottomBinding.inflate(layoutInflater)
         arguments?.let {
             val groupData = it.getParcelable<GroupCartListVO>(GROUP_CART_BOTTOM)
 
@@ -59,10 +72,62 @@ class GroupCartBottomFragment : Fragment() {
             val resultpriceFormatted = NumberFormat.getNumberInstance(Locale.getDefault()).format(groupresultprice)
             binding.groupcartitemResultprice.text = resultpriceFormatted
 
-            binding.groupcartOrderCnt.text = grouporderCnt.toString()
+            binding.groupCartTotalCnt.text = grouporderCnt.toString()
 
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.groupCartOrderBtn.setOnClickListener {
+            makeWholeGroupCartOrder()
+        }
+    }
+
+    private fun makeWholeGroupCartOrder() {
+
+        orderApiService.makeWholeGroupCartOrder().enqueue(object: Callback<GroupOrderVO> {
+            override fun onResponse(
+                call: Call<GroupOrderVO>,
+                response: Response<GroupOrderVO>
+            ) {
+                when (response.isSuccessful) {
+                    true -> {
+                        val orderId: Int = response.body()!!.id
+                        val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToOrderResult(orderId) }
+                        showAlert("주문 완료", "주문이 완료되었습니다.", posListener)
+                    }
+
+                    else -> {
+                        showAlert("ERROR", "서버에서 오류가 발생했습니다.", { dialog, _ -> })
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<GroupOrderVO>, t: Throwable) {
+                showAlert("ERROR", "서버 응답이 실패했습니다.", { dialog, _ -> })
+            }
+        })
+    }
+
+    private fun moveToOrderResult(orderId: Int) {
+        val intent = Intent(requireContext(), OrderActivity::class.java)
+        intent.putExtra("orderId", orderId)
+        startActivity(intent)
+    }
+
+    private fun showAlert(title: String, message: String, positiveListener: DialogInterface.OnClickListener) {
+        val negativeListener = DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() }
+
+        AlertDialog.Builder(requireActivity(), R.style.MyAlertDialogTheme).run {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton("확인", positiveListener)
+            setNegativeButton("취소", negativeListener)
+            create()
+        }.show()
     }
 
     fun newInstance(groupData: GroupCartListVO): GroupCartBottomFragment {
@@ -85,6 +150,11 @@ class GroupCartBottomFragment : Fragment() {
         }
 
         private const val GROUP_CART_BOTTOM = "argMyData"
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }

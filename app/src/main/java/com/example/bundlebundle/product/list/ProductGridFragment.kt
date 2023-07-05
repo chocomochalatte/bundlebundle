@@ -51,10 +51,10 @@ class ProductGridFragment : Fragment() {
     private fun bindWithApiResponse() {
         sortType = arguments?.getString(ARG_SORT_TYPE) ?: "best"
 
-        if (sortType.equals("home") && binding.fragmentContainer1.isEmpty()) {
+        if (sortType.equals("home") && binding.fragmentContainer1ProductGrid.isEmpty()) {
             requireActivity().supportFragmentManager.beginTransaction()
-                                                    .add(R.id.fragment_container1, ViewPagerFragment())
-                                                    .add(R.id.fragment_container2, ProductSliderFragment())
+                                                    .add(R.id.fragment_container1_product_grid, ViewPagerFragment())
+                                                    .add(R.id.fragment_container2_product_grid, ProductSliderFragment())
                                                     .commit()
             binding.advTextMain.text = "7월, 제철에 만나는\n신선한 과일"
             binding.advTextSub.text = "산지 직송 및 예약 판매"

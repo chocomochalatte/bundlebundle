@@ -116,7 +116,7 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
     }
 
     private fun doActionWithGroupCart() {
-        groupApiService.checkIfGroupIsPresent("fcdkjchbskjvb").enqueue(object : Callback<GroupIdVO> {
+        groupApiService.checkIfGroupIsPresent().enqueue(object : Callback<GroupIdVO> {
             override fun onResponse(call: Call<GroupIdVO>, response: Response<GroupIdVO>) {
                 val groupId: Int? = response.body()?.groupId
                 when (groupId) {
@@ -127,6 +127,7 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
                     else -> {
                         val posListener = DialogInterface.OnClickListener { dialog, _ -> addToGroupCart() }
                         showAlert("그룹 장바구니", "그룹 장바구니에 추가하시겠습니까?", posListener)
+
                     }
                 }
             }

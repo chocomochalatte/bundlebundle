@@ -55,18 +55,15 @@ class GroupCreateFragment : Fragment() {
         call.enqueue(object : Callback<GroupVO> {
             override fun onResponse(call: Call<GroupVO>, response: Response<GroupVO>) {
                 if (response.isSuccessful) {
-                    Log.d("ming", GroupNicknameVO(nickname).toString())
                     val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group", response.body()!!.id) }
                     showAlert("그룹 장바구니 생성 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
                 } else {
-                    Log.d("Group Create Fragment", response.body().toString())
                     showAlert("ERROR : ${response.body()}", "그룹 장바구니 생성이 실패하였습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
                 }
             }
 
             override fun onFailure(call: Call<GroupVO>, t: Throwable) {
                 t.printStackTrace()
-                Log.d("Group Create Fragment", t.toString())
                 showAlert("ERROR : ${t.message}", "그룹 장바구니 생성이 실패하였습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
             }
         })

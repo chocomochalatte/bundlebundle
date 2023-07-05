@@ -84,8 +84,8 @@ class MainPageActivity : AppCompatActivity() {
         }
         setContentView(binding.root)
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragment_container1, ViewPagerFragment())
-            .add(R.id.fragment_container2, ProductSliderFragment())
+            .add(R.id.fragment_container1_main_page, ViewPagerFragment())
+            .add(R.id.fragment_container2_main_page, ProductSliderFragment())
             .commit()
 
     }

@@ -117,5 +117,10 @@ class BottomSheetPurchaseFragment : BottomSheetFragment() {
 
         private const val PRODUCT_INFO = "productVO"
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }
 

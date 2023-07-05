@@ -12,9 +12,7 @@ import retrofit2.http.POST
 interface GroupApiService {
 
     @GET("member/group-check")
-    fun checkIfGroupIsPresent(
-        @Header("Authorization") accessToken: String
-    ): Call<GroupIdVO>
+    fun checkIfGroupIsPresent(): Call<GroupIdVO>
 
     @POST("group")
     fun createGroup(

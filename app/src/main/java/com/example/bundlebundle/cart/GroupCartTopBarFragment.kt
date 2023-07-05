@@ -21,7 +21,6 @@ class GroupCartTopBarFragment : Fragment() {
         arguments?.let {
             val groupData = it.getParcelable<GroupCartListVO>(GROUP_CART_TOTAL_CNT)
             val groupCartCnt = groupData?.totalCnt.toString()
-            Log.d("aaa","${groupCartCnt}")
             binding.groupcartitemCnt.text = groupCartCnt
 
         }
