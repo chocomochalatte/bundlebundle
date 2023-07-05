@@ -23,6 +23,11 @@
     <string name="category10">양념과 오일, 통조림</string>
     <string name="category11">생활용품</string>
     <string name="category12">반려동물 사료와 간식</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="spinner_data">
+        <item>최신순</item>
+        <item>할인률 순</item>
+        <item>낮은 가격순</item>
+        <item>높은 가격순</item>
+    </string-array>
 </resources>

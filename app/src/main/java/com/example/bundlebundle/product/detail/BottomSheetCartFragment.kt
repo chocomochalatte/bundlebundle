@@ -72,6 +72,7 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
             binding.tvQuantity.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(newProductCnt)
             totalPrice = newProductCnt * price
             binding.productTotalprice.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(totalPrice)
+            quantity = newProductCnt
         }
     }
 
@@ -82,6 +83,7 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
         binding.tvQuantity.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(newProductCnt)
         totalPrice = newProductCnt * price
         binding.productTotalprice.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(totalPrice)
+        quantity = newProductCnt
     }
 
 
@@ -119,21 +121,26 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
         groupApiService.checkIfGroupIsPresent().enqueue(object : Callback<GroupIdVO> {
             override fun onResponse(call: Call<GroupIdVO>, response: Response<GroupIdVO>) {
                 val groupId: Int? = response.body()?.groupId
+                Log.d("TEST", "groupId=" + groupId.toString())
                 when (groupId) {
                     null -> {
+                        val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToGroupCreatePage() }
+                        showAlert("그룹 장바구니", "그룹 장바구니가 없습니다. 생성하시겠습니까?", posListener)
+                    }
+                    0 -> {
                         val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToGroupCreatePage() }
                         showAlert("그룹 장바구니", "그룹 장바구니가 없습니다. 생성하시겠습니까?", posListener)
                     }
                     else -> {
                         val posListener = DialogInterface.OnClickListener { dialog, _ -> addToGroupCart() }
                         showAlert("그룹 장바구니", "그룹 장바구니에 추가하시겠습니까?", posListener)
-
                     }
                 }
             }
 
             override fun onFailure(call: Call<GroupIdVO>, t: Throwable) {
                 t.printStackTrace()
+                Log.d("ERROR", t.toString())
             }
         })
     }

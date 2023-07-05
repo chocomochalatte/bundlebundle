@@ -92,6 +92,7 @@ class BottomSheetPurchaseFragment : BottomSheetFragment() {
         binding.tvQuantity.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(newProductCnt)
         totalPrice = newProductCnt * price
         binding.tvtotalPrice.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(totalPrice)
+        quantity = newProductCnt
     }
 
     private fun minusProductCnt() {
@@ -102,6 +103,7 @@ class BottomSheetPurchaseFragment : BottomSheetFragment() {
             binding.tvQuantity.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(newProductCnt)
             totalPrice = newProductCnt * price
             binding.tvtotalPrice.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(totalPrice)
+            quantity = newProductCnt
         }
     }
 
