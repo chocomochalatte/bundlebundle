@@ -1,8 +1,8 @@
 package com.example.bundlebundle.retrofit.service
 
-import com.example.bundlebundle.retrofit.dataclass.GroupIdVO
-import com.example.bundlebundle.retrofit.dataclass.GroupNicknameVO
-import com.example.bundlebundle.retrofit.dataclass.GroupVO
+import com.example.bundlebundle.retrofit.dataclass.group.GroupIdVO
+import com.example.bundlebundle.retrofit.dataclass.group.GroupNicknameVO
+import com.example.bundlebundle.retrofit.dataclass.group.GroupVO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

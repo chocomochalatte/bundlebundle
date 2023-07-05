@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.ui.AppBarConfiguration
-import com.example.bundlebundle.CartActivity
-import com.example.bundlebundle.LoginActivity
+import com.example.bundlebundle.cart.CartActivity
+import com.example.bundlebundle.member.LoginActivity
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.ActivityBaseBinding
 import com.example.bundlebundle.product.list.ProductPageActivity

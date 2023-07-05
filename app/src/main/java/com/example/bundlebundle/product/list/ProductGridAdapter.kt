@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.bundlebundle.databinding.ItemProductGridBinding
 import com.example.bundlebundle.product.detail.ProductDetailActivity
-import com.example.bundlebundle.retrofit.dataclass.ProductVO
+import com.example.bundlebundle.retrofit.dataclass.product.ProductVO
 import java.text.NumberFormat
 import java.util.Locale
 

@@ -9,16 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import com.example.bundlebundle.CartActivity
+import com.example.bundlebundle.cart.CartActivity
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentGroupCreateBinding
 import com.example.bundlebundle.product.list.ProductPageActivity
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.ApiClient.groupApiService
-import com.example.bundlebundle.retrofit.dataclass.GroupIdVO
-import com.example.bundlebundle.retrofit.dataclass.GroupNicknameVO
-import com.example.bundlebundle.retrofit.dataclass.GroupVO
-import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
+import com.example.bundlebundle.retrofit.dataclass.group.GroupNicknameVO
+import com.example.bundlebundle.retrofit.dataclass.group.GroupVO
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -57,7 +55,7 @@ class GroupCreateFragment : Fragment() {
         call.enqueue(object : Callback<GroupVO> {
             override fun onResponse(call: Call<GroupVO>, response: Response<GroupVO>) {
                 if (response.isSuccessful) {
-                    Log.d("ming",GroupNicknameVO(nickname).toString())
+                    Log.d("ming", GroupNicknameVO(nickname).toString())
                     val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group", response.body()!!.id) }
                     showAlert("그룹 장바구니 생성 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
                 } else {

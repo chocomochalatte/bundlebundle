@@ -6,10 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isEmpty
 import androidx.core.view.isVisible
-import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bundlebundle.R
@@ -17,7 +14,7 @@ import com.example.bundlebundle.databinding.FragmentProductGridBinding
 import com.example.bundlebundle.product.slider.ProductSliderFragment
 import com.example.bundlebundle.product.slider.ViewPagerFragment
 import com.example.bundlebundle.retrofit.ApiClient
-import com.example.bundlebundle.retrofit.dataclass.ProductVO
+import com.example.bundlebundle.retrofit.dataclass.product.ProductVO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

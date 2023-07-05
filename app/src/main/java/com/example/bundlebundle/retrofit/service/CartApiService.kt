@@ -1,11 +1,11 @@
 package com.example.bundlebundle.retrofit.service
 
 import com.example.bundlebundle.group.GroupMemberCartVO
-import com.example.bundlebundle.retrofit.dataclass.CartChangeVO
-import com.example.bundlebundle.retrofit.dataclass.CartCheckVO
-import com.example.bundlebundle.retrofit.dataclass.CartVO
-import com.example.bundlebundle.retrofit.dataclass.GroupCartChangeVO
-import com.example.bundlebundle.retrofit.dataclass.GroupCartListVO
+import com.example.bundlebundle.retrofit.dataclass.cart.CartChangeVO
+import com.example.bundlebundle.retrofit.dataclass.cart.CartCheckVO
+import com.example.bundlebundle.retrofit.dataclass.cart.CartVO
+import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartChangeVO
+import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartListVO
 import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET
