@@ -11,13 +11,27 @@
         android:id="@+id/order_main_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="200dp"
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp"
         android:layout_marginBottom="5dp"
         android:textStyle="bold"
-        android:textSize="25dp"
+        android:textSize="27dp"
         android:gravity="center"
         android:text="주문이 완료되었습니다."
         app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+    <TextView
+        android:id="@+id/order_log_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:textSize="20dp"
+        android:text="추천 상품"
+        app:layout_constraintTop_toBottomOf="@id/order_main_text"
         />
 
     <!--여기에 각각 장바구니 item부분-->
@@ -27,7 +41,7 @@
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_order_list"
         tools:itemCount="2"
-        app:layout_constraintTop_toBottomOf="@id/order_main_text"
+        app:layout_constraintTop_toBottomOf="@id/order_log_text"
         />
 
     <View
@@ -36,4 +50,27 @@
         android:background="@color/middle_gray"
         app:layout_constraintTop_toBottomOf="@id/order_items"
         />
+
+    <TextView
+        android:id="@+id/side_adv_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:textSize="20dp"
+        android:paddingTop="40dp"
+        android:text="추천 상품"
+        app:layout_constraintTop_toBottomOf="@id/order_items"
+        />
+
+    <FrameLayout
+        android:id="@+id/adv_slider_area"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        app:layout_constraintTop_toBottomOf="@id/side_adv_text"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
