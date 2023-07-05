@@ -30,17 +30,5 @@ interface ApiService {
     @GET("member/info")
     fun getmember(
     ): Call<MemberVO>
-    @GET("member/group-check")
-    fun checkIfGroupIsPresent(
-        @Header("Authorization") accessToken: String
-    ): Call<GroupIdVO>
-
-    @POST("cart/group")
-    fun addToGroupCart(
-    ): Call<GroupMemberCartVO>
-
-    @POST("cart")
-    fun addToPersonalCart(
-    ): Call<GroupMemberCartVO>
 
 }

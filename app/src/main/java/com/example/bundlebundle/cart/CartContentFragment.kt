@@ -1,11 +1,9 @@
 package com.example.bundlebundle.cart
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.bundlebundle.CartBottomFragment
@@ -160,7 +158,7 @@ class CartContentFragment : Fragment() {
 
     private fun MyCartItemapiReqeust(callback: (myData: CartVO?) -> Unit){
         //1. retrofit 객체 생성
-        val apiService = ApiClient.cartapiService
+        val apiService = ApiClient.cartApiService
 
         // Call 객체 생성
         val call = apiService.checkCart(1)
@@ -183,7 +181,7 @@ class CartContentFragment : Fragment() {
 
     private fun GroupCartItemapiReqeust(callback: (groupData: GroupCartListVO?) -> Unit){
         //1. retrofit 객체 생성
-        val apiService = ApiClient.cartapiService
+        val apiService = ApiClient.cartApiService
 
         // Call 객체 생성
         val call = apiService.groupcheckCart(1)

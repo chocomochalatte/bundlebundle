@@ -119,7 +119,7 @@ class GroupCartProductsAdapter(
     }
 
     private fun minusProductCnt(memberId: Int, productId: Int, groupId: Int, productCnt: Int) {
-        val apiService = ApiClient.cartapiService
+        val apiService = ApiClient.cartApiService
 
         val call = apiService.changeGroupCartItemCnt(memberId, productId, groupId, productCnt)
 
@@ -128,7 +128,7 @@ class GroupCartProductsAdapter(
                 call: Call<GroupCartChangeVO>,
                 response: Response<GroupCartChangeVO>
             ) {
-                val apiService = ApiClient.cartapiService
+                val apiService = ApiClient.cartApiService
 
                 val call = apiService.groupcheckCart(groupId)
 
@@ -159,7 +159,7 @@ class GroupCartProductsAdapter(
     }
 
     private fun plusProductCnt(memberId: Int, productId: Int, groupId: Int, productCnt: Int) {
-        val apiService = ApiClient.cartapiService
+        val apiService = ApiClient.cartApiService
 
         val call = apiService.changeGroupCartItemCnt(memberId, productId, groupId, productCnt)
 
@@ -168,7 +168,7 @@ class GroupCartProductsAdapter(
                 call: Call<GroupCartChangeVO>,
                 response: Response<GroupCartChangeVO>
             ) {
-                val apiService = ApiClient.cartapiService
+                val apiService = ApiClient.cartApiService
 
                 val call = apiService.groupcheckCart(groupId)
 
@@ -199,7 +199,7 @@ class GroupCartProductsAdapter(
 
 
     private fun deleteCartItem(memberId: Int, productId: Int, groupId: Int) {
-        val apiService = ApiClient.cartapiService
+        val apiService = ApiClient.cartApiService
 
         val call = apiService.deleteGroupCartItem(memberId, productId, groupId)
 
@@ -207,7 +207,7 @@ class GroupCartProductsAdapter(
             override fun onResponse(call: Call<CartCheckVO>, response: Response<CartCheckVO>) {
                 val data = response.body()
                 if (data?.exists == true) {
-                    val apiService = ApiClient.cartapiService
+                    val apiService = ApiClient.cartApiService
 
                     val call = apiService.groupcheckCart(groupId)
 

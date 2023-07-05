@@ -99,7 +99,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
 
 
     private fun plusProductCnt(memberId: Int, productId: Int, productCnt: Int) {
-        val apiService = ApiClient.cartapiService
+        val apiService = ApiClient.cartApiService
 
         // Call 객체 생성
         val call = apiService.changeCartItemCnt(memberId, productId, productCnt)
@@ -109,7 +109,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
             override fun onResponse(call: Call<CartChangeVO>, response: Response<CartChangeVO>) {
                 val myData = response.body()
                 if(myData!=null){
-                    val apiService = ApiClient.cartapiService
+                    val apiService = ApiClient.cartApiService
 
                     val call = apiService.checkCart(memberId)
 
@@ -136,7 +136,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
     }
 
     private fun minusProductCnt(memberId: Int, productId: Int, productCnt: Int) {
-        val apiService = ApiClient.cartapiService
+        val apiService = ApiClient.cartApiService
 
         // Call 객체 생성
         val call = apiService.changeCartItemCnt(memberId, productId, productCnt)
@@ -145,7 +145,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
             override fun onResponse(call: Call<CartChangeVO>, response: Response<CartChangeVO>) {
                 val myData = response.body()
                 if(myData!=null){
-                    val apiService = ApiClient.cartapiService
+                    val apiService = ApiClient.cartApiService
 
                     val call = apiService.checkCart(memberId)
 
@@ -173,7 +173,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
 
     private fun deleteCartItem(memberId: Int, productId: Int) {
         //1. retrofit 객체 생성
-        val apiService = ApiClient.cartapiService
+        val apiService = ApiClient.cartApiService
 
         // Call 객체 생성
         val call = apiService.deleteCartItem(memberId, productId)
@@ -182,7 +182,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
             override fun onResponse(call: Call<CartCheckVO>, response: Response<CartCheckVO>) {
                 val data = response.body()
                 if (data?.exists == true) {
-                    val apiService = ApiClient.cartapiService
+                    val apiService = ApiClient.cartApiService
 
                     val call = apiService.checkCart(memberId)
 

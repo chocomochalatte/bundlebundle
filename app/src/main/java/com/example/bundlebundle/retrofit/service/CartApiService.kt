@@ -1,5 +1,6 @@
 package com.example.bundlebundle.retrofit.service
 
+import com.example.bundlebundle.group.GroupMemberCartVO
 import com.example.bundlebundle.retrofit.dataclass.CartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.CartCheckVO
 import com.example.bundlebundle.retrofit.dataclass.CartVO
@@ -9,6 +10,7 @@ import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 
@@ -33,7 +35,6 @@ interface CartApiService {
     ): Call<CartChangeVO>
 
     //그룹
-
     @GET("cart/group/{groupId}")
     fun groupcheckCart(
         @Path("groupId") groupId: Int
@@ -53,5 +54,13 @@ interface CartApiService {
         @Path("groupId") groupId: Int,
         @Path("productCnt") productCnt : Int
     ): Call<GroupCartChangeVO>
+
+    @POST("cart/group")
+    fun addToGroupCart(
+    ): Call<GroupMemberCartVO>
+
+    @POST("cart")
+    fun addToPersonalCart(
+    ): Call<GroupMemberCartVO>
 
 }

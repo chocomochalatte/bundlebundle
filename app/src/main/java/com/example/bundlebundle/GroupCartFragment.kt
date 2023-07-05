@@ -10,7 +10,6 @@ import com.example.bundlebundle.databinding.FragmentGroupCartBinding
 
 class GroupCartFragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
