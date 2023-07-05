@@ -50,7 +50,6 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
                         // 서버 응답 처리
                         Log.i("TestActivity", "멤버 정보 받아오기 성공 $memberInfo")
                         myName= memberInfo.username;
-                        Log.i("TestActivity", "myName $myName")
                         textView.text = myName+"님";
                     } ?: run {
                         // 응답이 null인 경우 처리
@@ -76,8 +75,13 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
             null -> R.layout.nav_header_before_login
             else -> R.layout.nav_header_basic
         }
+
         val inflater = layoutInflater
         inflater.inflate(navLayout, navView, true)
+
+/*        val newLayoutView = layoutInflater.inflate(navLayout, navView, false)
+        navView.removeAllViews()
+        navView.addView(newLayoutView)*/
     }
 
     private fun setActionBarAndNavigationDrawer() {
