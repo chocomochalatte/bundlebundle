@@ -76,8 +76,8 @@ class LoginActivity : AppCompatActivity() {
                     Log.e("LOGIN", "카카오계정으로 로그인 실패", error)
                 } else if (token != null) {
 
-                   val apiService = ApiClient.apiService
-                   val call: Call<LoginTokenVO> = apiService.gettoken(token.accessToken)
+                    val apiService = ApiClient.apiService
+                    val call: Call<LoginTokenVO> = apiService.gettoken(token.accessToken)
                     call.enqueue(object : Callback<LoginTokenVO> {
                         override fun onResponse(call: Call<LoginTokenVO>, response: Response<LoginTokenVO>) {
                             if (response.isSuccessful) {

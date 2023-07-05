@@ -2,6 +2,7 @@ package com.example.bundlebundle.retrofit
 
 import android.util.Log
 import com.example.bundlebundle.retrofit.service.CartApiService
+import com.example.bundlebundle.retrofit.service.ProductApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -12,8 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 object ApiClient {
-    private const val BASE_URL = "http://ryulrudaga.com:23000/api/"
-//    private const val BASE_URL = "http://10.0.2.2:8080/bundlebundle/api/"
+    //private const val BASE_URL = "http://ryulrudaga.com:23000/api/"
+   private const val BASE_URL = "http://10.0.2.2:8080/bundlebundle/api/"
     private var jwtToken: String? = null
 
     private val retrofit: Retrofit by lazy {
@@ -55,7 +56,10 @@ object ApiClient {
 
     val cartapiService: CartApiService by lazy {
         retrofit.create(CartApiService::class.java)
+    }
 
+    val productApiService: ProductApiService by lazy {
+        retrofit.create(ProductApiService::class.java)
     }
 
     fun setJwtToken(token: String?) {

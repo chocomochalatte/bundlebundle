@@ -2,6 +2,7 @@ package com.example.bundlebundle
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ class GroupCartTopBarFragment : Fragment() {
         arguments?.let {
             val groupData = it.getParcelable<GroupCartListVO>(GROUP_CART_TOTAL_CNT)
             val groupCartCnt = groupData?.totalCnt.toString()
+            Log.d("aaa","${groupCartCnt}")
             binding.groupcartitemCnt.text = groupCartCnt
 
         }

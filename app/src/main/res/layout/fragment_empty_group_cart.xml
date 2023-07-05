@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context=".EmptyGroupCartFragment">
 
     <LinearLayout
@@ -41,7 +42,7 @@
         android:gravity="center">
 
         <android.widget.Button
-            android:id="@+id/start_groupjangbaguni"
+            android:id="@+id/create_group_cart_btn"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
