@@ -16,6 +16,7 @@ import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.ApiClient.groupApiService
 import com.example.bundlebundle.retrofit.dataclass.GroupIdVO
 import com.example.bundlebundle.retrofit.dataclass.GroupNicknameVO
+import com.example.bundlebundle.retrofit.dataclass.GroupVO
 import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
 import retrofit2.Call
 import retrofit2.Callback
@@ -51,21 +52,23 @@ class GroupCreateFragment : Fragment() {
 
     private fun createGroupCart() {
         val nickname: String = binding.editTextGroupNickname.text.toString()
-        val call: Call<GroupIdVO> = groupApiService.createGroup(GroupNicknameVO(nickname))
-        call.enqueue(object : Callback<GroupIdVO> {
-            override fun onResponse(call: Call<GroupIdVO>, response: Response<GroupIdVO>) {
+        val call: Call<GroupVO> = groupApiService.createGroup(GroupNicknameVO(nickname))
+        call.enqueue(object : Callback<GroupVO> {
+            override fun onResponse(call: Call<GroupVO>, response: Response<GroupVO>) {
                 if (response.isSuccessful) {
                     Log.d("ming",GroupNicknameVO(nickname).toString())
                     val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group") }
                     showAlert("그룹 장바구니 생성 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
                 } else {
-                    Log.d("Group Create Fragment", response.message())
+                    Log.d("Group Create Fragment", response.body().toString())
+                    showAlert("${response.body().toString()} 오류 : ${response.body()}", "그룹 장바구니 생성이 실패하였습니다.", DialogInterface.OnClickListener { dialog, _ -> moveToCart("group") })
                 }
             }
 
-            override fun onFailure(call: Call<GroupIdVO>, t: Throwable) {
+            override fun onFailure(call: Call<GroupVO>, t: Throwable) {
                 t.printStackTrace()
                 Log.d("Group Create Fragment", t.toString())
+                showAlert("요청 싫패 : ${t.message}", "그룹 장바구니 생성이 실패하였습니다.", DialogInterface.OnClickListener { dialog, _ -> moveToCart("group") })
             }
         })
     }
