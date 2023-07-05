@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,7 +16,6 @@ import com.example.bundlebundle.cart.CartActivity
 import com.example.bundlebundle.member.LoginActivity
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.ActivityBaseBinding
-import com.example.bundlebundle.product.list.ProductPageActivity
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
 import retrofit2.Call
@@ -41,6 +42,9 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         appBarConfiguration = createAppBarConfiguration(topLevelDestinations, binding.drawerLayout)
 
         val textView = binding.navView.currentUserName
+        val blackBox = binding.navView.blackBox
+        val havefun = binding.navView.havefun
+        val LogoutBtn = binding.navView.logoutBtn
         var myName : String? = "기본이름입니다";
         //API 요청 시작
         val apiService = ApiClient.apiService
@@ -53,8 +57,12 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
                         // 서버 응답 처리
                         Log.i("TestActivity", "멤버 정보 받아오기 성공 $memberInfo")
                         myName= memberInfo.username;
-                        Log.i("TestActivity", "myName $myName")
                         textView.text = myName+"님";
+                        blackBox.removeView(findViewById(R.id.btn_oauth_login));
+                        blackBox.requestLayout();
+                        LogoutBtn.setTextColor(ContextCompat.getColor(this@BaseTemplateActivity, R.color.dark_gray))
+                        havefun.text = "즐거운 경험 되세요!"
+
                     } ?: run {
                         // 응답이 null인 경우 처리
                         Log.e("TestActivity", "서버 응답이 null입니다.")
@@ -62,15 +70,16 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
                 } else {
                     // 응답이 실패한 경우 처리
                     Log.e("TestActivity", "서버 응답이 실패했습니다. 상태 코드: ${response.code()}")
-                    showAlert("ERROR : ${response.body()}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
+//                    showAlert("ERROR : ${response.body()}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ ->  })
                 }
             }
 
             override fun onFailure(call: Call<MemberVO>, t: Throwable) {
                 Log.e("TestActivity", "서버 응답이 실패했습니다. 상태 코드: ${t.printStackTrace()}")
-                showAlert("ERROR : ${t.message}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
+//                showAlert("ERROR : ${t.message}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ ->  })
             }
         })
+
     }
 
     fun updateNavViewLayout() {
@@ -79,8 +88,14 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
             null -> R.layout.nav_header_before_login
             else -> R.layout.nav_header_basic
         }
+
         val inflater = layoutInflater
         inflater.inflate(navLayout, navView, true)
+
+        val newLayoutView = layoutInflater.inflate(navLayout, navView, false)
+//        navView.removeAllViews()
+//        navView.addView(newLayoutView)
+//        navView.requestLayout()
     }
 
     private fun setActionBarAndNavigationDrawer() {
@@ -120,16 +135,19 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
             }
         }
 
-//        val logoutBtn = binding.navView.logoutBtn
-//        logoutBtn.setOnClickListener {
-//            Log.d("fgkjnbdjkv", "fdjbfskdjnbfvkj")
-//            true
-//        }
-
         val loginBtn = binding.navView.btnOauthLogin
         loginBtn.setOnClickListener {
-            Log.d("test","로그인 버튼 클릭")
+            Log.d("TESTLOGOUT","로그인 버튼 클릭")
             goToLogin()
+        }
+
+        val logoutBtn = binding.navView.logoutBtn
+        logoutBtn.setOnClickListener {
+            Log.d("TESTLOGOUT","로그아웃 버튼 클릭")
+            ApiClient.setJwtToken(null);
+            finish()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
 
     }
@@ -144,11 +162,6 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
             setNegativeButton("취소", negativeListener)
             create()
         }.show()
-    }
-
-    private fun moveToMain() {
-        val intent = Intent(this, ProductPageActivity::class.java)
-        startActivity(intent)
     }
 
     private fun goToLogin() {
