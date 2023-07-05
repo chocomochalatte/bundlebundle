@@ -7,6 +7,7 @@ import com.example.bundlebundle.retrofit.dataclass.cart.CartVO
 import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartListVO
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
@@ -47,10 +48,12 @@ interface CartApiService {
 
     @POST("cart/group")
     fun addToGroupCart(
-    ): Call<GroupMemberCartVO>
+        @Body groupCartChangeVO: GroupCartChangeVO
+    ): Call<GroupCartChangeVO>
 
     @POST("cart")
     fun addToPersonalCart(
+        cartChangeVO: CartChangeVO
     ): Call<CartChangeVO>
 
 }

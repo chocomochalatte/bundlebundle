@@ -16,6 +16,7 @@ import com.example.bundlebundle.databinding.FragmentBottomSheetCartBinding
 import com.example.bundlebundle.group.GroupMemberCartVO
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.cart.CartChangeVO
+import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.group.GroupIdVO
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
@@ -125,25 +126,30 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
     }
 
     private fun addToGroupCart() {
-        cartApiService.addToGroupCart().enqueue(object : Callback<GroupMemberCartVO> {
-            override fun onResponse(
-                call: Call<GroupMemberCartVO>,
-                response: Response<GroupMemberCartVO>
+        val requestVO = GroupCartChangeVO(productId, quantity)
+        cartApiService.addToGroupCart(requestVO).enqueue(object : Callback<GroupCartChangeVO> {
+            override fun onResponse(call: Call<GroupCartChangeVO>, response: Response<GroupCartChangeVO>
             ) {
-                val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group") }
-                showAlert("그룹 장바구니에 추가 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
+                when(response.isSuccessful) {
+                    true -> {
+                        val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group") }
+                        showAlert("그룹 장바구니에 추가 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
+                    }
+                    else -> {
+                        showAlert("ERROR", "서버에서 오류가 발생하였습니다.", { dialog, _ -> })
+                    }
+                }
             }
-
-            override fun onFailure(call: Call<GroupMemberCartVO>, t: Throwable) {
+            override fun onFailure(call: Call<GroupCartChangeVO>, t: Throwable) {
                 t.printStackTrace()
+                showAlert("ERROR", "서버 응답에 실패하였습니다.", { dialog, _ -> })
             }
         })
     }
 
     private fun addToPersonalCart() {
-
-        val requestVO = CartChangeVO(-1, productId, quantity)
-        cartApiService.addToPersonalCart().enqueue(object : Callback<CartChangeVO> {
+        val requestVO = CartChangeVO(productId, quantity)
+        cartApiService.addToPersonalCart(requestVO).enqueue(object : Callback<CartChangeVO> {
             override fun onResponse(
                 call: Call<CartChangeVO>,
                 response: Response<CartChangeVO>
