@@ -1,5 +1,6 @@
 package com.example.bundlebundle.cart
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -61,8 +62,8 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
         val OriginalPriceFormatted =
             NumberFormat.getNumberInstance(Locale.getDefault()).format(currentItem.productPrice)
         binding.mycartitemOriginalprice.text = OriginalPriceFormatted
-        binding.mycartitemOriginalprice.paintFlags
-        binding.mycartitemOriginalpriceWon.paintFlags
+        binding.mycartitemOriginalprice.paintFlags = binding.mycartitemOriginalprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        binding.mycartitemOriginalpriceWon.paintFlags = binding.mycartitemOriginalpriceWon.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
         val discountRate = currentItem.discountRate / 100.0 // 비율로 변환
         val discountPrice = ((1 - discountRate) * currentItem.productPrice).toInt()
