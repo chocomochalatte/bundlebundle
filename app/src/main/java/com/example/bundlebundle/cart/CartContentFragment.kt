@@ -196,7 +196,7 @@ class CartContentFragment : Fragment() {
 
             override fun onFailure(call: Call<GroupCartListVO>, t: Throwable) {
                 call.cancel()
-                callback(null) // 실패 시 null을 전달
+                callback(null) //실패 시 null을 전달
             }
 
         })

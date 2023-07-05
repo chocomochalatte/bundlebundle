@@ -1,9 +1,11 @@
 package com.example.bundlebundle.template
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -12,6 +14,7 @@ import com.example.bundlebundle.CartActivity
 import com.example.bundlebundle.LoginActivity
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.ActivityBaseBinding
+import com.example.bundlebundle.product.list.ProductPageActivity
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
 import retrofit2.Call
@@ -59,15 +62,15 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
                 } else {
                     // 응답이 실패한 경우 처리
                     Log.e("TestActivity", "서버 응답이 실패했습니다. 상태 코드: ${response.code()}")
+                    showAlert("ERROR : ${response.body()}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
                 }
             }
 
             override fun onFailure(call: Call<MemberVO>, t: Throwable) {
                 Log.e("TestActivity", "서버 응답이 실패했습니다. 상태 코드: ${t.printStackTrace()}")
+                showAlert("ERROR : ${t.message}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
             }
-
         })
-
     }
 
     fun updateNavViewLayout() {
@@ -93,9 +96,17 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
 
         val cartShortcutBtn = binding.toolbarMain.cartImage
         cartShortcutBtn.setOnClickListener {
-            val newIntent = Intent(this, CartActivity::class.java)
-            newIntent.putExtra("tab", "personal")
-            startActivity(newIntent)
+            when (isLogedIn()) {
+                true -> {
+                    val newIntent = Intent(this, CartActivity::class.java)
+                    newIntent.putExtra("tab", "personal")
+                    startActivity(newIntent)
+                }
+                else -> {
+                    val posListener = DialogInterface.OnClickListener { dialog, _ -> goToLogin()}
+                    showAlert("로그인이 필요합니다.", "로그인 페이지로 이동합니다.", posListener)
+                }
+            }
         }
 
         // 메뉴 버튼 클릭 리스너 설정
@@ -117,11 +128,36 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
 
         val loginBtn = binding.navView.btnOauthLogin
         loginBtn.setOnClickListener {
-            Log.d("test","로그인버튼클릭")
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            Log.d("test","로그인 버튼 클릭")
+            goToLogin()
         }
 
+    }
+
+    private fun showAlert(title: String, message: String, positiveListener: DialogInterface.OnClickListener) {
+        val negativeListener = DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() }
+
+        AlertDialog.Builder(this, R.style.MyAlertDialogTheme).run {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton("확인", positiveListener)
+            setNegativeButton("취소", negativeListener)
+            create()
+        }.show()
+    }
+
+    private fun moveToMain() {
+        val intent = Intent(this, ProductPageActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun isLogedIn(): Boolean {
+        return (ApiClient.getJwtToken() != null)
     }
 
     protected open fun setTopLevelMainFragment(): Set<Int>  {
