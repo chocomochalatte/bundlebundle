@@ -121,7 +121,7 @@ class GroupCartProductsAdapter(
     private fun minusProductCnt(memberId: Int, productId: Int, groupId: Int, productCnt: Int) {
         val apiService = ApiClient.cartApiService
 
-        val call = apiService.changeGroupCartItemCnt(memberId, productId, groupId, productCnt)
+        val call = apiService.changeGroupCartItemCnt(productId, productCnt)
 
         call.enqueue(object : Callback<GroupCartChangeVO>{
             override fun onResponse(
@@ -130,7 +130,7 @@ class GroupCartProductsAdapter(
             ) {
                 val apiService = ApiClient.cartApiService
 
-                val call = apiService.groupcheckCart(groupId)
+                val call = apiService.groupcheckCart()
 
                 call.enqueue(object : Callback<GroupCartListVO>{
                     override fun onResponse(
@@ -161,7 +161,7 @@ class GroupCartProductsAdapter(
     private fun plusProductCnt(memberId: Int, productId: Int, groupId: Int, productCnt: Int) {
         val apiService = ApiClient.cartApiService
 
-        val call = apiService.changeGroupCartItemCnt(memberId, productId, groupId, productCnt)
+        val call = apiService.changeGroupCartItemCnt(productId, productCnt)
 
         call.enqueue(object : Callback<GroupCartChangeVO>{
             override fun onResponse(
@@ -170,7 +170,7 @@ class GroupCartProductsAdapter(
             ) {
                 val apiService = ApiClient.cartApiService
 
-                val call = apiService.groupcheckCart(groupId)
+                val call = apiService.groupcheckCart()
 
                 call.enqueue(object : Callback<GroupCartListVO>{
                     override fun onResponse(
@@ -201,7 +201,7 @@ class GroupCartProductsAdapter(
     private fun deleteCartItem(memberId: Int, productId: Int, groupId: Int) {
         val apiService = ApiClient.cartApiService
 
-        val call = apiService.deleteGroupCartItem(memberId, productId, groupId)
+        val call = apiService.deleteGroupCartItem(productId)
 
         call.enqueue(object : Callback<CartCheckVO> {
             override fun onResponse(call: Call<CartCheckVO>, response: Response<CartCheckVO>) {
@@ -209,7 +209,7 @@ class GroupCartProductsAdapter(
                 if (data?.exists == true) {
                     val apiService = ApiClient.cartApiService
 
-                    val call = apiService.groupcheckCart(groupId)
+                    val call = apiService.groupcheckCart()
 
                     call.enqueue(object : Callback<GroupCartListVO>{
                         override fun onResponse(

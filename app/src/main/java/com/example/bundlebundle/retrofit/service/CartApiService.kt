@@ -16,42 +16,32 @@ import retrofit2.http.Path
 
 interface CartApiService {
 
-    @GET("cart/individual/{memberId}")
-    fun checkCart(
-        @Path("memberId") memberId: Int
-    ): Call<CartVO>
+    @GET("cart/individual")
+    fun checkCart(): Call<CartVO>
 
-    @DELETE("cart/{memberId}/{productId}")
+    @DELETE("cart/{productId}")
     fun deleteCartItem(
-        @Path("memberId") memberId: Int,
         @Path("productId") productId: Int
     ): Call<CartCheckVO>
 
-    @PATCH("cart/{memberId}/{productId}/{productCnt}")
+    @PATCH("cart/{productId}/{productCnt}")
     fun changeCartItemCnt(
-        @Path("memberId") memberId: Int,
         @Path("productId") productId: Int,
         @Path("productCnt") productCnt : Int
     ): Call<CartChangeVO>
 
     //그룹
-    @GET("cart/group/{groupId}")
-    fun groupcheckCart(
-        @Path("groupId") groupId: Int
-    ): Call<GroupCartListVO>
+    @GET("cart/group")
+    fun groupcheckCart(): Call<GroupCartListVO>
 
-    @DELETE("cart/group/{memberId}/{productId}/{groupId}")
+    @DELETE("cart/group/{productId}")
     fun deleteGroupCartItem(
-        @Path("memberId") memberId: Int,
         @Path("productId") productId: Int,
-        @Path("groupId") groupId: Int
     ): Call<CartCheckVO>
 
-    @PATCH("cart/group/{memberId}/{productId}/{groupId}/{productCnt}")
+    @PATCH("cart/group/{productId}/{productCnt}")
     fun changeGroupCartItemCnt(
-        @Path("memberId") memberId: Int,
         @Path("productId") productId: Int,
-        @Path("groupId") groupId: Int,
         @Path("productCnt") productCnt : Int
     ): Call<GroupCartChangeVO>
 

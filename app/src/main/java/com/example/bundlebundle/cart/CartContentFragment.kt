@@ -164,7 +164,7 @@ class CartContentFragment : Fragment() {
         val apiService = ApiClient.cartApiService
 
         // Call 객체 생성
-        val call = apiService.checkCart(1)
+        val call = apiService.checkCart()
 
         // 4. 네트워크 통신
         call.enqueue(object: Callback<CartVO> {
@@ -185,7 +185,7 @@ class CartContentFragment : Fragment() {
         //1. retrofit 객체 생성
         val apiService = ApiClient.cartApiService
         val groupId = intent.getIntExtra("groupId", -1)
-        val call = apiService.groupcheckCart(groupId)
+        val call = apiService.groupcheckCart()
 
         // 4. 네트워크 통신
         call.enqueue(object: Callback<GroupCartListVO>{

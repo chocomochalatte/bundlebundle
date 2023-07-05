@@ -102,7 +102,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
         val apiService = ApiClient.cartApiService
 
         // Call 객체 생성
-        val call = apiService.changeCartItemCnt(memberId, productId, productCnt)
+        val call = apiService.changeCartItemCnt(productId, productCnt)
 
 
         call.enqueue(object : Callback<CartChangeVO>{
@@ -111,7 +111,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
                 if(myData!=null){
                     val apiService = ApiClient.cartApiService
 
-                    val call = apiService.checkCart(memberId)
+                    val call = apiService.checkCart()
 
                     call.enqueue(object : Callback<CartVO> {
                         override fun onResponse(call: Call<CartVO>, response: Response<CartVO>) {
@@ -139,7 +139,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
         val apiService = ApiClient.cartApiService
 
         // Call 객체 생성
-        val call = apiService.changeCartItemCnt(memberId, productId, productCnt)
+        val call = apiService.changeCartItemCnt(productId, productCnt)
 
         call.enqueue(object : Callback<CartChangeVO>{
             override fun onResponse(call: Call<CartChangeVO>, response: Response<CartChangeVO>) {
@@ -147,7 +147,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
                 if(myData!=null){
                     val apiService = ApiClient.cartApiService
 
-                    val call = apiService.checkCart(memberId)
+                    val call = apiService.checkCart()
 
                     call.enqueue(object : Callback<CartVO> {
                         override fun onResponse(call: Call<CartVO>, response: Response<CartVO>) {
@@ -176,7 +176,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
         val apiService = ApiClient.cartApiService
 
         // Call 객체 생성
-        val call = apiService.deleteCartItem(memberId, productId)
+        val call = apiService.deleteCartItem(productId)
 
         call.enqueue(object : Callback<CartCheckVO> {
             override fun onResponse(call: Call<CartCheckVO>, response: Response<CartCheckVO>) {
@@ -184,7 +184,7 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
                 if (data?.exists == true) {
                     val apiService = ApiClient.cartApiService
 
-                    val call = apiService.checkCart(memberId)
+                    val call = apiService.checkCart()
 
                     call.enqueue(object : Callback<CartVO> {
                         override fun onResponse(call: Call<CartVO>, response: Response<CartVO>) {
@@ -252,8 +252,6 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
                     .commit()
             }
         }
-
-
     }
 
 
