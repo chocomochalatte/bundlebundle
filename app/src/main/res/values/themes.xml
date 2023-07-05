@@ -8,6 +8,7 @@
 
     <style name="Theme.BundleBundle" parent="Base.Theme.BundleBundle">
         <item name="colorAccent">@color/orange</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Theme.BundleBundle.NoActionBar">

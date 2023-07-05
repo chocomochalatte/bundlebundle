@@ -3,10 +3,14 @@ package com.example.bundlebundle.group
 import androidx.fragment.app.Fragment
 import com.example.bundlebundle.template.UpbuttonTemplateActivity
 
-class GroupActivity(fragment: Fragment) : UpbuttonTemplateActivity() {
-    private val fragment = fragment
+class GroupActivity() : UpbuttonTemplateActivity() {
+    private lateinit var pageType: String
 
     override fun setFragment(): Fragment {
-        return fragment
+        pageType = intent.getStringExtra("pageType" ).toString()
+        return when (pageType) {
+            "create" -> GroupCreateFragment.newInstance()
+            else -> GroupCreateFragment.newInstance()
+        }
     }
 }

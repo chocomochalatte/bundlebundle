@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".CartTopBarFragment">
+    tools:context=".cart.CartTopBarFragment">
 
     <!--첫 번째-->
     <LinearLayout

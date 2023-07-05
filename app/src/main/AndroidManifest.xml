@@ -12,33 +12,37 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".GlobalApplication"
+        android:name=".global.GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@null"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BundleBundle"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ToastOtherActivity"
+            android:name=".global.ToastOtherActivity"
             android:exported="false" />
         <activity
-            android:name=".ToastActivity"
+            android:name=".global.ToastActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".NewGroupCartActivity"
+            android:name=".group.NewGroupCartActivity"
             android:exported="true"
             android:label="" />
+        <activity
+            android:name=".group.GroupActivity"
+            android:exported="true" />
+
         <activity
             android:name=".template.SimpleTemplateActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".member.LoginActivity"
             android:exported="true">
 
              <intent-filter>
@@ -76,13 +80,13 @@
             android:label="@string/title_activity_base"
             android:theme="@style/Theme.BundleBundle.NoActionBar" />
         <activity
-            android:name=".MainDetailPageActivity"
+            android:name=".global.MainDetailPageActivity"
             android:exported="false" />
         <activity
-            android:name=".MainPageActivity"
+            android:name=".global.MainPageActivity"
             android:exported="true" />
         <activity
-            android:name=".CartActivity"
+            android:name=".cart.CartActivity"
             android:exported="true">
         </activity>
         <activity
