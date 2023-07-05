@@ -1,57 +1,56 @@
 package com.example.bundlebundle.retrofit.service
 
-import com.example.bundlebundle.retrofit.dataclass.CartChangeVO
-import com.example.bundlebundle.retrofit.dataclass.CartCheckVO
-import com.example.bundlebundle.retrofit.dataclass.CartVO
-import com.example.bundlebundle.retrofit.dataclass.GroupCartChangeVO
-import com.example.bundlebundle.retrofit.dataclass.GroupCartListVO
+import com.example.bundlebundle.group.GroupMemberCartVO
+import com.example.bundlebundle.retrofit.dataclass.cart.CartChangeVO
+import com.example.bundlebundle.retrofit.dataclass.cart.CartCheckVO
+import com.example.bundlebundle.retrofit.dataclass.cart.CartVO
+import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartChangeVO
+import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartListVO
 import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 
 interface CartApiService {
 
-    @GET("cart/individual/{memberId}")
-    fun checkCart(
-        @Path("memberId") memberId: Int
-    ): Call<CartVO>
+    @GET("cart/individual")
+    fun checkCart(): Call<CartVO>
 
-    @DELETE("cart/{memberId}/{productId}")
+    @DELETE("cart/{productId}")
     fun deleteCartItem(
-        @Path("memberId") memberId: Int,
         @Path("productId") productId: Int
     ): Call<CartCheckVO>
 
-    @PATCH("cart/{memberId}/{productId}/{productCnt}")
+    @PATCH("cart/{productId}/{productCnt}")
     fun changeCartItemCnt(
-        @Path("memberId") memberId: Int,
         @Path("productId") productId: Int,
         @Path("productCnt") productCnt : Int
     ): Call<CartChangeVO>
 
     //그룹
+    @GET("cart/group")
+    fun groupcheckCart(): Call<GroupCartListVO>
 
-    @GET("cart/group/{groupId}")
-    fun groupcheckCart(
-        @Path("groupId") groupId: Int
-    ): Call<GroupCartListVO>
-
-    @DELETE("cart/group/{memberId}/{productId}/{groupId}")
+    @DELETE("cart/group/{productId}")
     fun deleteGroupCartItem(
-        @Path("memberId") memberId: Int,
         @Path("productId") productId: Int,
-        @Path("groupId") groupId: Int
     ): Call<CartCheckVO>
 
-    @PATCH("cart/group/{memberId}/{productId}/{groupId}/{productCnt}")
+    @PATCH("cart/group/{productId}/{productCnt}")
     fun changeGroupCartItemCnt(
-        @Path("memberId") memberId: Int,
         @Path("productId") productId: Int,
-        @Path("groupId") groupId: Int,
         @Path("productCnt") productCnt : Int
     ): Call<GroupCartChangeVO>
+
+    @POST("cart/group")
+    fun addToGroupCart(
+    ): Call<GroupMemberCartVO>
+
+    @POST("cart")
+    fun addToPersonalCart(
+    ): Call<GroupMemberCartVO>
 
 }

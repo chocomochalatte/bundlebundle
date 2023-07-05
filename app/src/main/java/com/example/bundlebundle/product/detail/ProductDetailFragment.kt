@@ -12,8 +12,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.bundlebundle.databinding.FragmentProductDetailBinding
 import com.example.bundlebundle.retrofit.ApiClient
-import com.example.bundlebundle.retrofit.ApiClient.productApiService
-import com.example.bundlebundle.retrofit.dataclass.ProductVO
+import com.example.bundlebundle.retrofit.dataclass.product.ProductVO
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
 import retrofit2.Callback

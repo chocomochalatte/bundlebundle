@@ -2,28 +2,16 @@ package com.example.bundlebundle.cart
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.example.bundlebundle.CartBottomFragment
-import com.example.bundlebundle.CartItemAdapter
-import com.example.bundlebundle.CartTopBarFragment
-import com.example.bundlebundle.EmptyCartFragment
-import com.example.bundlebundle.EmptyGroupCartFragment
-import com.example.bundlebundle.GroupCartBottomFragment
-import com.example.bundlebundle.GroupCartItemFragment
-import com.example.bundlebundle.GroupCartTopBarFragment
 import com.example.bundlebundle.R
-import com.example.bundlebundle.SharedMyCartItem
 import com.example.bundlebundle.databinding.FragmentCartContentBinding
 import com.example.bundlebundle.retrofit.ApiClient
-import com.example.bundlebundle.retrofit.dataclass.CartVO
-import com.example.bundlebundle.retrofit.dataclass.GroupCartListVO
-import com.example.bundlebundle.template.EmptyWhiteFragment
+import com.example.bundlebundle.retrofit.dataclass.cart.CartVO
+import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartListVO
 import com.google.android.material.tabs.TabLayout
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,6 +24,7 @@ class CartContentFragment : Fragment() {
     private lateinit var fragmentManager: FragmentManager
 
     private lateinit var cartTab: TabLayout
+    private lateinit var intent: Intent
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +39,7 @@ class CartContentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fragmentManager = parentFragmentManager
+        intent = requireActivity().intent
 
         showMyJangFragments()
 
@@ -57,7 +47,7 @@ class CartContentFragment : Fragment() {
         setTab(cartTab)
         setTabListeners()
 
-        val startingTab: String = requireActivity().intent.getStringExtra("tab") ?: "personal"
+        val startingTab: String = intent.getStringExtra("tab") ?: "personal"
         setStartingTab(startingTab)
     }
 
@@ -79,7 +69,6 @@ class CartContentFragment : Fragment() {
         }
         cartTab.getTabAt(tabIndex)?.select()
     }
-
 
     private fun setTabListeners() {
         val tabListener = object : TabLayout.OnTabSelectedListener {
@@ -168,10 +157,10 @@ class CartContentFragment : Fragment() {
 
     private fun MyCartItemapiReqeust(callback: (myData: CartVO?) -> Unit){
         //1. retrofit 객체 생성
-        val apiService = ApiClient.cartapiService
+        val apiService = ApiClient.cartApiService
 
         // Call 객체 생성
-        val call = apiService.checkCart(1)
+        val call = apiService.checkCart()
 
         // 4. 네트워크 통신
         call.enqueue(object: Callback<CartVO> {
@@ -185,16 +174,14 @@ class CartContentFragment : Fragment() {
                 call.cancel()
                 callback(null) // 실패 시 null을 전달
             }
-
         })
     }
 
     private fun GroupCartItemapiReqeust(callback: (groupData: GroupCartListVO?) -> Unit){
         //1. retrofit 객체 생성
-        val apiService = ApiClient.cartapiService
-
-        // Call 객체 생성
-        val call = apiService.groupcheckCart(1)
+        val apiService = ApiClient.cartApiService
+        val groupId = intent.getIntExtra("groupId", -1)
+        val call = apiService.groupcheckCart()
 
         // 4. 네트워크 통신
         call.enqueue(object: Callback<GroupCartListVO>{
@@ -205,7 +192,7 @@ class CartContentFragment : Fragment() {
 
             override fun onFailure(call: Call<GroupCartListVO>, t: Throwable) {
                 call.cancel()
-                callback(null) // 실패 시 null을 전달
+                callback(null) //실패 시 null을 전달
             }
 
         })

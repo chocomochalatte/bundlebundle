@@ -26,17 +26,19 @@
             android:contentInsetEnd="0dp"
             app:contentInsetRight="0dp"
             app:contentInsetEnd="0dp"
+            app:title="@null"
+            app:titleTextColor="@color/white"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" >
 
-            <ImageButton
-                android:id="@+id/back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_back"
-                android:contentDescription="뒤로가기"
-                android:onClick="onBackPressed"
-                android:background="?attr/selectableItemBackgroundBorderless" />
+<!--            <ImageButton-->
+<!--                android:id="@+id/back_button"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@drawable/ic_menu_back"-->
+<!--                android:contentDescription="뒤로가기"-->
+<!--                android:onClick="onBackPressed"-->
+<!--                android:background="?attr/selectableItemBackgroundBorderless" />-->
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
