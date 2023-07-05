@@ -69,8 +69,16 @@ class GroupCartBottomFragment : Fragment() {
             val shipmentpriceFormatted = NumberFormat.getNumberInstance(Locale.getDefault()).format(groupshipmentprice)
             binding.groupcartitemShipprice.text = shipmentpriceFormatted
 
-            val resultpriceFormatted = NumberFormat.getNumberInstance(Locale.getDefault()).format(groupresultprice)
-            binding.groupcartitemResultprice.text = resultpriceFormatted
+            if(groupresultprice<=0){
+                groupresultprice=0
+                val resultpriceFormatted = NumberFormat.getNumberInstance(Locale.getDefault()).format(groupresultprice)
+                binding.groupcartitemResultprice.text = resultpriceFormatted
+            }else{
+                val resultpriceFormatted = NumberFormat.getNumberInstance(Locale.getDefault()).format(groupresultprice)
+                binding.groupcartitemResultprice.text = resultpriceFormatted
+            }
+
+
 
             binding.groupCartTotalCnt.text = grouporderCnt.toString()
 

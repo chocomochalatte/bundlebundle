@@ -1,7 +1,8 @@
-package com.example.bundlebundle.order
+package com.example.bundlebundle.order;
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.bundlebundle.order.OrderListFragment
 import com.example.bundlebundle.template.SimpleTemplateActivity
 
 class OrderActivity : SimpleTemplateActivity() {
