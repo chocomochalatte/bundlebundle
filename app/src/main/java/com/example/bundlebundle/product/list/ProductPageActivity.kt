@@ -24,7 +24,7 @@ class ProductPageActivity: BaseTemplateActivity() {
 
     private fun setTabAndViewPager() {
         val tabAdapter = MenuTabAdapter(this)
-        tabAdapter.addMenuTab(ProductGridFragment.newInstance("best"), "Home")
+        tabAdapter.addMenuTab(ProductGridFragment.newInstance("home"), "Home")
         tabAdapter.addMenuTab(ProductGridFragment.newInstance("best"), "Best")
         tabAdapter.addMenuTab(ProductGridFragment.newInstance("newest"), "New")
         tabAdapter.addMenuTab(ProductGridFragment.newInstance("discount"), "Sale")

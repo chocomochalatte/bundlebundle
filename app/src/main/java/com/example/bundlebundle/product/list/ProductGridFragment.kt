@@ -4,11 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isEmpty
+import androidx.core.view.isVisible
+import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentProductGridBinding
+import com.example.bundlebundle.product.slider.ProductSliderFragment
+import com.example.bundlebundle.product.slider.ViewPagerFragment
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.ProductVO
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +37,8 @@ class ProductGridFragment : Fragment() {
     private var columnCount = 2
     private lateinit var sortType: String
     private lateinit var products: List<ProductVO>
-    private val apiService = ApiClient.apiService
+
+    private val productApiService = ApiClient.productApiService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +54,19 @@ class ProductGridFragment : Fragment() {
     private fun bindWithApiResponse() {
         sortType = arguments?.getString(ARG_SORT_TYPE) ?: "best"
 
+        if (sortType.equals("home") && binding.fragmentContainer1.isEmpty()) {
+            requireActivity().supportFragmentManager.beginTransaction()
+                                                    .add(R.id.fragment_container1, ViewPagerFragment())
+                                                    .add(R.id.fragment_container2, ProductSliderFragment())
+                                                    .commit()
+            binding.advTextMain.text = "7월, 제철에 만나는\n신선한 과일"
+            binding.advTextSub.text = "산지 직송 및 예약 판매"
+            binding.productSortingSpinner.isVisible = false
+            binding.productGridList.isVisible = false
+
+//            binding.advText.setTextSize(25F)
+        }
+
         lifecycleScope.launch {
             products = getProductFromApi(sortType) ?: emptyList()
             bindProductData(products)
@@ -55,7 +76,7 @@ class ProductGridFragment : Fragment() {
     private suspend fun getProductFromApi(sortType: String): List<ProductVO>? {
         return withContext(Dispatchers.IO) {
             suspendCoroutine<List<ProductVO>?> { continuation ->
-                val call = apiService.showProducts(sortType)
+                val call = productApiService.showProducts(sortType)
                 call.enqueue(object : Callback<List<ProductVO>> {
                     override fun onResponse(call: Call<List<ProductVO>>, response: Response<List<ProductVO>>) {
                         if (response.isSuccessful) {

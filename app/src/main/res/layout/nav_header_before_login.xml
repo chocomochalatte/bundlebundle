@@ -2,23 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="40dp"
     android:divider="@drawable/separator"
     android:showDividers="middle"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:layout_gravity="left" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/current_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="송민진님"
+            android:text="로그인해주세요"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingBottom="5dp"
@@ -34,8 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_close"
-            android:background="@color/white"
-            android:clickable="true" />
+            android:background="@color/white" />
 
     </LinearLayout>
 
@@ -78,7 +78,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:layout_marginLeft="30dp"
-            android:drawablePadding="-40dp"
+            android:drawablePadding="-30dp"
             app:drawableLeftCompat="@drawable/ic_heart"
             app:drawableTint="@color/middle_gray"
             android:layout_marginRight="-10dp"
@@ -92,7 +92,7 @@
             android:textSize="15dp"
             android:textStyle="bold"
             android:textColor="@color/middle_gray"
-            android:drawablePadding="-40dp"
+            android:drawablePadding="-30dp"
             android:layout_weight="1"
             android:textAlignment="center"
             android:layout_marginLeft="40dp"
@@ -143,8 +143,9 @@
             android:text="@string/category1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:textColor="@color/dark_gray"
             android:layout_margin="10dp" />
 
@@ -159,7 +160,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
+            android:padding="5dp"
             android:textColor="@color/dark_gray"
             android:layout_margin="10dp" />
 
@@ -174,7 +176,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
+            android:padding="5dp"
             android:textColor="@color/dark_gray"
             android:layout_margin="10dp" />
 
@@ -189,7 +192,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
+            android:padding="5dp"
             android:textColor="@color/dark_gray"
             android:layout_margin="10dp" />
 
@@ -204,7 +208,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
+            android:padding="5dp"
             android:textColor="@color/dark_gray"
             android:layout_margin="10dp" />
 
@@ -219,7 +224,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
+            android:padding="5dp"
             android:textColor="@color/dark_gray"
             android:layout_margin="10dp" />
 
@@ -236,7 +242,9 @@
             android:text="@string/category7"
             android:textColor="@color/dark_gray"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:padding="5dp"
+            android:textStyle="normal"
+            />
 
         <View
             android:layout_width="match_parent"
@@ -249,7 +257,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
+            android:padding="5dp"
             android:textColor="@color/dark_gray"
             android:layout_margin="10dp" />
 
@@ -264,7 +273,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:padding="5dp"
+            android:textStyle="normal"
             android:textColor="@color/dark_gray"
             android:layout_margin="10dp" />
 
@@ -278,8 +288,9 @@
             android:text="@string/category10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:textColor="@color/dark_gray"
             android:layout_margin="10dp" />
 
@@ -294,7 +305,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:padding="5dp"
+            android:textStyle="normal"
             android:textColor="@color/dark_gray"
             android:layout_margin="10dp" />
 
@@ -309,7 +321,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textStyle="bold"
+            android:padding="5dp"
+            android:textStyle="normal"
             android:textColor="@color/dark_gray"
             android:layout_margin="10dp" />
 

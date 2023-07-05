@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start" >
+    android:layout_gravity="start"
+    >
 
-    <com.google.android.material.navigation.NavigationView
+    <FrameLayout
+        android:id="@+id/home_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/base_template_content_area"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".template.BaseTemplateActivity"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="6dp">
+
+            <include
+                android:id="@+id/toolbar_main"
+                layout="@layout/app_bar_base"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/main_content_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_main" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+    <!-- 드로워 레이아웃 영역 -->
+    <include
         android:id="@+id/nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:layout_marginEnd="-64dp"
-        app:headerLayout="@layout/nav_header_basic"
-        />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/base_template_content_area"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/app_bar_base">
-
-        <include
-            android:id="@+id/toolbar_main"
-            layout="@layout/app_bar_base"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/main_content_fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_main" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        layout="@layout/nav_header_before_login" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

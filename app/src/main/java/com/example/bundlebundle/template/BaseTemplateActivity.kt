@@ -3,21 +3,17 @@ package com.example.bundlebundle.template
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.MotionEvent
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
-import androidx.appcompat.app.ActionBarDrawerToggle
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.ui.AppBarConfiguration
+import com.example.bundlebundle.CartActivity
 import com.example.bundlebundle.LoginActivity
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.ActivityBaseBinding
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
-import com.google.android.material.navigation.NavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,49 +30,14 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
         binding = ActivityBaseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navigationView = findViewById<NavigationView>(com.example.bundlebundle.R.id.nav_view)
-        navigationView.removeHeaderView(navigationView.getHeaderView(0))
-
-        if (ApiClient.getJwtToken()!=null) {
-            navigationView.inflateHeaderView(com.example.bundlebundle.R.layout.nav_header_basic)
-            Log.d("test","로그인됨")
-
-            //로그아웃 리스너 설정
-            val headerView = navigationView.getHeaderView(0)
-            val button = headerView.findViewById<Button>(R.id.logout_btn)
-            Log.d("test","button $button")
-            button.setOnClickListener {
-                Log.d("test","로그아웃버튼클릭")
-                ApiClient.setJwtToken(null);
-                //로그아웃 메소드 실행
-                val intent = Intent(this, this@BaseTemplateActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
-            }
-        } else {
-            navigationView.inflateHeaderView(R.layout.nav_header_with_login)
-            Log.d("test","로그인되지 않음")
-
-            // 로그인 리스너 설정
-            val headerView = navigationView.getHeaderView(0)
-            val button = headerView.findViewById<Button>(R.id.btn_oauth_login)
-            Log.d("test","button $button")
-            button.setOnClickListener {
-                Log.d("test","로그인버튼클릭")
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-            }
-
-        }
-        navigationView.invalidate()
+        updateNavViewLayout()
         setActionBarAndNavigationDrawer()
 
         // 메인 fragment 넣기
         val topLevelDestinations = setTopLevelMainFragment()
         appBarConfiguration = createAppBarConfiguration(topLevelDestinations, binding.drawerLayout)
 
-        val textView = binding.navView.getHeaderView(0).findViewById<TextView>(R.id.current_user_name)
+        val textView = binding.navView.currentUserName
         var myName : String? = "기본이름입니다";
         //API 요청 시작
         val apiService = ApiClient.apiService
@@ -106,31 +67,60 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
             }
 
         })
+
+    }
+
+    fun updateNavViewLayout() {
+        val navView: ViewGroup = findViewById(R.id.nav_view)
+        val navLayout: Int = when (ApiClient.getJwtToken()) {
+            null -> R.layout.nav_header_before_login
+            else -> R.layout.nav_header_basic
+        }
+        val inflater = layoutInflater
+        inflater.inflate(navLayout, navView, true)
     }
 
     private fun setActionBarAndNavigationDrawer() {
         // Action Bar 설정
         setSupportActionBar(binding.toolbarMain.toolbar)
 
-        // navigation drawer 구성요소 초기화
-        val navView: NavigationView = binding.navView
+        val drawerLayout_home = binding.drawerLayout
 
-        // ActionBarDrawerToggle 추가
-        val toggle = ActionBarDrawerToggle(
-            this,
-            binding.drawerLayout,
-            binding.toolbarMain.toolbar,
-            com.example.bundlebundle.R.string.navigation_drawer_open,
-            com.example.bundlebundle.R.string.navigation_drawer_close
-        )
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+        val menuCloseButton = binding.navView.closeBtn
+        menuCloseButton.setOnClickListener {
+            drawerLayout_home.closeDrawer(GravityCompat.START)
+        }
 
-        // navigation drawer닫기 버튼
-        val navHeaderView = navView.getHeaderView(0)
-        val closeButton = navHeaderView.findViewById<ImageButton>(com.example.bundlebundle.R.id.close_btn)
-        closeButton?.setOnClickListener {
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        val cartShortcutBtn = binding.toolbarMain.cartImage
+        cartShortcutBtn.setOnClickListener {
+            val newIntent = Intent(this, CartActivity::class.java)
+            newIntent.putExtra("tab", "personal")
+            startActivity(newIntent)
+        }
+
+
+        // 메뉴 버튼 클릭 리스너 설정
+        val menuButton = binding.toolbarMain.menuBtn
+        menuButton.setOnClickListener {
+            // 드로워 토글
+            if (drawerLayout_home.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout_home.closeDrawer(GravityCompat.START)
+            } else {
+                drawerLayout_home.openDrawer(GravityCompat.START)
+            }
+        }
+
+//        val logoutBtn = binding.navView.logoutBtn
+//        logoutBtn.setOnClickListener {
+//            Log.d("fgkjnbdjkv", "fdjbfskdjnbfvkj")
+//            true
+//        }
+
+        val loginBtn = binding.navView.btnOauthLogin
+        loginBtn.setOnClickListener {
+            Log.d("test","로그인버튼클릭")
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
 
     }
