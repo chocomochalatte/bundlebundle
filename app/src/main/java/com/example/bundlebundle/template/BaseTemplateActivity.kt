@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.ui.AppBarConfiguration
@@ -62,13 +63,13 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
                 } else {
                     // 응답이 실패한 경우 처리
                     Log.e("TestActivity", "서버 응답이 실패했습니다. 상태 코드: ${response.code()}")
-                    showAlert("ERROR : ${response.body()}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
+                    showAlert("ERROR : ${response.body()}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", { dialog,  _ ->  })
                 }
             }
 
             override fun onFailure(call: Call<MemberVO>, t: Throwable) {
                 Log.e("TestActivity", "서버 응답이 실패했습니다. 상태 코드: ${t.printStackTrace()}")
-                showAlert("ERROR : ${t.message}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
+                showAlert("ERROR : ${t.message}", "서버 응답이 실패했습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog,  _ ->  })
             }
         })
     }

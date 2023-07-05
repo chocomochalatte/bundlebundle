@@ -51,6 +51,6 @@ interface CartApiService {
 
     @POST("cart")
     fun addToPersonalCart(
-    ): Call<GroupMemberCartVO>
+    ): Call<CartChangeVO>
 
 }

@@ -15,6 +15,7 @@ import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentBottomSheetCartBinding
 import com.example.bundlebundle.group.GroupMemberCartVO
 import com.example.bundlebundle.retrofit.ApiClient
+import com.example.bundlebundle.retrofit.dataclass.cart.CartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.group.GroupIdVO
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
@@ -22,6 +23,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.NumberFormat
 import java.util.Locale
+import kotlin.properties.Delegates
 
 
 class BottomSheetCartFragment : BottomSheetDialogFragment() {
@@ -29,6 +31,7 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentBottomSheetCartBinding? = null
     private val binding get() = _binding!!
 
+    private var productId by Delegates.notNull<Int>()
     private lateinit var tvQuantity: TextView
     private var quantity = 1
 
@@ -45,9 +48,6 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBottomSheetCartBinding.inflate(inflater, container, false)
-
-
-
         return binding.root
     }
 
@@ -78,6 +78,7 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
 
         intent = requireActivity().intent
         tvQuantity = view.findViewById(R.id.tvQuantity)
+        productId = intent.getIntExtra("productId", -1)
 
         Log.d("aaa","${binding.tvQuantity}")
 
@@ -140,17 +141,27 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
     }
 
     private fun addToPersonalCart() {
-        cartApiService.addToPersonalCart().enqueue(object : Callback<GroupMemberCartVO> {
+
+        val requestVO = CartChangeVO(-1, productId, quantity)
+        cartApiService.addToPersonalCart().enqueue(object : Callback<CartChangeVO> {
             override fun onResponse(
-                call: Call<GroupMemberCartVO>,
-                response: Response<GroupMemberCartVO>
+                call: Call<CartChangeVO>,
+                response: Response<CartChangeVO>
             ) {
-                val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("personal") }
-                showAlert("개인 장바구니에 추가 완료", "장바구니로 이동하시겠습니까?", posListener)
+                when(response.isSuccessful) {
+                    true -> {
+                        val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("personal") }
+                        showAlert("개인 장바구니에 추가 완료", "장바구니로 이동하시겠습니까?", posListener)
+                    }
+                    else -> {
+                        showAlert("ERROR", "서버에서 오류가 발생하였습니다.", { dialog, _ -> })
+                    }
+                }
             }
 
-            override fun onFailure(call: Call<GroupMemberCartVO>, t: Throwable) {
+            override fun onFailure(call: Call<CartChangeVO>, t: Throwable) {
                 t.printStackTrace()
+                showAlert("ERROR", "서버 응답에 실패하였습니다.", { dialog, _ -> })
             }
         })
     }
