@@ -113,18 +113,18 @@ class LoginActivity : AppCompatActivity() {
                         // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                         UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
                     } else if (token != null) {
-                        Log.i("RealLOGIN", "카카오톡으로 로그인 성공 카카오톡있음: ${token.accessToken}")
+                        Log.i("RealLOGIN", "카카오톡으로 로그인 성공 카카오톡있음1: ${token.accessToken}")
 
                         val apiService = ApiClient.apiService
                         val call: Call<LoginTokenVO> = apiService.gettoken(token.accessToken)
-                        Log.i("RealLOGIN", "카카오 엑세스 토큰 카카오톡있음:  ${token.accessToken}")
+                        Log.i("RealLOGIN", "카카오 엑세스 토큰 카카오톡있음2:  ${token.accessToken}")
                         call.enqueue(object : Callback<LoginTokenVO> {
                             override fun onResponse(call: Call<LoginTokenVO>, response: Response<LoginTokenVO>) {
                                 if (response.isSuccessful) {
                                     val tokenInfo = response.body()
                                     tokenInfo?.let { info ->
                                         // 서버 응답 처리
-                                        Log.i("RealLOGIN", "카카오계정으로 로그인 성공 카카오톡있음:  ${info.token}")
+                                        Log.i("RealLOGIN", "카카오계정으로 로그인 성공 카카오톡있음3:  ${info.token}")
                                         ApiClient.setJwtToken(info.token)
 
                                         val intent = Intent(this@LoginActivity, ProductPageActivity::class.java)
