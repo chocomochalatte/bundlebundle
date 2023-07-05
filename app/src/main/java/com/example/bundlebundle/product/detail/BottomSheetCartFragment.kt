@@ -9,14 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import com.example.bundlebundle.CartActivity
+import com.example.bundlebundle.cart.CartActivity
 import com.example.bundlebundle.group.GroupActivity
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentBottomSheetCartBinding
-import com.example.bundlebundle.group.GroupCreateFragment
 import com.example.bundlebundle.group.GroupMemberCartVO
 import com.example.bundlebundle.retrofit.ApiClient
-import com.example.bundlebundle.retrofit.dataclass.GroupIdVO
+import com.example.bundlebundle.retrofit.dataclass.group.GroupIdVO
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,7 +37,8 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
 
     private lateinit var intent: Intent
 
-    private val apiService = ApiClient.apiService
+    private val cartApiService = ApiClient.cartApiService
+    private val groupApiService = ApiClient.groupApiService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -102,7 +102,7 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
     }
 
     private fun doActionWithGroupCart() {
-        apiService.checkIfGroupIsPresent("fcdkjchbskjvb").enqueue(object : Callback<GroupIdVO> {
+        groupApiService.checkIfGroupIsPresent("fcdkjchbskjvb").enqueue(object : Callback<GroupIdVO> {
             override fun onResponse(call: Call<GroupIdVO>, response: Response<GroupIdVO>) {
                 val groupId: Int? = response.body()?.groupId
                 when (groupId) {
@@ -124,7 +124,7 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
     }
 
     private fun addToGroupCart() {
-        apiService.addToGroupCart().enqueue(object : Callback<GroupMemberCartVO> {
+        cartApiService.addToGroupCart().enqueue(object : Callback<GroupMemberCartVO> {
             override fun onResponse(
                 call: Call<GroupMemberCartVO>,
                 response: Response<GroupMemberCartVO>
@@ -136,12 +136,11 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
             override fun onFailure(call: Call<GroupMemberCartVO>, t: Throwable) {
                 t.printStackTrace()
             }
-
         })
     }
 
     private fun addToPersonalCart() {
-        apiService.addToPersonalCart().enqueue(object : Callback<GroupMemberCartVO> {
+        cartApiService.addToPersonalCart().enqueue(object : Callback<GroupMemberCartVO> {
             override fun onResponse(
                 call: Call<GroupMemberCartVO>,
                 response: Response<GroupMemberCartVO>
@@ -153,7 +152,6 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
             override fun onFailure(call: Call<GroupMemberCartVO>, t: Throwable) {
                 t.printStackTrace()
             }
-
         })
     }
 
@@ -178,11 +176,17 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
     }
 
     private fun moveToGroupCreatePage() {
-        val newIntent = Intent(context, GroupActivity(GroupCreateFragment.newInstance())::class.java)
+        val newIntent = Intent(context, GroupActivity()::class.java)
         newIntent.putExtra("tab", "group")
+        newIntent.putExtra("pageType", "create")
         newIntent.putExtra("productId", intent.getIntExtra("productId", -1))
         newIntent.putExtra("productCnt", quantity)
         requireActivity().startActivity(newIntent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
 

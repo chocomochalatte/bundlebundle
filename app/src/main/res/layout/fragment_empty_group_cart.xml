@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".EmptyGroupCartFragment">
+    tools:context=".cart.EmptyGroupCartFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.example.bundlebundle.retrofit
 
 import android.util.Log
 import com.example.bundlebundle.retrofit.service.CartApiService
+import com.example.bundlebundle.retrofit.service.GroupApiService
 import com.example.bundlebundle.retrofit.service.ProductApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -35,6 +36,7 @@ object ApiClient {
                     }
 
                     Log.i("TestActivity", "인터셉터를 통해 토큰 담김")
+                    Log.i("TestActivity", token.toString())
                     return chain.proceed(newRequest)
                 }
             })
@@ -54,12 +56,16 @@ object ApiClient {
         retrofit.create(ApiService::class.java)
     }
 
-    val cartapiService: CartApiService by lazy {
+    val cartApiService: CartApiService by lazy {
         retrofit.create(CartApiService::class.java)
     }
 
     val productApiService: ProductApiService by lazy {
         retrofit.create(ProductApiService::class.java)
+    }
+
+    val groupApiService: GroupApiService by lazy {
+        retrofit.create(GroupApiService::class.java)
     }
 
     fun setJwtToken(token: String?) {
