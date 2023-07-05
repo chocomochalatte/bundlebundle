@@ -1,4 +1,4 @@
-package com.example.bundlebundle
+package com.example.bundlebundle.Firebase
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -9,6 +9,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.example.bundlebundle.R
 import com.example.bundlebundle.global.ToastActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -23,14 +24,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     /** Token 생성 메서드(FirebaseInstanceIdService 사라짐) */
     override fun onNewToken(token: String) {
-        Log.d(TAG, "new Token: $token")
+        Log.d("hong", "new Token: $token")
 
         // 토큰 값을 따로 저장
         val pref = this.getSharedPreferences("token", Context.MODE_PRIVATE)
         val editor = pref.edit()
-        editor.putString("token", token).apply()
+        editor.putString("hong", token).apply()
         editor.commit()
-        Log.i(TAG, "성공적으로 토큰을 저장함")
+        Log.d("hong", "성공적으로 토큰을 저장함")
     }
 
     /** 메시지 수신 메서드(포그라운드) */
