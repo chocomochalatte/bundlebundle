@@ -1,13 +1,23 @@
 package com.example.bundlebundle.product.list
 
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import com.example.bundlebundle.template.BaseTemplateActivity
 import com.google.android.material.tabs.TabLayoutMediator
+import com.kakao.sdk.common.util.Utility
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+
 
 class ProductPageActivity: BaseTemplateActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        var keyHash = Utility.getKeyHash(this)
+        Log.d("kako", keyHash)
 
         setTabAndViewPager()
     }
