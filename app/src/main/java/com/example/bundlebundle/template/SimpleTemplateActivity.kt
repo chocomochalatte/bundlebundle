@@ -1,11 +1,13 @@
 package com.example.bundlebundle.template
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.bundlebundle.databinding.ActivitySimpleTemplateBinding
+import com.example.bundlebundle.product.list.ProductPageActivity
 
 abstract class SimpleTemplateActivity : AppCompatActivity() {
     lateinit var binding: ActivitySimpleTemplateBinding
@@ -21,6 +23,11 @@ abstract class SimpleTemplateActivity : AppCompatActivity() {
         putFragment(fragment)
 
         binding.toolbarSimple.simpleToolbarTitle.text = setTitle()
+
+        binding.toolbarSimple.homeBtn.setOnClickListener {
+            val intent = Intent(this, ProductPageActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     protected abstract fun setFragment(): Fragment
@@ -48,6 +55,7 @@ abstract class SimpleTemplateActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

@@ -30,11 +30,10 @@
         android:textStyle="bold"
         android:layout_margin="10dp"
         android:textSize="20dp"
-        android:text="추천 상품"
+        android:text="주문 내역"
         app:layout_constraintTop_toBottomOf="@id/order_main_text"
         />
 
-    <!--여기에 각각 장바구니 item부분-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/order_items"
         android:layout_width="match_parent"
