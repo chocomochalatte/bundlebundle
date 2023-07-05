@@ -1,15 +1,20 @@
 package com.example.bundlebundle.member
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
 import com.example.bundlebundle.R
 import com.example.bundlebundle.product.list.ProductPageActivity
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.member.LoginTokenVO
 import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
+import com.example.bundlebundle.template.BaseTemplateActivity
+import com.example.bundlebundle.util.LessonDeleteDialog
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -36,35 +41,17 @@ class LoginActivity : AppCompatActivity() {
         }
         val kakaoLoginButton = findViewById<android.widget.Button>(R.id.oauth_login)
         val basicLoginButton = findViewById<android.widget.Button>(R.id.btn_login)
-        //기본 로그인 - 테스트
+
         basicLoginButton.setOnClickListener {
-            // 테스트 버튼 클릭 시, getmember API 호출
-            val apiService = ApiClient.apiService
-            val call: Call<MemberVO> = apiService.getmember()
-            call.enqueue(object : Callback<MemberVO> {
-                override fun onResponse(call: Call<MemberVO>, response: Response<MemberVO>) {
-                    if (response.isSuccessful) {
-                        val memberInfo = response.body()
-                        memberInfo?.let { info ->
-                            // 서버 응답 처리
-                            Log.i("TestActivity", "멤버 정보 받아오기 성공 $memberInfo")
-                            // 받아온 멤버 정보를 원하는 대로 처리하세요
-                        } ?: run {
-                            // 응답이 null인 경우 처리
-                            Log.e("TestActivity", "서버 응답이 null입니다.")
-                        }
-                    } else {
-                        // 응답이 실패한 경우 처리
-                        Log.e("TestActivity", "서버 응답이 실패했습니다. 상태 코드: ${response.code()}")
-                    }
+            val dialog = LessonDeleteDialog(this)
+            dialog.listener = object : LessonDeleteDialog.LessonDeleteDialogClickedListener {
+                override fun onDeleteClicked() {
+                    // 확인 버튼을 클릭했을 때 수행할 동작을 정의합니다.
+                    // 예를 들어, 로그인 기능을 실행하는 코드를 추가할 수 있습니다.
                 }
-
-                override fun onFailure(call: Call<MemberVO>, t: Throwable) {
-                    Log.e("TestActivity", "서버 응답이 실패했습니다. 상태 코드: ${t.printStackTrace()}")
-                }
-            })
+            }
+            dialog.start()
         }
-
 
         // 카카오 로그인
         kakaoLoginButton.setOnClickListener{
@@ -169,6 +156,11 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 UserApiClient.instance.loginWithKakaoAccount(context, callback = callback)
             }
+        }
+
+        val imageView = findViewById<ImageView>(R.id.hyundai_food_img)
+        imageView.setOnClickListener {
+            startActivity((Intent(this@LoginActivity, ProductPageActivity::class.java)))
         }
     }
 
