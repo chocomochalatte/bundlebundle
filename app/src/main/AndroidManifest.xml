@@ -6,7 +6,9 @@
         android:name="android.hardware.telephony"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission
         android:name="android.permission.WRITE_APN_SETTINGS"
@@ -29,7 +31,7 @@
             android:name=".order.OrderAddressActivity"
             android:exported="false" />
         <activity
-            android:name=".group.DynamicLinkActivity"
+            android:name=".group.GroupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -57,14 +59,9 @@
             android:exported="false" />
         <activity
             android:name=".global.ToastActivity"
-            android:exported="true" />
-        <activity
-            android:name=".group.NewGroupCartActivity"
-            android:exported="true"
-            android:label="" />
-        <activity
-            android:name=".group.GroupActivity"
-            android:exported="true" />
+            android:exported="true">
+        </activity>
+  
         <activity
             android:name=".template.SimpleTemplateActivity"
             android:exported="true" />
@@ -87,7 +84,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <!-- &lt;!&ndash; Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" &ndash;&gt; -->
                 <data
                     android:host="oauth"
                     android:scheme="@string/kakao_oauth_host" />
@@ -95,7 +91,13 @@
         </activity>
         <activity
             android:name=".product.list.ProductPageActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".product.detail.ProductDetailActivity"
             android:exported="true" />
@@ -110,10 +112,6 @@
         <activity
             android:name=".global.MainPageActivity"
             android:exported="true" />
-        <activity
-            android:name=".cart.CartActivity"
-            android:exported="true"></activity>
-
         <service
             android:name=".Firebase.MyFirebaseMessagingService"
             android:enabled="true"

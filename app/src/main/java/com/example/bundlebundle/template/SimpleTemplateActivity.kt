@@ -55,9 +55,4 @@ abstract class SimpleTemplateActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 }
