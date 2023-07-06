@@ -9,6 +9,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.bundlebundle.R
+import com.example.bundlebundle.order.OrderStepActivity
 import com.example.bundlebundle.product.list.ProductPageActivity
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.member.LoginTokenVO
@@ -41,8 +42,8 @@ class LoginActivity : AppCompatActivity() {
         }
         val kakaoLoginButton = findViewById<android.widget.Button>(R.id.oauth_login)
         val basicLoginButton = findViewById<android.widget.Button>(R.id.btn_login)
-
         basicLoginButton.setOnClickListener {
+
             val dialog = LessonDeleteDialog(this)
             dialog.listener = object : LessonDeleteDialog.LessonDeleteDialogClickedListener {
                 override fun onDeleteClicked() {
