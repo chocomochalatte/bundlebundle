@@ -1,4 +1,4 @@
-package com.example.bundlebundle.retrofit.dataclass.cart
+package com.example.bundlebundle.group
 
 data class GroupMemberCartVO(
     val groupId: Int,

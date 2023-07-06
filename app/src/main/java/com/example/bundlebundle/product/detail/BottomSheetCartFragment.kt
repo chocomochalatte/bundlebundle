@@ -14,11 +14,13 @@ import com.example.bundlebundle.cart.CartActivity
 import com.example.bundlebundle.group.GroupActivity
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentBottomSheetCartBinding
+import com.example.bundlebundle.member.LoginActivity
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.cart.CartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.group.GroupIdVO
 import com.example.bundlebundle.retrofit.dataclass.product.ProductVO
+import com.example.bundlebundle.util.LessonLoginDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -109,11 +111,43 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
 
         binding.bottomSheetPersonalCartButton.setOnClickListener {
             val posListener = DialogInterface.OnClickListener { dialog, _ -> addToPersonalCart() }
-            showAlert("개인 장바구니", "개인 장바구니에 추가하시겠습니까?", posListener)
+
+            when (isLogedIn()) {
+                true -> {
+                    showAlert("개인 장바구니", "개인 장바구니에 추가하시겠습니까?", posListener)
+                }
+                else -> {
+                    val dialog = LessonLoginDialog(requireContext())
+                    dialog.listener = object : LessonLoginDialog.LessonDeleteDialogClickedListener {
+                        override fun onDeleteClicked() {
+                            val intent = Intent(requireContext(), LoginActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                    dialog.start()
+
+                }
+            }
         }
 
         binding.bottomSheetGroupCartButton.setOnClickListener {
-            doActionWithGroupCart()
+
+            when (isLogedIn()) {
+                true -> {
+                    doActionWithGroupCart()
+                }
+                else -> {
+                    val dialog = LessonLoginDialog(requireContext())
+                    dialog.listener = object : LessonLoginDialog.LessonDeleteDialogClickedListener {
+                        override fun onDeleteClicked() {
+                            val intent = Intent(requireContext(), LoginActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                    dialog.start()
+
+                }
+            }
         }
     }
 
@@ -132,8 +166,13 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
                         showAlert("그룹 장바구니", "그룹 장바구니가 없습니다. 생성하시겠습니까?", posListener)
                     }
                     else -> {
-                        val posListener = DialogInterface.OnClickListener { dialog, _ -> addToGroupCart() }
-                        showAlert("그룹 장바구니", "그룹 장바구니에 추가하시겠습니까?", posListener)
+                        val dialog = LessonLoginDialog(requireContext())
+                        dialog.listener = object : LessonLoginDialog.LessonDeleteDialogClickedListener {
+                            override fun onDeleteClicked() {
+                                addToGroupCart()
+                            }
+                        }
+                        dialog.start()
                     }
                 }
             }
@@ -153,6 +192,7 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
                 when(response.isSuccessful) {
                     true -> {
                         val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group") }
+
                         showAlert("그룹 장바구니에 추가 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
                     }
                     else -> {
@@ -238,4 +278,9 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
 
         private const val PRODUCT_INFO = "productVO"
     }
+
+    private fun isLogedIn(): Boolean {
+        return (ApiClient.getJwtToken() != null)
+    }
 }
+

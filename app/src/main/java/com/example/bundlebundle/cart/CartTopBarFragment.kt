@@ -10,25 +10,18 @@ import com.example.bundlebundle.retrofit.dataclass.cart.CartVO
 
 
 class CartTopBarFragment : Fragment() {
-    private var _binding: FragmentCartTopbarBinding? = null
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCartTopbarBinding.inflate(inflater, container, false)
+        val binding = FragmentCartTopbarBinding.inflate(layoutInflater)
         arguments?.let {
             val myData = it.getParcelable<CartVO>(MY_CART_TOTAL_CNT)
             val cartCnt = myData?.cartCnt.toString()
-            binding.mycartitemTotalcnt.text = cartCnt
+            binding.mycartitemTotalcnt.text= cartCnt
         }
         return binding.root
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     fun newInstance(myData: CartVO): CartTopBarFragment {

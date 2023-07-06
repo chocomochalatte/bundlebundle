@@ -1,5 +1,6 @@
 package com.example.bundlebundle.retrofit.service
 
+import com.example.bundlebundle.group.GroupMemberCartVO
 import com.example.bundlebundle.retrofit.dataclass.cart.CartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.cart.CartCheckVO
 import com.example.bundlebundle.retrofit.dataclass.cart.CartVO
