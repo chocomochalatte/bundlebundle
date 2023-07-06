@@ -17,6 +17,8 @@ import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.ApiClient.groupApiService
 import com.example.bundlebundle.retrofit.dataclass.group.GroupNicknameVO
 import com.example.bundlebundle.retrofit.dataclass.group.GroupVO
+import com.example.bundlebundle.util.GroupCartEndDialog
+import com.example.bundlebundle.util.PersonalCartEndDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,16 +57,34 @@ class GroupCreateFragment : Fragment() {
         call.enqueue(object : Callback<GroupVO> {
             override fun onResponse(call: Call<GroupVO>, response: Response<GroupVO>) {
                 if (response.isSuccessful) {
-                    val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group", response.body()!!.id) }
-                    showAlert("그룹 장바구니 생성 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
+                    val dialog = GroupCartEndDialog(requireContext())
+                    dialog.listener = object : GroupCartEndDialog.LessonDeleteDialogClickedListener {
+                        override fun onDeleteClicked() {
+                            moveToCart("group", response.body()!!.id)
+                        }
+                    }
+                    dialog.start()
+
                 } else {
-                    showAlert("ERROR : ${response.body()}", "그룹 장바구니 생성이 실패하였습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
+                    val dialog = GroupCartEndDialog(requireContext())
+                    dialog.listener = object : GroupCartEndDialog.LessonDeleteDialogClickedListener {
+                        override fun onDeleteClicked() {
+                            moveToMain()
+                        }
+                    }
+                    dialog.start()
                 }
             }
 
             override fun onFailure(call: Call<GroupVO>, t: Throwable) {
                 t.printStackTrace()
-                showAlert("ERROR : ${t.message}", "그룹 장바구니 생성이 실패하였습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
+                val dialog = GroupCartEndDialog(requireContext())
+                dialog.listener = object : GroupCartEndDialog.LessonDeleteDialogClickedListener {
+                    override fun onDeleteClicked() {
+                        moveToMain()
+                    }
+                }
+                dialog.start()
             }
         })
     }
