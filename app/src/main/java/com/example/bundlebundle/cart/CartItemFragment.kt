@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentCartBinding
 import com.example.bundlebundle.databinding.FragmentCartContentBinding
 import com.example.bundlebundle.databinding.FragmentCartItemBinding
@@ -229,12 +230,12 @@ class CartItemAdapter(private val noMyCartItemContainer: LinearLayout,
             }
             if (itemCartContainer != null && newItemFragment != null) {
                 fragmentManager.beginTransaction()
-                    .replace(noMyCartItemContainer.id, newItemFragment)
+                    .replace(R.id.item_cartfragment, newItemFragment)
                     .commit()
             }
             if (bottomCartContainer != null && newBottomFragment != null) {
                 fragmentManager.beginTransaction()
-                    .replace(noMyCartItemContainer.id, newBottomFragment)
+                    .replace(R.id.bottom_cartfragment, newBottomFragment)
                     .commit()
             }
 

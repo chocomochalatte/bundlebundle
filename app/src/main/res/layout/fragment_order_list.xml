@@ -30,7 +30,7 @@
         android:textStyle="bold"
         android:layout_margin="10dp"
         android:textSize="20dp"
-        android:text="주문 내역"
+        android:text="주문 상세 내역"
         app:layout_constraintTop_toBottomOf="@id/order_main_text"
         />
 
