@@ -28,7 +28,7 @@ class ToastActivity : AppCompatActivity() {
             if (token != null) {
                 Log.d("aaaa","$token")
                 val fbsapiService = FBSApiClient.fbsapiService
-                val fcmData = FcmData("그룹 장바구니 생성", "생성하셨습니다.")
+                val fcmData = FcmData("그룹 장바구니 생성!!", "상품을 담으러 가보세요~~")
                 val message = FcmMessageVO(token,"high",fcmData)
                 // Call 객체 생성
                 val call = fbsapiService.alarm(message)
@@ -56,16 +56,12 @@ class ToastActivity : AppCompatActivity() {
             }
         }
 
-
-
-
     }
 
     fun setToken(callback: (String?, Exception?) -> Unit) {
         FirebaseMessaging.getInstance().token
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-
                     token = task.result
                     Log.d("aaaa","${token}")
                     callback(token, null)
