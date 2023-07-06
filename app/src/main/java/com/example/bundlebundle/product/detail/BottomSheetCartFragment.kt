@@ -23,6 +23,7 @@ import com.example.bundlebundle.retrofit.dataclass.product.ProductVO
 import com.example.bundlebundle.util.GroupCartDialog
 import com.example.bundlebundle.util.LessonLoginDialog
 import com.example.bundlebundle.util.PersonalCartDialog
+import com.example.bundlebundle.util.PersonalCartEndDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -116,7 +117,6 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
 
             when (isLogedIn()) {
                 true -> {
-                    /*showAlert("개인 장바구니", "개인 장바구니에 추가하시겠습니까?", posListener)*/
                     val dialog = PersonalCartDialog(requireContext())
                     dialog.listener = object : PersonalCartDialog.LessonDeleteDialogClickedListener {
                         override fun onDeleteClicked() {
@@ -175,10 +175,6 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
                         showAlert("그룹 장바구니", "그룹 장바구니가 없습니다. 생성하시겠습니까?", posListener)
                     }
                     else -> {
-
-/*                        val posListener = DialogInterface.OnClickListener { dialog, _ -> addToGroupCart() }
-                        showAlert("그룹 장바구니", "그룹 장바구니에 추가하시겠습니까?", posListener)*/
-
                         val dialog = GroupCartDialog(requireContext())
                         dialog.listener = object : GroupCartDialog.LessonDeleteDialogClickedListener {
                             override fun onDeleteClicked() {
@@ -229,8 +225,14 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
             ) {
                 when(response.isSuccessful) {
                     true -> {
-                        val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("personal") }
-                        showAlert("개인 장바구니에 추가 완료", "장바구니로 이동하시겠습니까?", posListener)
+                        val dialog = PersonalCartEndDialog(requireContext())
+                        dialog.listener = object : PersonalCartEndDialog.LessonDeleteDialogClickedListener {
+                            override fun onDeleteClicked() {
+                                moveToCart("personal")
+                            }
+                        }
+                        dialog.start()
+
                     }
                     else -> {
                         showAlert("ERROR", "서버에서 오류가 발생하였습니다.", { dialog, _ -> })
