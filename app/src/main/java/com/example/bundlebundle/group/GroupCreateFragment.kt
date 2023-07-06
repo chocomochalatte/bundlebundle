@@ -15,8 +15,13 @@ import com.example.bundlebundle.databinding.FragmentGroupCreateBinding
 import com.example.bundlebundle.product.list.ProductPageActivity
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.ApiClient.groupApiService
+import com.example.bundlebundle.retrofit.FBSApiClient
+import com.example.bundlebundle.retrofit.dataclass.firebase.FcmData
+import com.example.bundlebundle.retrofit.dataclass.firebase.FcmMessageVO
+import com.example.bundlebundle.retrofit.dataclass.firebase.FcmResponse
 import com.example.bundlebundle.retrofit.dataclass.group.GroupNicknameVO
 import com.example.bundlebundle.retrofit.dataclass.group.GroupVO
+import com.google.firebase.messaging.FirebaseMessaging
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -57,6 +62,37 @@ class GroupCreateFragment : Fragment() {
                 if (response.isSuccessful) {
                     val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group", response.body()!!.id) }
                     showAlert("그룹 장바구니 생성 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
+                    // Token값 가져오면서 레트로핏 통신하기
+                    setToken { token, exception ->
+                        if (token != null) {
+                            Log.d("aaaa","$token")
+                            val fbsapiService = FBSApiClient.fbsapiService
+                            val fcmData = FcmData("그룹 장바구니 생성!!", "상품을 담으러 가보세요~~")
+                            val message = FcmMessageVO(token,"high",fcmData)
+                            // Call 객체 생성
+                            val call = fbsapiService.alarm(message)
+                            call.enqueue(object: Callback<FcmResponse>{
+                                override fun onResponse(
+                                    call: Call<FcmResponse>,
+                                    response: Response<FcmResponse>
+                                ) {
+                                    val responseData = response.body()
+                                    when(response.isSuccessful) {
+                                        true -> Log.d("aaaa","${responseData}")
+                                        else -> Log.d("bbbbb",response.code().toString() + response.errorBody().toString() + response.message())
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<FcmResponse>, t: Throwable) {
+                                    call.cancel()
+                                }
+                            })
+
+                        } else {
+                            // 예외 처리 로직
+                            Log.e("aaaa", "Failed to retrieve token: ${exception?.message}")
+                        }
+                    }
                 } else {
                     showAlert("ERROR : ${response.body()}", "그룹 장바구니 생성이 실패하였습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
                 }
@@ -69,7 +105,21 @@ class GroupCreateFragment : Fragment() {
         })
     }
 
+    private fun setToken(callback: (String?, Exception?) -> Unit) {
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("aaaa","${task.result}")
+                    callback(task.result, null)
+                } else {
+                    val exception = task.exception ?: Exception("Failed to retrieve token")
+                    callback(null, exception)
+                }
+            }
+    }
+
     private fun moveToCart(startingTab: String, groupId: Int) {
+        Log.d("ming", groupId.toString())
         val intent = Intent(requireActivity(), CartActivity::class.java)
         intent.putExtra("tab", startingTab)
         intent.putExtra("groupId", groupId)

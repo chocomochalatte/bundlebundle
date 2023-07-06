@@ -51,13 +51,17 @@ class CartContentFragment : Fragment() {
         fragmentManager = parentFragmentManager
         intent = requireActivity().intent
 
-        showMyJangFragments()
+
 
         cartTab = binding.tabLayout
         setTab(cartTab)
         setTabListeners()
 
         val startingTab: String = intent.getStringExtra("tab") ?: "personal"
+        if(startingTab=="personal"){
+            showMyJangFragments()
+        }
+        Log.d("ming", startingTab)
         setStartingTab(startingTab)
     }
 
@@ -142,8 +146,10 @@ class CartContentFragment : Fragment() {
     }
 
     private fun showGroupJangFragments() {
+
         GroupCartItemapiReqeust{
                 groupData ->
+            Log.d("ming","$groupData")
             if(groupData != null && groupData.totalCnt > 0){
                 val transaction = fragmentManager.beginTransaction()
 

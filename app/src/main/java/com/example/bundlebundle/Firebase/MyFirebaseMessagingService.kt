@@ -14,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.bundlebundle.R
+import com.example.bundlebundle.cart.CartActivity
 import com.example.bundlebundle.global.ToastActivity
 import com.example.bundlebundle.global.ToastOtherActivity
 import com.google.firebase.messaging.FirebaseMessaging
@@ -68,7 +69,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             false, getString(R.string.app_name), "App notification channel") // 1
         val channelId = "$packageName-${getString(R.string.app_name)}" // 2
 
-        val intent = Intent(baseContext, ToastOtherActivity::class.java)
+        val intent = Intent(baseContext, CartActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         Log.d("hong","dfd")
         val fullScreenPendingIntent = PendingIntent.getActivity(baseContext, 0,
