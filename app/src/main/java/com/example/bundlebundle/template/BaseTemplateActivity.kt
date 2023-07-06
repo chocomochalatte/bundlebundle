@@ -17,6 +17,8 @@ import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.ActivityBaseBinding
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.member.MemberVO
+import com.example.bundlebundle.util.LessonDeleteDialog
+import com.example.bundlebundle.util.LessonLoginDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -117,9 +119,17 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
                     startActivity(newIntent)
                 }
                 else -> {
-                    val posListener = DialogInterface.OnClickListener { dialog, _ -> goToLogin()}
-                    showAlert("로그인이 필요합니다.", "로그인 페이지로 이동합니다.", posListener)
+                    //val posListener = DialogInterface.OnClickListener { dialog, _ -> goToLogin()}
+                    //showAlert("로그인이 필요합니다.", "로그인 페이지로 이동합니다.", posListener)
                     //이친구 예쁘게 고치기
+                        val dialog = LessonLoginDialog(this)
+                        dialog.listener = object : LessonLoginDialog.LessonDeleteDialogClickedListener {
+                            override fun onDeleteClicked() {
+                                goToLogin()
+                            }
+                        }
+                        dialog.start()
+
                 }
             }
         }
