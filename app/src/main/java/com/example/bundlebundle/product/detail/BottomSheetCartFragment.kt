@@ -21,6 +21,7 @@ import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.group.GroupIdVO
 import com.example.bundlebundle.retrofit.dataclass.product.ProductVO
 import com.example.bundlebundle.util.GroupCartDialog
+import com.example.bundlebundle.util.GroupCartMakeDialog
 import com.example.bundlebundle.util.LessonLoginDialog
 import com.example.bundlebundle.util.PersonalCartDialog
 import com.example.bundlebundle.util.PersonalCartEndDialog
@@ -167,12 +168,22 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
                 Log.d("TEST", "groupId=" + groupId.toString())
                 when (groupId) {
                     null -> {
-                        val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToGroupCreatePage() }
-                        showAlert("그룹 장바구니", "그룹 장바구니가 없습니다. 생성하시겠습니까?", posListener)
+                        val dialog = GroupCartMakeDialog(requireContext())
+                        dialog.listener = object : GroupCartMakeDialog.LessonDeleteDialogClickedListener {
+                            override fun onDeleteClicked() {
+                                moveToGroupCreatePage()
+                            }
+                        }
+                        dialog.start()
                     }
                     0 -> {
-                        val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToGroupCreatePage() }
-                        showAlert("그룹 장바구니", "그룹 장바구니가 없습니다. 생성하시겠습니까?", posListener)
+                        val dialog = GroupCartMakeDialog(requireContext())
+                        dialog.listener = object : GroupCartMakeDialog.LessonDeleteDialogClickedListener {
+                            override fun onDeleteClicked() {
+                                moveToGroupCreatePage()
+                            }
+                        }
+                        dialog.start()
                     }
                     else -> {
                         val dialog = GroupCartDialog(requireContext())
