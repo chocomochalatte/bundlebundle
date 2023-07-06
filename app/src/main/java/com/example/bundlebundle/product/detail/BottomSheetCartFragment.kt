@@ -25,6 +25,8 @@ import com.example.bundlebundle.util.GroupCartMakeDialog
 import com.example.bundlebundle.util.LessonLoginDialog
 import com.example.bundlebundle.util.PersonalCartDialog
 import com.example.bundlebundle.util.PersonalCartEndDialog
+import com.example.bundlebundle.util.ServerConnectErrorDialog
+import com.example.bundlebundle.util.ServerResponseErrorDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -212,17 +214,28 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
                 when(response.isSuccessful) {
                     true -> {
                         val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group") }
-
                         showAlert("그룹 장바구니에 추가 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
                     }
                     else -> {
-                        showAlert("ERROR", "서버에서 오류가 발생하였습니다.", { dialog, _ -> })
+                        val dialog = ServerResponseErrorDialog(requireContext())
+                        dialog.listener = object : ServerResponseErrorDialog.LessonDeleteDialogClickedListener {
+                            override fun onDeleteClicked() {
+                                //Access
+                            }
+                        }
+                        dialog.start()
                     }
                 }
             }
             override fun onFailure(call: Call<GroupCartChangeVO>, t: Throwable) {
                 t.printStackTrace()
-                showAlert("ERROR", "서버 응답에 실패하였습니다.", { dialog, _ -> })
+                val dialog = ServerConnectErrorDialog(requireContext())
+                dialog.listener = object : ServerConnectErrorDialog.LessonDeleteDialogClickedListener {
+                    override fun onDeleteClicked() {
+                        //Access
+                    }
+                }
+                dialog.start()
             }
         })
     }
@@ -246,14 +259,26 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
 
                     }
                     else -> {
-                        showAlert("ERROR", "서버에서 오류가 발생하였습니다.", { dialog, _ -> })
+                        val dialog = ServerResponseErrorDialog(requireContext())
+                        dialog.listener = object : ServerResponseErrorDialog.LessonDeleteDialogClickedListener {
+                            override fun onDeleteClicked() {
+                                //Access
+                            }
+                        }
+                        dialog.start()
                     }
                 }
             }
 
             override fun onFailure(call: Call<CartChangeVO>, t: Throwable) {
                 t.printStackTrace()
-                showAlert("ERROR", "서버 응답에 실패하였습니다.", { dialog, _ -> })
+                val dialog = ServerConnectErrorDialog(requireContext())
+                dialog.listener = object : ServerConnectErrorDialog.LessonDeleteDialogClickedListener {
+                    override fun onDeleteClicked() {
+                        //Access
+                    }
+                }
+                dialog.start()
             }
         })
     }
