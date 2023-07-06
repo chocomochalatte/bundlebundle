@@ -70,6 +70,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val channelId = "$packageName-${getString(R.string.app_name)}" // 2
 
         val intent = Intent(baseContext, CartActivity::class.java)
+        intent.putExtra("tab", "group")
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         Log.d("hong","dfd")
         val fullScreenPendingIntent = PendingIntent.getActivity(baseContext, 0,
