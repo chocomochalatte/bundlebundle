@@ -7,6 +7,7 @@ class GroupActivity() : UpbuttonTemplateActivity() {
 
     private lateinit var pageType: String
 
+
     override fun setFragment(): Fragment {
 
         pageType = intent.getStringExtra("pageType").toString()

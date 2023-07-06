@@ -34,7 +34,7 @@ class ProductPageActivity: BaseTemplateActivity() {
                 if(deeplink != null) {
                     val intent = Intent(this, GroupActivity::class.java)
                     intent.putExtra("pageType", "join")
-                    intent.putExtra("groupId", 4)
+                    intent.putExtra("groupId", 50 )
                     intent.putExtra("groupOwnerNickname", "ming")
                     startActivity(intent)
                 }
