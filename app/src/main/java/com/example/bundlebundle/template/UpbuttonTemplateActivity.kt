@@ -24,7 +24,7 @@ abstract class UpbuttonTemplateActivity : AppCompatActivity() {
 
     protected fun putFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(binding.fragmentContainer.id, fragment)
+            .replace(binding.fragmentContainerUpbutton.id, fragment)
             .commit()
     }
 

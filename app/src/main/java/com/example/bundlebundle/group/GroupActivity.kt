@@ -7,7 +7,7 @@ class GroupActivity() : UpbuttonTemplateActivity() {
     private lateinit var pageType: String
 
     override fun setFragment(): Fragment {
-        pageType = intent.getStringExtra("pageType" ).toString()
+        pageType = intent.getStringExtra("pageType").toString()
         return when (pageType) {
             "create" -> GroupCreateFragment.newInstance()
             else -> GroupCreateFragment.newInstance()

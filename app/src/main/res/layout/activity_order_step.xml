@@ -38,16 +38,16 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <EditText
-            android:id="@+id/editTextSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="주소를 입력하세요"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:imeOptions="action_search"/>
+<!--        <EditText-->
+<!--            android:id="@+id/editTextSearch"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:hint="주소를 입력하세요"-->
+<!--            android:inputType="text"-->
+<!--            android:maxLines="1"-->
+<!--            android:singleLine="true"-->
+<!--            android:imeOptions="action_search"/>-->
 
         <Button
             android:id="@+id/buttonSearch"

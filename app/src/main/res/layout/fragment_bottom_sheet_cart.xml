@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/product_fullname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="[산들내음] 저탄소 체리 2.5kg"
@@ -72,6 +73,12 @@
                     android:layout_marginRight="15dp">
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1개  ">
+                    </TextView>
+
+                    <TextView
                         android:id="@+id/product_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -80,6 +87,7 @@
                         android:textStyle="bold"
                         android:layout_marginRight="3dp">
                     </TextView>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -19,22 +19,40 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@null"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BundleBundle"
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
         <activity
+            android:name=".group.DynamicLinkActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="bundlebundle.page.link"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".template.UpbuttonTemplateActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
             android:name=".order.OrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".order.OrderStepActivity"
             android:exported="false" />
         <activity
             android:name=".global.ToastOtherActivity"
             android:exported="false" />
         <activity
             android:name=".global.ToastActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".group.NewGroupCartActivity"
             android:exported="true"
@@ -47,35 +65,33 @@
             android:exported="true" />
         <activity
             android:name=".member.LoginActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="true">
         </activity>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true" >
-
-            <!--
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                &lt;!&ndash;&lt;!&ndash; Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" &ndash;&gt;&ndash;&gt;
+                <!--&lt;!&ndash; Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" &ndash;&gt;-->
                 <data
                     android:host="oauth"
                     android:scheme="@string/kakao_oauth_host" />
             </intent-filter>
-            -->
         </activity>
+
         <activity
             android:name=".product.list.ProductPageActivity"
-            android:exported="true" >
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
         <activity
             android:name=".product.detail.ProductDetailActivity"
             android:exported="true" />

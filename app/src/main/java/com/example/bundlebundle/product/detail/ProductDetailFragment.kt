@@ -49,7 +49,6 @@ class ProductDetailFragment: Fragment() {
         getProductFromApi(productId)
 
         initializeViews()
-        setupButtonListeners()
         getProductFromApi(productId)
 
         return binding.root
@@ -67,12 +66,12 @@ class ProductDetailFragment: Fragment() {
 
     }
 
-    private fun setupButtonListeners() {
+    private fun setupButtonListeners(productVO: ProductVO) {
         goPurchaseButton.setOnClickListener {
-            openBottomSheet(BottomSheetPurchaseFragment())
+            openBottomSheet(BottomSheetPurchaseFragment.newInstance(productVO) as BottomSheetDialogFragment)
         }
         addCartButton.setOnClickListener {
-            openBottomSheet(BottomSheetCartFragment())
+            openBottomSheet(BottomSheetCartFragment.newInstance(productVO) as BottomSheetDialogFragment)
         }
     }
 
@@ -82,6 +81,7 @@ class ProductDetailFragment: Fragment() {
                 if (response.isSuccessful) {
                     val product = response.body()
                     bindProductData(product)
+                    setupButtonListeners(product!!)
                 } else {
                     Log.e("ProductDetailActivity", "Failed to fetch product from API.")
                 }
