@@ -56,63 +56,70 @@ class GroupCreateFragment : Fragment() {
 
     private fun createGroupCart() {
         val nickname: String = binding.editTextGroupNickname.text.toString()
-        val call: Call<GroupVO> = groupApiService.createGroup(GroupNicknameVO(nickname))
-        call.enqueue(object : Callback<GroupVO> {
-            override fun onResponse(call: Call<GroupVO>, response: Response<GroupVO>) {
-                if (response.isSuccessful) {
-                    val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group", response.body()!!.id) }
-                    showAlert("그룹 장바구니 생성 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
-                    // Token값 가져오면서 레트로핏 통신하기
-                    setToken { token, exception ->
-                        if (token != null) {
-                            Log.d("aaaa","$token")
-                            val fbsapiService = FBSApiClient.fbsapiService
-                            val fcmData = FcmData("그룹 장바구니 생성!!", "상품을 담으러 가보세요~~")
-                            val message = FcmMessageVO(token,"high",fcmData)
-                            // Call 객체 생성
-                            val call = fbsapiService.alarm(message)
-                            call.enqueue(object: Callback<FcmResponse>{
-                                override fun onResponse(
-                                    call: Call<FcmResponse>,
-                                    response: Response<FcmResponse>
-                                ) {
-                                    val responseData = response.body()
-                                    when(response.isSuccessful) {
-                                        true -> Log.d("aaaa","${responseData}")
-                                        else -> Log.d("bbbbb",response.code().toString() + response.errorBody().toString() + response.message())
+        var token: String? = null
+
+        setToken { retrievedToken, exception ->
+            if (retrievedToken != null) {
+                token = retrievedToken
+                Log.d("hong","$token")
+                // token이 firebase 토큰이어서 여기에서 백엔드로 넘기면 될 것 같습니다.
+                val call: Call<GroupVO> = groupApiService.createGroup(GroupNicknameVO(nickname,token!!))
+                call.enqueue(object : Callback<GroupVO> {
+                    override fun onResponse(call: Call<GroupVO>, response: Response<GroupVO>) {
+                        if (response.isSuccessful) {
+                            val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group", response.body()!!.id) }
+                            showAlert("그룹 장바구니 생성 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
+
+                            // 알림 처리하는 로직
+                            if (token != null) {
+                                // token 값이 정상적으로 설정되었을 때의 처리 로직
+                                val fbsapiService = FBSApiClient.fbsapiService
+                                val fcmData = FcmData("그룹 장바구니 생성!!", "상품을 담으러 가보세요~~")
+                                val message = FcmMessageVO(token!!, "high", fcmData)
+                                val call = fbsapiService.alarm(message)
+
+                                call.enqueue(object: Callback<FcmResponse> {
+                                    override fun onResponse(call: Call<FcmResponse>, response: Response<FcmResponse>) {
+                                        val responseData = response.body()
+                                        when(response.isSuccessful) {
+                                            true -> Log.d("aaaa","${responseData}")
+                                            else -> Log.d("bbbbb",response.code().toString() + response.errorBody().toString() + response.message())
+                                        }
                                     }
-                                }
+                                    override fun onFailure(call: Call<FcmResponse>, t: Throwable) {
+                                        call.cancel()
+                                    }
+                                })
 
-                                override fun onFailure(call: Call<FcmResponse>, t: Throwable) {
-                                    call.cancel()
-                                }
-                            })
-
+                            } else {
+                                // token이 null인 경우 예외 처리 로직
+                                Log.e("aaaa", "Failed to retrieve token")
+                            }
                         } else {
-                            // 예외 처리 로직
-                            Log.e("aaaa", "Failed to retrieve token: ${exception?.message}")
+                            showAlert("ERROR : ${response.body()}", "그룹 장바구니 생성이 실패하였습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
                         }
                     }
-                } else {
-                    showAlert("ERROR : ${response.body()}", "그룹 장바구니 생성이 실패하였습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
-                }
-            }
 
-            override fun onFailure(call: Call<GroupVO>, t: Throwable) {
-                t.printStackTrace()
-                showAlert("ERROR : ${t.message}", "그룹 장바구니 생성이 실패하였습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
+                    override fun onFailure(call: Call<GroupVO>, t: Throwable) {
+                        t.printStackTrace()
+                        showAlert("ERROR : ${t.message}", "그룹 장바구니 생성이 실패하였습니다. 메인 화면으로 돌아갑니다.", DialogInterface.OnClickListener { dialog, _ -> moveToMain() })
+                    }
+                })
+            } else {
+                // 예외 처리 로직
+                Log.e("aaaa", "Failed to retrieve token: ${exception?.message}")
             }
-        })
+        }
     }
 
     private fun setToken(callback: (String?, Exception?) -> Unit) {
         FirebaseMessaging.getInstance().token
-            .addOnCompleteListener { task ->
+            .addOnCompleteListener{task->
                 if (task.isSuccessful) {
                     Log.d("aaaa","${task.result}")
                     callback(task.result, null)
                 } else {
-                    val exception = task.exception ?: Exception("Failed to retrieve token")
+                    val exception = task.exception?: Exception("Failed to retrieve token")
                     callback(null, exception)
                 }
             }
