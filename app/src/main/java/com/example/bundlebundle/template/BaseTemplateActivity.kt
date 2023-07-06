@@ -119,6 +119,7 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
                 else -> {
                     val posListener = DialogInterface.OnClickListener { dialog, _ -> goToLogin()}
                     showAlert("로그인이 필요합니다.", "로그인 페이지로 이동합니다.", posListener)
+                    //이친구 예쁘게 고치기
                 }
             }
         }
@@ -146,6 +147,7 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
             ApiClient.setJwtToken(null);
             finish()
             val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra("LogoutToast", true)
             startActivity(intent)
         }
 
