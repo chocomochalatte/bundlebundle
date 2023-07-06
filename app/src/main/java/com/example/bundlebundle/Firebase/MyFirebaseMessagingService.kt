@@ -1,4 +1,4 @@
-package com.example.bundlebundle
+package com.example.bundlebundle.Firebase
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -9,6 +9,8 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import com.example.bundlebundle.R
 import com.example.bundlebundle.global.ToastActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -23,14 +25,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     /** Token 생성 메서드(FirebaseInstanceIdService 사라짐) */
     override fun onNewToken(token: String) {
-        Log.d(TAG, "new Token: $token")
+        Log.d("hong", "new Token: $token")
 
         // 토큰 값을 따로 저장
         val pref = this.getSharedPreferences("token", Context.MODE_PRIVATE)
         val editor = pref.edit()
-        editor.putString("token", token).apply()
+        editor.putString("hong", token).apply()
         editor.commit()
-        Log.i(TAG, "성공적으로 토큰을 저장함")
+        Log.d("hong", "성공적으로 토큰을 저장함")
     }
 
     /** 메시지 수신 메서드(포그라운드) */
@@ -72,6 +74,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         //PendingIntent.FLAG_MUTABLE은 PendingIntent의 내용을 변경할 수 있도록 허용, PendingIntent.FLAG_IMMUTABLE은 PendingIntent의 내용을 변경할 수 없음
         //val pendingIntent = PendingIntent.getActivity(this, uniId, intent, PendingIntent.FLAG_ONE_SHOT)
         val pendingIntent = PendingIntent.getActivity(this, uniId, intent, PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_MUTABLE)
+        val fullScreenPendingIntent = PendingIntent.getActivity(this, uniId, intent, PendingIntent.FLAG_MUTABLE)
 
         // 알림 채널 이름
         val channelId = "my_channel"
@@ -80,12 +83,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         // 알림에 대한 UI 정보, 작업
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher) // 아이콘 설정
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setSmallIcon(R.drawable.ic_alarm) // 아이콘 설정
             .setContentTitle(remoteMessage.data["title"].toString()) // 제목
             .setContentText(remoteMessage.data["body"].toString()) // 메시지 내용
             .setAutoCancel(true) // 알람클릭시 삭제여부
             .setSound(soundUri)  // 알림 소리
-            .setContentIntent(pendingIntent) // 알림 실행 시 Intent
+            //.setContentIntent(pendingIntent) // 알림 실행 시 Intent
+            .setFullScreenIntent(fullScreenPendingIntent,true)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
