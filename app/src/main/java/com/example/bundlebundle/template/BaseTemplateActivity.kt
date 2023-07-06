@@ -119,9 +119,6 @@ abstract class BaseTemplateActivity : AppCompatActivity() {
                     startActivity(newIntent)
                 }
                 else -> {
-                    //val posListener = DialogInterface.OnClickListener { dialog, _ -> goToLogin()}
-                    //showAlert("로그인이 필요합니다.", "로그인 페이지로 이동합니다.", posListener)
-                    //이친구 예쁘게 고치기
                         val dialog = LessonLoginDialog(this)
                         dialog.listener = object : LessonLoginDialog.LessonDeleteDialogClickedListener {
                             override fun onDeleteClicked() {
