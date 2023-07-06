@@ -14,13 +14,11 @@ import com.example.bundlebundle.cart.CartActivity
 import com.example.bundlebundle.group.GroupActivity
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentBottomSheetCartBinding
-import com.example.bundlebundle.member.LoginActivity
 import com.example.bundlebundle.retrofit.ApiClient
 import com.example.bundlebundle.retrofit.dataclass.cart.CartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartChangeVO
 import com.example.bundlebundle.retrofit.dataclass.group.GroupIdVO
 import com.example.bundlebundle.retrofit.dataclass.product.ProductVO
-import com.example.bundlebundle.util.LessonLoginDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -111,46 +109,11 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
 
         binding.bottomSheetPersonalCartButton.setOnClickListener {
             val posListener = DialogInterface.OnClickListener { dialog, _ -> addToPersonalCart() }
-
-            when (isLogedIn()) {
-                true -> {
-                    showAlert("개인 장바구니", "개인 장바구니에 추가하시겠습니까?", posListener)
-                }
-                else -> {
-                    val dialog = LessonLoginDialog(requireContext())
-                    dialog.listener = object : LessonLoginDialog.LessonDeleteDialogClickedListener {
-                        override fun onDeleteClicked() {
-                            val intent = Intent(requireContext(), LoginActivity::class.java)
-                            startActivity(intent)
-                        }
-                    }
-                    dialog.start()
-
-                }
-            }
+            showAlert("개인 장바구니", "개인 장바구니에 추가하시겠습니까?", posListener)
         }
 
-
-
-
         binding.bottomSheetGroupCartButton.setOnClickListener {
-
-            when (isLogedIn()) {
-                true -> {
-                    doActionWithGroupCart()
-                }
-                else -> {
-                    val dialog = LessonLoginDialog(requireContext())
-                    dialog.listener = object : LessonLoginDialog.LessonDeleteDialogClickedListener {
-                        override fun onDeleteClicked() {
-                            val intent = Intent(requireContext(), LoginActivity::class.java)
-                            startActivity(intent)
-                        }
-                    }
-                    dialog.start()
-
-                }
-            }
+            doActionWithGroupCart()
         }
     }
 
@@ -275,9 +238,4 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
 
         private const val PRODUCT_INFO = "productVO"
     }
-
-    private fun isLogedIn(): Boolean {
-        return (ApiClient.getJwtToken() != null)
-    }
 }
-
