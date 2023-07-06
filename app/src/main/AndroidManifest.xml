@@ -32,9 +32,10 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:host="bundlebundle.page.link"
-                    android:scheme="https" />
+                <data android:scheme="https"/>
+                <data android:host="bundlebundle.page.link"/>
+<!--                <data android:scheme="http"/>-->
+<!--                <data android:host="bundlebundle.page.link"/>-->
             </intent-filter>
         </activity>
         <activity android:name=".template.UpbuttonTemplateActivity"
@@ -52,7 +53,7 @@
             android:exported="false" />
         <activity
             android:name=".global.ToastActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".group.NewGroupCartActivity"
             android:exported="true"
