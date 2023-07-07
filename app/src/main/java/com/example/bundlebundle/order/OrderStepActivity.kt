@@ -75,6 +75,7 @@ class OrderStepActivity : AppCompatActivity() {
                             }
                         }
                         dialog.start()
+                        Log.d(TAG, response.body().toString())
                     }
                 }
             }

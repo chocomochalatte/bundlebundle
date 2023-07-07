@@ -21,6 +21,8 @@ import com.example.bundlebundle.retrofit.dataclass.firebase.FcmMessageVO
 import com.example.bundlebundle.retrofit.dataclass.firebase.FcmResponse
 import com.example.bundlebundle.retrofit.dataclass.group.GroupNicknameVO
 import com.example.bundlebundle.retrofit.dataclass.group.GroupVO
+import com.example.bundlebundle.util.GroupCartEndDialog
+import com.example.bundlebundle.util.ServerResponseErrorDialog
 import com.google.firebase.messaging.FirebaseMessaging
 import retrofit2.Call
 import retrofit2.Callback
@@ -67,8 +69,13 @@ class GroupCreateFragment : Fragment() {
                 call.enqueue(object : Callback<GroupVO> {
                     override fun onResponse(call: Call<GroupVO>, response: Response<GroupVO>) {
                         if (response.isSuccessful) {
-                            val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToCart("group", response.body()!!.id) }
-                            showAlert("그룹 장바구니 생성 완료", "그룹 장바구니로 이동하시겠습니까?", posListener)
+                            val dialog = GroupCartEndDialog(requireContext())
+                            dialog.listener = object : GroupCartEndDialog.LessonDeleteDialogClickedListener {
+                                override fun onDeleteClicked() {
+                                    moveToCart("group", response.body()!!.id)
+                                }
+                            }
+                            dialog.start()
 
                             // 알림 처리하는 로직
                             if (token != null) {

@@ -10,8 +10,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import com.example.bundlebundle.Firebase.DynamicLinkUtils
+import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentGroupCartTopBarBinding
 import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartListVO
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
@@ -54,6 +57,8 @@ class GroupCartTopBarFragment : Fragment() {
                 val clipboardManager = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clipData = ClipData.newPlainText("label", link)
                 clipboardManager.setPrimaryClip(clipData)
+
+                toast();
 
 //                // 사용자 정의 메시지 ID
 //                //  * 만들기 가이드: https://developers.kakao.com/docs/latest/ko/message/message-template
@@ -127,6 +132,16 @@ class GroupCartTopBarFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    private fun toast() {
+        var layoutInflater = LayoutInflater.from(requireContext()).inflate(R.layout.toast_view_holder,null)
+        var text : TextView = layoutInflater.findViewById(R.id.TextViewToast)
+        text.text="그룹장바구니 초대링크가 복사되었습니다"
+        var toast = Toast(requireContext())
+        toast.view = layoutInflater
+        //toast.setGravity(Gravity.TOP,0,400);
+        toast.show()
     }
 
 
