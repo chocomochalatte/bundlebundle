@@ -51,8 +51,6 @@ class CartContentFragment : Fragment() {
         fragmentManager = parentFragmentManager
         intent = requireActivity().intent
 
-
-
         cartTab = binding.tabLayout
         setTab(cartTab)
         setTabListeners()

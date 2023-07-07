@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import com.example.bundlebundle.R
 import com.example.bundlebundle.databinding.FragmentGroupCartBottomBinding
 import com.example.bundlebundle.order.OrderActivity
+import com.example.bundlebundle.order.OrderStepActivity
 import com.example.bundlebundle.retrofit.ApiClient.orderApiService
 import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartListVO
 import com.example.bundlebundle.retrofit.dataclass.order.GroupOrderVO
@@ -92,69 +93,9 @@ class GroupCartBottomFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.groupCartOrderBtn.setOnClickListener {
-            makeWholeGroupCartOrder()
+            val intent = Intent(requireContext(), OrderStepActivity::class.java)
+            startActivity(intent)
         }
-    }
-
-    private fun makeWholeGroupCartOrder() {
-
-        orderApiService.makeWholeGroupCartOrder().enqueue(object: Callback<GroupOrderVO> {
-            override fun onResponse(
-                call: Call<GroupOrderVO>,
-                response: Response<GroupOrderVO>
-            ) {
-                when (response.isSuccessful) {
-                    true -> {
-                        val orderId: Int = response.body()!!.id
-                        val dialog = OrderCompleteDialog(requireContext())
-                        dialog.listener = object : OrderCompleteDialog.LessonDeleteDialogClickedListener {
-                            override fun onDeleteClicked() {
-                                moveToOrderResult(orderId)
-                            }
-                        }
-                        dialog.start()
-                    }
-
-                    else -> {
-                        val dialog = ServerResponseErrorDialog(requireContext())
-                        dialog.listener = object : ServerResponseErrorDialog.LessonDeleteDialogClickedListener {
-                            override fun onDeleteClicked() {
-                                //Access
-                            }
-                        }
-                        dialog.start()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<GroupOrderVO>, t: Throwable) {
-                val dialog = ServerResponseErrorDialog(requireContext())
-                dialog.listener = object : ServerResponseErrorDialog.LessonDeleteDialogClickedListener {
-                    override fun onDeleteClicked() {
-                        //Access
-                    }
-                }
-                dialog.start()
-            }
-        })
-    }
-
-    private fun moveToOrderResult(orderId: Int) {
-        val intent = Intent(requireContext(), OrderActivity::class.java)
-        intent.putExtra("orderId", orderId)
-        startActivity(intent)
-    }
-
-    private fun showAlert(title: String, message: String, positiveListener: DialogInterface.OnClickListener) {
-        val negativeListener = DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() }
-
-        AlertDialog.Builder(requireActivity(), R.style.MyAlertDialogTheme).run {
-            setTitle(title)
-            setMessage(message)
-            setPositiveButton("확인", positiveListener)
-            setNegativeButton("취소", negativeListener)
-            create()
-        }.show()
     }
 
     fun newInstance(groupData: GroupCartListVO): GroupCartBottomFragment {
