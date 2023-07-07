@@ -21,6 +21,34 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <TextView
+        android:id="@+id/address_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:textSize="20dp"
+        android:paddingTop="40dp"
+        android:text="주문 배송지"
+        app:layout_constraintTop_toBottomOf="@id/order_main_text"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dark_gray"
+        app:layout_constraintTop_toBottomOf="@id/address_title"
+        />
+
+    <TextView
+        android:id="@+id/ordered_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ff"
+        android:textSize="20dp"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@id/address_title"/>
 
     <TextView
         android:id="@+id/order_log_text"
@@ -28,10 +56,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:textStyle="bold"
-        android:layout_margin="10dp"
+        android:layout_marginTop="30dp"
         android:textSize="20dp"
         android:text="주문 상세 내역"
-        app:layout_constraintTop_toBottomOf="@id/order_main_text"
+        app:layout_constraintTop_toBottomOf="@id/ordered_address"
         />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -60,6 +88,12 @@
         android:textSize="20dp"
         android:paddingTop="40dp"
         android:text="추천 상품"
+        app:layout_constraintTop_toBottomOf="@id/order_items"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/middle_gray"
         app:layout_constraintTop_toBottomOf="@id/order_items"
         />
 

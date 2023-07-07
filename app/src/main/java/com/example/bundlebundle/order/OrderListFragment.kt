@@ -25,6 +25,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+import kotlin.properties.Delegates
 
 
 class OrderListFragment : Fragment() {
@@ -34,6 +35,7 @@ class OrderListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var intent: Intent
+    private var orderId by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +57,13 @@ class OrderListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         intent = requireActivity().intent
-        val orderId = requireActivity().intent.getIntExtra("orderId", -1)
+        orderId = requireActivity().intent.getIntExtra("orderId", -1)
 
         lifecycleScope.launch {
             val result: List<ProductOrderVO> = getResultFromApi(orderId)!!
         }
+
+        binding.orderedAddress.text = intent.getStringExtra("address")
     }
 
     private suspend fun getResultFromApi(orderId: Int): List<ProductOrderVO>? {
