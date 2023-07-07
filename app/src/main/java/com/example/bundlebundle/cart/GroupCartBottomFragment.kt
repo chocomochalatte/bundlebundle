@@ -15,6 +15,8 @@ import com.example.bundlebundle.order.OrderActivity
 import com.example.bundlebundle.retrofit.ApiClient.orderApiService
 import com.example.bundlebundle.retrofit.dataclass.cart.GroupCartListVO
 import com.example.bundlebundle.retrofit.dataclass.order.GroupOrderVO
+import com.example.bundlebundle.util.OrderCompleteDialog
+import com.example.bundlebundle.util.ServerResponseErrorDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -104,18 +106,35 @@ class GroupCartBottomFragment : Fragment() {
                 when (response.isSuccessful) {
                     true -> {
                         val orderId: Int = response.body()!!.id
-                        val posListener = DialogInterface.OnClickListener { dialog, _ -> moveToOrderResult(orderId) }
-                        showAlert("주문 완료", "주문이 완료되었습니다.", posListener)
+                        val dialog = OrderCompleteDialog(requireContext())
+                        dialog.listener = object : OrderCompleteDialog.LessonDeleteDialogClickedListener {
+                            override fun onDeleteClicked() {
+                                moveToOrderResult(orderId)
+                            }
+                        }
+                        dialog.start()
                     }
 
                     else -> {
-                        showAlert("ERROR", "서버에서 오류가 발생했습니다.", { dialog, _ -> })
+                        val dialog = ServerResponseErrorDialog(requireContext())
+                        dialog.listener = object : ServerResponseErrorDialog.LessonDeleteDialogClickedListener {
+                            override fun onDeleteClicked() {
+                                //Access
+                            }
+                        }
+                        dialog.start()
                     }
                 }
             }
 
             override fun onFailure(call: Call<GroupOrderVO>, t: Throwable) {
-                showAlert("ERROR", "서버 응답이 실패했습니다.", { dialog, _ -> })
+                val dialog = ServerResponseErrorDialog(requireContext())
+                dialog.listener = object : ServerResponseErrorDialog.LessonDeleteDialogClickedListener {
+                    override fun onDeleteClicked() {
+                        //Access
+                    }
+                }
+                dialog.start()
             }
         })
     }

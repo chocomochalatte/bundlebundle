@@ -4,6 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.TextView
+import android.widget.Toast
+import com.example.bundlebundle.R
 import com.example.bundlebundle.group.GroupActivity
 import com.example.bundlebundle.template.BaseTemplateActivity
 import com.google.android.material.tabs.TabLayoutMediator
@@ -19,6 +23,10 @@ class ProductPageActivity: BaseTemplateActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTabAndViewPager()
+        val showToast = intent.getBooleanExtra("showToast", false)
+        if (showToast) {
+            toast();
+        }
         handleDynamicLinks()
     }
 
@@ -59,6 +67,16 @@ class ProductPageActivity: BaseTemplateActivity() {
         TabLayoutMediator(tabLayout, menuViewPager2) { tab, position ->
             tab.text = tabAdapter.getTabTitle(position)
         }.attach()
+    }
+
+    private fun toast() {
+        var layoutInflater = LayoutInflater.from(this).inflate(R.layout.toast_view_holder,null)
+        var text : TextView = layoutInflater.findViewById(R.id.TextViewToast)
+        text.text="로그인에 성공하였습니다"
+        var toast = Toast(this)
+        toast.view = layoutInflater
+        //toast.setGravity(Gravity.TOP,0,400);
+        toast.show()
     }
 
 }

@@ -6,8 +6,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.example.bundlebundle.R
 import com.example.bundlebundle.product.list.ProductPageActivity
 import com.example.bundlebundle.retrofit.ApiClient
@@ -38,6 +40,11 @@ class LoginActivity : AppCompatActivity() {
         var mContext: Context? = null
         fun setContext(context: Context) {
             mContext = context
+        }
+
+        val showToast = intent.getBooleanExtra("LogoutToast", false)
+        if (showToast) {
+            toast();
         }
         val kakaoLoginButton = findViewById<android.widget.Button>(R.id.oauth_login)
         val basicLoginButton = findViewById<android.widget.Button>(R.id.btn_login)
@@ -77,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
 
                                     val intent = Intent(this@LoginActivity, ProductPageActivity::class.java)
                                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                    intent.putExtra("showToast", true)
                                     startActivity(intent)
                                     finish()
 
@@ -129,6 +137,7 @@ class LoginActivity : AppCompatActivity() {
 
                                         val intent = Intent(this@LoginActivity, ProductPageActivity::class.java)
                                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                        intent.putExtra("showToast", true)
                                         startActivity(intent)
                                         finish()
 
@@ -187,4 +196,13 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun toast() {
+        var layoutInflater = LayoutInflater.from(this).inflate(R.layout.toast_view_holder,null)
+        var text : TextView = layoutInflater.findViewById(R.id.TextViewToast)
+        text.text="로그아웃에 성공하였습니다"
+        var toast = Toast(this)
+        toast.view = layoutInflater
+        //toast.setGravity(Gravity.TOP,0,400);
+        toast.show()
+    }
 }
