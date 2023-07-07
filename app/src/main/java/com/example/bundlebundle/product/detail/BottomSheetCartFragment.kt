@@ -130,7 +130,14 @@ class BottomSheetCartFragment : BottomSheetDialogFragment() {
                 }
                 else -> { //로그인하지 않은 경우, 내 장바구니에 해당 상품이 존재하지 않는 경우
                     if (true){
-
+                        val dialog = LessonLoginDialog(requireContext())
+                        dialog.listener = object : LessonLoginDialog.LessonDeleteDialogClickedListener {
+                            override fun onDeleteClicked() {
+                                val intent = Intent(requireContext(), LoginActivity::class.java)
+                                startActivity(intent)
+                            }
+                        }
+                        dialog.start()
                     }
                     else {
                         val dialog = LessonLoginDialog(requireContext())
