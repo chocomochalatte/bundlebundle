@@ -10,6 +10,7 @@ class GroupActivity() : UpbuttonTemplateActivity() {
         pageType = intent.getStringExtra("pageType").toString()
         return when (pageType) {
             "create" -> GroupCreateFragment.newInstance()
+            "join" -> GroupJoinFragment.newInstance(intent.getStringExtra("groupOwnerNickname")!!)
             else -> GroupCreateFragment.newInstance()
         }
     }
